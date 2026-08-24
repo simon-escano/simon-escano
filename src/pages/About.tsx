@@ -79,12 +79,12 @@ export const About: React.FC = () => {
             </div>
 
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
-              Driven by <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Rigorous Engineering</GradientText> & Creative Vision
+              Full-Stack Engineer <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>&</GradientText> CS Researcher
             </h1>
 
             {/* Single Merged Cohesive Bio Paragraph */}
             <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
-              I am Simon Escaño, a full-stack engineer, computer science researcher, and 9-time hackathon champion graduating Cum Laude with a 4.59 / 5.0 GWA from Cebu Institute of Technology - University. I bridge complex backend architectures and low-level game mechanics with intuitive, high-performance web systems — with work spanning Scopus-indexed medical informatics research, photogrammetry streaming engines, and automated enterprise workflows.
+              I am Simon Escaño, a Cum Laude CS graduate from CIT-U. I design and build fast, reliable systems across photogrammetry pipelines, healthcare informatics research, and scalable web apps.
             </p>
 
             <div className="grid grid-cols-3 gap-4 pt-2">
@@ -133,7 +133,7 @@ export const About: React.FC = () => {
                 name="Simon Escaño"
                 title={profile.role}
                 handle="simon-escano"
-                status="Open for Work"
+                status="Open to work"
                 avatarUrl="/images/Escano_Business-Profile-Image_Transparent.png"
                 behindGlowColor="rgba(249, 115, 22, 0.35)"
                 behindGlowSize="60%"

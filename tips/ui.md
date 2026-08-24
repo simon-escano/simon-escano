@@ -15,7 +15,7 @@ Avoid putting multiple high-intensity effects in the same viewport. Every sectio
 * Reserve **Border Glow** for your single high-priority call-to-action or featured project badge.
 
 
-* **Text Effects (Gradient / Shiny / Curved Loop):** Treat animated text like hot sauce. Use *Gradient Text* on 1–2 key impact words per section, *Shiny Text* on small status badges (e.g., `"● Open for Work"`), and *Curved Loop* as a subtle section divider—never on long paragraphs.
+* **Text Effects (Gradient / Shiny / Curved Loop):** Treat animated text like hot sauce. Use *Gradient Text* on 1–2 key impact words per section, *Shiny Text* on small status badges (e.g., `"● Open to work"`), and *Curved Loop* as a subtle section divider—never on long paragraphs.
 
 ---
 

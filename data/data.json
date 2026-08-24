@@ -1043,57 +1043,58 @@
         {
             "id": "credential-0",
             "type": "education",
-            "title": "Bachelor of Science in Computer Science",
+            "title": "Bachelor of Science in Computer Science (Cum Laude)",
             "institution": "Cebu Institute of Technology - University",
-            "date": "2022-08-23 - 2026-05-29"
+            "date": "Aug 23, 2022 - May 29, 2026",
+            "description": "Graduating Cum Laude with a 4.59 / 5.0 GWA"
         },
         {
             "id": "credential-1",
             "type": "certification",
             "title": "AWS Academy Graduate - Cloud Architecting",
             "institution": "AWS Academy",
-            "date": "Nov. 2025",
-            "description": "AWS Academy Graduate - Cloud Architecting - Training Badge"
+            "date": "Nov 2025",
+            "description": "AWS Academy Graduate - Cloud Architecting"
         },
         {
             "id": "credential-2",
             "type": "certification",
             "title": "AWS Academy Graduate - Cloud Foundations",
             "institution": "AWS Academy",
-            "date": "Nov. 2025",
-            "description": "AWS Academy Graduate - Cloud Foundations - Training Badge"
+            "date": "Nov 2025",
+            "description": "AWS Academy Graduate - Cloud Foundations"
         },
         {
             "id": "credential-3",
             "type": "certification",
             "title": "PhilNITS Fundamental IT Engineers (FE) Certification",
             "institution": "PhilNITS",
-            "date": "Apr. 2025",
-            "description": "PhilNITS Fundamental Information Technology Engineers (FE) Certification"
+            "date": "Apr 2025",
+            "description": "Fundamental Information Technology Engineers (FE) Certification"
         },
         {
             "id": "credential-4",
             "type": "certification",
             "title": "Level 3 TOPCIT Passer",
             "institution": "TOPCIT",
-            "date": "Jun. 2025",
-            "description": "Level 3 TOPCIT Passer"
+            "date": "Jun 2025",
+            "description": "Test of Practical Competency in IT (Level 3)"
         },
         {
             "id": "credential-5",
             "type": "certification",
             "title": "CodeChum Java Certification",
             "institution": "CodeChum",
-            "date": "March 2024",
-            "description": "CodeChum Java Certification"
+            "date": "Mar 2024",
+            "description": "Data Structures & Algorithms in Java"
         },
         {
             "id": "credential-6",
             "type": "certification",
             "title": "CodeChum C Certification",
             "institution": "CodeChum",
-            "date": "April 2023",
-            "description": "CodeChum C Certification"
+            "date": "Apr 2023",
+            "description": "Procedural Programming in C"
         }
     ],
     "languages": [

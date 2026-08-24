@@ -54,7 +54,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
   name = 'simon-escano',
   title = 'Full-Stack Developer',
   handle = 'simon-escano',
-  status = 'Open for Work',
+  status = 'Open to work',
   contactText = 'Contact',
   showUserInfo = true,
   onContactClick,

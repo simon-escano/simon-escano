@@ -3,13 +3,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import {
   ArrowRight,
   Sparkles,
-  Award,
   Code,
   ShieldCheck,
   ExternalLink,
   ChevronRight,
-  Layers,
-  Terminal,
   Trophy,
 } from 'lucide-react';
 import dataService from '@/services/dataService';
@@ -46,10 +43,22 @@ export const Home: React.FC = () => {
   const [activeHoveredSkill, setActiveHoveredSkill] = useState<{ title: string; proficiency: number } | null>(null);
   const [hoveredAwardIndex, setHoveredAwardIndex] = useState<number | null>(null);
 
+  const awardImageMap: Record<number, string> = {
+    0: '/images/Seizuki/2026-05-09 11.02.47 simon-escano.github.io 6355e147fac0.png',
+    1: '/images/PixCell/2026-05-09 10.59.35 simon-escano.github.io 8baadfd5dc66.png',
+    2: '/images/Seizuki/2026-05-09 11.03.15 simon-escano.github.io 882e1e6561d1.png',
+    3: '/images/Sprout/2026-05-09 11.07.19 simon-escano.github.io 3cce6bc86a24.png',
+    4: '/images/Seizuki/2026-05-09 11.03.44 simon-escano.github.io ae874d570b61.png',
+    5: '/images/Fashion MNIST Classifier/2026-05-09 11.04.14 simon-escano.github.io eea8a264a938.png',
+    6: '/images/PixCell/2026-05-09 11.00.08 simon-escano.github.io dd8c2c1a5db4.png',
+    7: '/images/PixCell/2026-05-09 11.00.41 simon-escano.github.io 3b867c29668d.png',
+    8: '/images/Fasaar/2026-05-09 11.05.35 simon-escano.github.io 07252277d33d.png',
+  };
+
   // All 9 achievements split into 2 rows for AccordionGallery
   const allAccordionAwards = achievements.map((a, idx) => ({
     id: a.id,
-    image: allProjects[idx % allProjects.length]?.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png',
+    image: awardImageMap[idx] || allProjects[idx % allProjects.length]?.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png',
     label: a.title.split('|')[0]?.trim() || a.title,
     fullTitle: a.title,
     description: a.description,
@@ -72,6 +81,12 @@ export const Home: React.FC = () => {
       navigate(`/contact?message=${encodeURIComponent(val)}`);
     } else {
       navigate('/contact');
+    }
+  };
+
+  const handleSkillHover = (logo: { title?: string; proficiency?: number }) => {
+    if (logo.title && typeof logo.proficiency === 'number') {
+      setActiveHoveredSkill({ title: logo.title, proficiency: logo.proficiency });
     }
   };
 
@@ -120,7 +135,7 @@ export const Home: React.FC = () => {
                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 dark:bg-emerald-400"></span>
               </span>
               <ShinyText
-                text="Open for work • Cebu, PH"
+                text="Open to work • Cebu, PH"
                 speed={3}
                 className="text-xs font-mono font-medium"
               />
@@ -212,7 +227,7 @@ export const Home: React.FC = () => {
                 name="simon-escano"
                 title={profile.role}
                 handle="simon-escano"
-                status="Open for Work"
+                status="Open to work"
                 avatarUrl="/images/Escano_Business-Profile-Image_Transparent.png"
                 behindGlowColor="rgba(56, 69, 201, 0.45)"
                 behindGlowSize="60%"
@@ -386,7 +401,7 @@ export const Home: React.FC = () => {
                 direction="left"
                 gap={20}
                 scaleOnHover={true}
-                onLogoHover={(logo) => setActiveHoveredSkill(logo as any)}
+                onLogoHover={handleSkillHover}
                 onLogoLeave={() => setActiveHoveredSkill(null)}
               />
             </div>
@@ -405,7 +420,7 @@ export const Home: React.FC = () => {
                 direction="right"
                 gap={20}
                 scaleOnHover={true}
-                onLogoHover={(logo) => setActiveHoveredSkill(logo as any)}
+                onLogoHover={handleSkillHover}
                 onLogoLeave={() => setActiveHoveredSkill(null)}
               />
             </div>
@@ -424,7 +439,7 @@ export const Home: React.FC = () => {
                 direction="left"
                 gap={20}
                 scaleOnHover={true}
-                onLogoHover={(logo) => setActiveHoveredSkill(logo as any)}
+                onLogoHover={handleSkillHover}
                 onLogoLeave={() => setActiveHoveredSkill(null)}
               />
             </div>
