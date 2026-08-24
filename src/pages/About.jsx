@@ -1,4 +1,14 @@
-import { GraduationCap, Award, Globe, Code2, MapPin, Calendar } from 'lucide-react'
+import React from 'react'
+import {
+  GraduationCap,
+  Award,
+  Globe,
+  Code2,
+  MapPin,
+  Calendar,
+  Sparkles,
+  BookOpen,
+} from 'lucide-react'
 import { usePageSEO } from '@/hooks/usePageSEO'
 import PageTransition from '@/components/layout/PageTransition'
 import ScrollReveal from '@/components/layout/ScrollReveal'
@@ -8,220 +18,266 @@ import {
   credentials,
   achievements,
   languages,
-  getTechCategories,
 } from '@/lib/data'
+
+import { Lanyard } from '@/components/react-bits/components/Lanyard'
+import { GradientText } from '@/components/react-bits/text-animations/GradientText'
+import { GlassSurface } from '@/components/react-bits/components/GlassSurface'
+import { MagicBento, BentoCard } from '@/components/react-bits/components/MagicBento'
+import { SpotlightCard } from '@/components/react-bits/components/SpotlightCard'
 
 export default function About() {
   usePageSEO({
-    title: 'About',
-    description: `Learn more about ${profile.name} — ${profile.role}. Education, certifications, achievements, and skills.`,
+    title: 'About Simon',
+    description: `Learn more about ${profile.name} — ${profile.role}. Academic background, industry certifications, research achievements, and software engineering philosophy.`,
   })
 
-  const techCategories = getTechCategories()
-
-  const education = credentials.filter(c => c.type === 'education')
-  const certifications = credentials.filter(c => c.type === 'certification')
+  const education = credentials.filter((c) => c.type === 'education')
+  const certifications = credentials.filter((c) => c.type === 'certification')
 
   return (
     <PageTransition>
-      <section className="section-padding pt-32" aria-label="About">
+      <section className="section-padding pt-32 md:pt-40" aria-label="About Simon Escaño">
         <div className="container-wide">
-          {/* Hero / Narrative */}
-          <ScrollReveal>
-            <div className="grid gap-12 lg:grid-cols-5">
-              {/* Profile Image — Lanyard replaces this in Stage 4 */}
-              <div className="flex justify-center lg:col-span-2">
-                <div className="relative">
-                  <div className="h-80 w-64 overflow-hidden rounded-2xl border border-base-800/50 bg-base-900">
-                    <img
-                      src="/data/images/Escano_Business-Profile-Image_Transparent.png"
-                      alt={`${profile.name} profile photo`}
-                      className="h-full w-full object-cover object-top"
-                      width={256}
-                      height={320}
-                    />
-                  </div>
+          {/* Hero / Profile Narrative */}
+          <div className="grid gap-14 lg:grid-cols-12 items-center">
+            {/* Left 5 cols: Interactive 3D Lanyard */}
+            <div className="flex justify-center lg:col-span-5">
+              <ScrollReveal>
+                <Lanyard
+                  name={profile.name}
+                  role={profile.role}
+                  avatar="/data/images/Escano_Business-Profile-Image_Transparent.png"
+                />
+              </ScrollReveal>
+            </div>
 
-                  {/* Status badge */}
-                  <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 rounded-full border border-base-700 bg-base-900 px-4 py-2 shadow-xl">
-                    <div className="flex items-center gap-2">
-                      <span className="h-2 w-2 animate-pulse rounded-full bg-green-400" />
-                      <span className="font-mono text-xs text-green-400">
-                        Available
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bio */}
-              <div className="lg:col-span-3">
-                <h1 className="text-base-100">{profile.name}</h1>
-                <p className="mt-2 font-mono text-lg text-accent-400">
+            {/* Right 7 cols: Bio & Philosophy */}
+            <div className="lg:col-span-7">
+              <ScrollReveal delay={0.1}>
+                <span className="font-mono text-xs font-semibold uppercase tracking-widest text-accent-400">
+                  Engineering Profile
+                </span>
+                <h1 className="mt-2 text-4xl sm:text-5xl font-extrabold text-white">
+                  About <GradientText colors={['#3b82f6', '#f97316', '#3b82f6']}>{profile.name}</GradientText>
+                </h1>
+                <p className="mt-2 font-mono text-lg font-bold text-primary-400">
                   {profile.role}
                 </p>
-                <p className="mt-6 max-w-2xl leading-relaxed text-base-300">
+
+                <p className="mt-6 max-w-2xl text-base sm:text-lg leading-relaxed text-base-300">
                   {profile.philosophy}
                 </p>
 
-                {/* Quick Info */}
-                <div className="mt-8 flex flex-wrap gap-4">
-                  <div className="flex items-center gap-2 text-sm text-base-400">
-                    <MapPin size={16} />
+                {/* Location & Quick Meta */}
+                <div className="mt-8 flex flex-wrap gap-4 border-y border-base-800/80 py-4">
+                  <div className="flex items-center gap-2 font-mono text-xs text-base-400">
+                    <MapPin size={16} className="text-accent-400" />
                     Cebu City, Philippines
                   </div>
-                  <div className="flex items-center gap-2 text-sm text-base-400">
-                    <Globe size={16} />
-                    {languages.map(l => l.title).join(', ')}
+                  <div className="flex items-center gap-2 font-mono text-xs text-base-400">
+                    <Globe size={16} className="text-primary-400" />
+                    {languages.map((l) => l.title).join(' • ')}
                   </div>
                 </div>
 
                 {/* Language Proficiencies */}
-                <div className="mt-6 flex flex-wrap gap-3">
-                  {languages.map(lang => (
-                    <div
-                      key={lang.title}
-                      className="flex items-center gap-2 rounded-lg border border-base-800/50 bg-base-900/50 px-3 py-1.5"
-                    >
-                      <span className="text-sm text-base-200">{lang.title}</span>
-                      <div className="h-1 w-8 overflow-hidden rounded-full bg-base-800">
-                        <div
-                          className="h-full rounded-full bg-primary-500"
-                          style={{ width: `${lang.proficiency * 10}%` }}
-                        />
+                <div className="mt-6">
+                  <span className="font-mono text-xs font-bold uppercase tracking-wider text-base-500">
+                    Linguistic Capabilities
+                  </span>
+                  <div className="mt-3 grid grid-cols-2 sm:grid-cols-4 gap-3">
+                    {languages.map((lang) => (
+                      <div
+                        key={lang.title}
+                        className="rounded-xl border border-base-800/80 bg-base-900/60 p-3"
+                      >
+                        <div className="flex items-center justify-between">
+                          <span className="font-mono text-xs font-bold text-white">
+                            {lang.title}
+                          </span>
+                          <span className="font-mono text-[10px] text-accent-400">
+                            {lang.proficiency}/10
+                          </span>
+                        </div>
+                        <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-base-800">
+                          <div
+                            className="h-full rounded-full bg-gradient-to-r from-primary-500 to-accent-500"
+                            style={{ width: `${lang.proficiency * 10}%` }}
+                          />
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
+              </ScrollReveal>
             </div>
-          </ScrollReveal>
+          </div>
 
           {/* Experience Timeline */}
-          <ScrollReveal delay={0.1}>
-            <div className="mt-24">
-              <h2 className="text-base-100">
-                <Code2 className="mb-1 mr-2 inline-block text-primary-400" size={24} />
-                Experience
-              </h2>
+          <div className="mt-28">
+            <ScrollReveal>
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary-500/20 text-primary-400 border border-primary-500/30">
+                  <Code2 size={20} />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">Experience Timeline</h2>
+                  <p className="font-mono text-xs text-base-400">Industrial & Engineering Contributions</p>
+                </div>
+              </div>
+            </ScrollReveal>
 
-              <div className="mt-8 space-y-6">
-                {experience.map(exp => (
-                  <div
-                    key={exp.id}
-                    className="rounded-2xl border border-base-800/50 bg-base-900/50 p-8"
-                  >
+            <div className="mt-8 space-y-6">
+              {experience.map((exp) => (
+                <ScrollReveal key={exp.id} delay={0.1}>
+                  <GlassSurface className="p-8">
                     <div className="flex flex-wrap items-start justify-between gap-4">
                       <div>
-                        <h3 className="text-lg font-bold text-base-100">
+                        <h3 className="text-xl font-bold text-white">
                           {exp.role}
                         </h3>
-                        <p className="font-mono text-sm text-accent-400">
+                        <p className="mt-1 font-mono text-sm text-accent-400">
                           {exp.company}
                         </p>
                       </div>
-                      <div className="flex items-center gap-2 text-sm text-base-500">
-                        <Calendar size={14} />
+                      <div className="flex items-center gap-2 rounded-full bg-base-950/80 border border-base-800 px-3.5 py-1.5 font-mono text-xs text-base-400">
+                        <Calendar size={14} className="text-primary-400" />
                         {exp.date_range}
                       </div>
                     </div>
-                    <p className="mt-1 text-sm text-base-500">
-                      {exp.location}
-                    </p>
-                    <ul className="mt-4 space-y-2">
+                    <p className="mt-2 text-xs text-base-500">{exp.location}</p>
+
+                    <ul className="mt-6 space-y-3">
                       {exp.contributions.map((c, i) => (
-                        <li
-                          key={i}
-                          className="flex gap-2 text-sm text-base-300"
-                        >
-                          <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-accent-500" />
-                          {c}
+                        <li key={i} className="flex gap-3 text-sm text-base-300 leading-relaxed">
+                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent-500" />
+                          <span>{c}</span>
                         </li>
                       ))}
                     </ul>
-                  </div>
-                ))}
-              </div>
+                  </GlassSurface>
+                </ScrollReveal>
+              ))}
             </div>
-          </ScrollReveal>
+          </div>
 
-          {/* Education */}
-          <ScrollReveal delay={0.15}>
-            <div className="mt-16">
-              <h2 className="text-base-100">
-                <GraduationCap className="mb-1 mr-2 inline-block text-primary-400" size={24} />
-                Education
-              </h2>
+          {/* Credentials — Magic Bento Layout for Education & Certifications */}
+          <div className="mt-28">
+            <ScrollReveal>
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-accent-500/20 text-accent-400 border border-accent-500/30">
+                  <Award size={20} />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">Credentials & Education</h2>
+                  <p className="font-mono text-xs text-base-400">Certifications & Academic Training</p>
+                </div>
+              </div>
+            </ScrollReveal>
 
-              <div className="mt-8 space-y-4">
-                {education.map(edu => (
-                  <div
+            <div className="mt-8">
+              <MagicBento>
+                {/* Education Card (2 cols) */}
+                {education.map((edu) => (
+                  <BentoCard
                     key={edu.id}
-                    className="rounded-xl border border-base-800/50 bg-base-900/50 p-6"
+                    colSpan="col-span-1 md:col-span-2"
+                    spotlightColor="rgba(59, 130, 246, 0.2)"
+                    borderColor="rgba(59, 130, 246, 0.4)"
                   >
-                    <h3 className="font-semibold text-base-100">{edu.title}</h3>
-                    <p className="mt-1 text-sm text-accent-400">
-                      {edu.institution}
+                    <div className="flex items-center gap-2 text-primary-400">
+                      <GraduationCap size={20} />
+                      <span className="font-mono text-xs uppercase tracking-wider font-bold">
+                        Academic Degree
+                      </span>
+                    </div>
+
+                    <div className="mt-4">
+                      <h3 className="text-xl font-bold text-white">
+                        {edu.title}
+                      </h3>
+                      <p className="mt-1 font-mono text-sm text-accent-400">
+                        {edu.institution}
+                      </p>
+                      <p className="mt-2 font-mono text-xs text-base-500">
+                        {edu.date}
+                      </p>
+                    </div>
+
+                    <p className="mt-4 text-xs text-base-400 leading-relaxed">
+                      Comprehensive study of software engineering principles, algorithms, data structures, and computer architecture.
                     </p>
-                    <p className="mt-1 text-xs text-base-500">{edu.date}</p>
-                  </div>
+                  </BentoCard>
                 ))}
-              </div>
-            </div>
-          </ScrollReveal>
 
-          {/* Certifications */}
-          <ScrollReveal delay={0.2}>
-            <div className="mt-16">
-              <h2 className="text-base-100">
-                <Award className="mb-1 mr-2 inline-block text-accent-400" size={24} />
-                Certifications
-              </h2>
-
-              <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {certifications.map(cert => (
-                  <div
+                {/* Certification Cards */}
+                {certifications.map((cert) => (
+                  <BentoCard
                     key={cert.id}
-                    className="rounded-xl border border-base-800/50 bg-base-900/50 p-6"
+                    colSpan="col-span-1 md:col-span-1"
+                    spotlightColor="rgba(249, 115, 22, 0.18)"
+                    borderColor="rgba(249, 115, 22, 0.35)"
                   >
-                    <h4 className="text-sm font-semibold text-base-100">
-                      {cert.title}
-                    </h4>
-                    <p className="mt-2 text-xs text-primary-400">
-                      {cert.institution}
-                    </p>
-                    <p className="mt-1 text-xs text-base-500">{cert.date}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </ScrollReveal>
+                    <div className="flex items-center justify-between">
+                      <Award size={18} className="text-accent-400" />
+                      <span className="font-mono text-[10px] text-base-500">
+                        {cert.date}
+                      </span>
+                    </div>
 
-          {/* Achievements */}
-          <ScrollReveal delay={0.25}>
-            <div className="mt-16">
-              <h2 className="text-base-100">
-                <Award className="mb-1 mr-2 inline-block text-accent-400" size={24} />
-                Achievements
-              </h2>
+                    <div className="mt-3">
+                      <h4 className="font-bold text-white text-sm">
+                        {cert.title}
+                      </h4>
+                      <p className="mt-1 font-mono text-xs text-primary-400">
+                        {cert.institution}
+                      </p>
+                    </div>
 
-              <div className="mt-8 space-y-4">
-                {achievements.map(a => (
-                  <div
-                    key={a.id}
-                    className="border-l-2 border-accent-500/30 pl-6 py-3"
-                  >
-                    <h4 className="font-semibold text-base-100 text-sm">
-                      {a.title}
-                    </h4>
-                    <p className="mt-1 text-xs text-base-400">
-                      {a.description}
+                    <p className="mt-3 text-[11px] text-base-500 line-clamp-2">
+                      {cert.description}
                     </p>
-                  </div>
+                  </BentoCard>
                 ))}
-              </div>
+              </MagicBento>
             </div>
-          </ScrollReveal>
+          </div>
+
+          {/* Full Achievements List */}
+          <div className="mt-28">
+            <ScrollReveal>
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  <Sparkles size={20} />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">Full Achievements & Publications</h2>
+                  <p className="font-mono text-xs text-base-400">National Competitions, Hackathons & Research Conferences</p>
+                </div>
+              </div>
+            </ScrollReveal>
+
+            <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {achievements.map((a, i) => (
+                <ScrollReveal key={a.id} delay={i * 0.05}>
+                  <SpotlightCard className="h-full flex flex-col justify-between p-6">
+                    <div>
+                      <span className="font-mono text-[10px] text-accent-400">
+                        Honors #{i + 1}
+                      </span>
+                      <h4 className="mt-1 font-bold text-white text-sm">
+                        {a.title}
+                      </h4>
+                      <p className="mt-3 text-xs text-base-400 leading-relaxed">
+                        {a.description}
+                      </p>
+                    </div>
+                  </SpotlightCard>
+                </ScrollReveal>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
     </PageTransition>
