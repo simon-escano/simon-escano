@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
+import { ImageWithSkeleton } from '@/components/common/ImageWithSkeleton';
 import './ChromaGrid.css';
 
 export interface ChromaItem {
@@ -27,7 +28,12 @@ const ProjectCollage: React.FC<{ images: string[]; title: string }> = ({ images,
   if (shown.length <= 1) {
     return (
       <div className="chroma-img-wrapper">
-        <img src={shown[0] || FALLBACK_IMAGE} alt={title} loading="lazy" />
+        <ImageWithSkeleton
+          src={shown[0] || FALLBACK_IMAGE}
+          alt={title}
+          fallbackSrc={FALLBACK_IMAGE}
+          className="w-full h-full object-cover"
+        />
       </div>
     );
   }
@@ -35,8 +41,13 @@ const ProjectCollage: React.FC<{ images: string[]; title: string }> = ({ images,
   return (
     <div className={`chroma-collage chroma-collage--${shown.length}`}>
       {shown.map((src, i) => (
-        <div key={`${src}-${i}`} className="chroma-collage__cell">
-          <img src={src} alt="" loading="lazy" />
+        <div key={`${src}-${i}`} className="chroma-collage__cell relative">
+          <ImageWithSkeleton
+            src={src}
+            alt=""
+            fallbackSrc={FALLBACK_IMAGE}
+            className="w-full h-full object-cover"
+          />
           {i === shown.length - 1 && extra > 0 && (
             <span className="chroma-collage__more">+{extra}</span>
           )}

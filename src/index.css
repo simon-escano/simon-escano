@@ -117,6 +117,13 @@ html, body, * {
   border: 1px solid rgba(0, 0, 0, 0.08);
 }
 
+/* Shimmer keyframe for skeletons */
+@keyframes shimmer {
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 /* Reduced motion preference */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -128,3 +135,4 @@ html, body, * {
     scroll-behavior: auto !important;
   }
 }
+
