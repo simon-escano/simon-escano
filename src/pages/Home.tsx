@@ -251,7 +251,7 @@ export const Home: React.FC = () => {
                 title={profile.role}
                 handle="simon-escano"
                 status="Open to work"
-                iconUrl="/favicon.svg"
+                iconUrl="/images/icon-pattern.png"
                 avatarUrl="/images/Escano_Business-Profile-Image_Transparent.png"
                 behindGlowColor="rgba(56, 69, 201, 0.45)"
                 behindGlowSize="60%"
@@ -308,7 +308,7 @@ export const Home: React.FC = () => {
         <div className="flex items-center justify-between gap-6 mb-8">
           <div>
             <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight">
-              Flagship <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Projects</GradientText>
+              Top <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Projects</GradientText>
             </h2>
           </div>
 
@@ -321,11 +321,11 @@ export const Home: React.FC = () => {
           </Link>
         </div>
 
-        {/* Max 750px CardSwap container with vertical overflow hidden and smooth blur fade mask */}
-        <div className="max-w-[750px] mx-auto w-full relative overflow-hidden min-h-[460px] py-6 flex justify-center [mask-image:linear-gradient(to_bottom,transparent_0%,black_6%,black_94%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,black_6%,black_94%,transparent_100%)]">
+        {/* Max 750px CardSwap container with soft vertical blur masks */}
+        <div className="max-w-[750px] mx-auto w-full relative overflow-y-clip min-h-[460px] py-4 flex justify-center">
           {/* Top and Bottom soft blur gradient overlays */}
-          <div className="absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-background via-background/80 to-transparent pointer-events-none z-30 backdrop-blur-[2px]" />
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none z-30 backdrop-blur-[2px]" />
+          <div className="absolute inset-x-0 -top-4 h-10 bg-gradient-to-b from-background to-transparent pointer-events-none z-20 backdrop-blur-[1px]" />
+          <div className="absolute inset-x-0 -bottom-4 h-12 bg-gradient-to-t from-background to-transparent pointer-events-none z-20 backdrop-blur-[1px]" />
 
           <CardSwap width="100%" height={400} cardDistance={28} verticalDistance={18}>
             {topProjects.map((p) => {
