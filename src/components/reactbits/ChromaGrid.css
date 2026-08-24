@@ -145,51 +145,7 @@
   line-height: 1.4;
 }
 
-.chroma-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 3;
-  backdrop-filter: grayscale(0.8) brightness(0.9);
-  -webkit-backdrop-filter: grayscale(0.8) brightness(0.9);
-  background: rgba(0, 0, 0, 0.001);
-
-  mask-image: radial-gradient(circle var(--r) at var(--x) var(--y),
-      transparent 0%,
-      transparent 20%,
-      rgba(0, 0, 0, 0.2) 40%,
-      rgba(0, 0, 0, 0.5) 70%,
-      white 100%);
-  -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y),
-      transparent 0%,
-      transparent 20%,
-      rgba(0, 0, 0, 0.2) 40%,
-      rgba(0, 0, 0, 0.5) 70%,
-      white 100%);
-}
-
+.chroma-overlay,
 .chroma-fade {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 4;
-  backdrop-filter: grayscale(0.8) brightness(0.9);
-  -webkit-backdrop-filter: grayscale(0.8) brightness(0.9);
-  background: rgba(0, 0, 0, 0.001);
-
-  mask-image: radial-gradient(circle var(--r) at var(--x) var(--y),
-      white 0%,
-      white 20%,
-      rgba(255, 255, 255, 0.8) 40%,
-      rgba(255, 255, 255, 0.4) 70%,
-      transparent 100%);
-  -webkit-mask-image: radial-gradient(circle var(--r) at var(--x) var(--y),
-      white 0%,
-      white 20%,
-      rgba(255, 255, 255, 0.8) 40%,
-      rgba(255, 255, 255, 0.4) 70%,
-      transparent 100%);
-
-  opacity: 1;
-  transition: opacity 0.3s ease;
+  display: none;
 }

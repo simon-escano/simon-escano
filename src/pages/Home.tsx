@@ -53,19 +53,15 @@ export const Home: React.FC = () => {
   } | null>(null);
   const [awardCursorPos, setAwardCursorPos] = useState({ x: 0, y: 0 });
 
-  // Global mouse move tracker for smooth floating card placement
+  // Global mouse move tracker for instant and smooth floating card placement
   useEffect(() => {
     const handleGlobalMouseMove = (e: MouseEvent) => {
-      if (hoveredSkill) {
-        setSkillCursorPos({ x: e.clientX, y: e.clientY });
-      }
-      if (hoveredAward) {
-        setAwardCursorPos({ x: e.clientX, y: e.clientY });
-      }
+      setSkillCursorPos({ x: e.clientX, y: e.clientY });
+      setAwardCursorPos({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener('mousemove', handleGlobalMouseMove, { passive: true });
     return () => window.removeEventListener('mousemove', handleGlobalMouseMove);
-  }, [hoveredSkill, hoveredAward]);
+  }, []);
 
   const awardImageMap: Record<number, string> = {
     0: '/images/Seizuki/2026-05-09 11.02.47 simon-escano.github.io 6355e147fac0.png',
@@ -152,7 +148,7 @@ export const Home: React.FC = () => {
         <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background via-background/85 to-transparent pointer-events-none backdrop-blur-[2px] z-10" />
 
         <div className="relative z-20 max-w-[1280px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Responsive Text Alignment */}
+          {/* Left Column: Responsive Text Alignment (Center on small, strict Left on wide screens) */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
             {/* Status Pill */}
             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/80 dark:bg-slate-900/90 border border-slate-200 dark:border-brand-cobalt/40 shadow-md backdrop-blur-md">
@@ -168,9 +164,10 @@ export const Home: React.FC = () => {
             </div>
 
             {/* Main Name Drawing Title ("simon-escano") */}
-            <div className="w-full max-w-2xl flex justify-center lg:justify-start">
+            <div className="w-full flex justify-center lg:justify-start">
               <StrokeText
                 text="simon-escano"
+                align="left"
                 strokeColor="#3845C9"
                 fillColor="currentColor"
                 strokeWidth={1.8}
@@ -184,7 +181,7 @@ export const Home: React.FC = () => {
             </div>
 
             {/* Tagline */}
-            <h2 className="text-2xl sm:text-3xl font-display font-semibold tracking-tight text-slate-800 dark:text-slate-100">
+            <h2 className="text-2xl sm:text-3xl font-display font-semibold tracking-tight text-slate-800 dark:text-slate-100 text-center lg:text-left w-full">
               <GradientText
                 colors={['#3845C9', '#60a5fa', '#f97316']}
                 animationSpeed={5}
@@ -195,7 +192,7 @@ export const Home: React.FC = () => {
             </h2>
 
             {/* Philosophy / Intro Scramble */}
-            <div className="max-w-xl text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+            <div className="max-w-xl text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed text-center lg:text-left">
               <ScrambledText radius={70} duration={500}>
                 {profile.philosophy}
               </ScrambledText>
@@ -266,9 +263,9 @@ export const Home: React.FC = () => {
       </section>
 
       {/* ──────────────────────────────────────────────────────────
-          2. IMPACT METRICS BAR (Focused 3-card layout without project counts)
+          2. IMPACT METRICS BAR (No Top Border for Seamless Blur)
       ────────────────────────────────────────────────────────── */}
-      <section id="stats" className="py-12 border-y border-slate-200 dark:border-white/10 bg-slate-50/60 dark:bg-slate-900/40 backdrop-blur-md">
+      <section id="stats" className="py-12 border-b border-slate-200 dark:border-white/10 bg-slate-50/60 dark:bg-slate-900/40 backdrop-blur-md">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
@@ -325,21 +322,21 @@ export const Home: React.FC = () => {
         </div>
 
         {/* Full-width CardSwap with soft-edge vertical blur masks */}
-        <div className="relative overflow-visible min-h-[480px] py-6 flex justify-center">
+        <div className="relative overflow-hidden min-h-[490px] py-6 flex justify-center">
           {/* Top and Bottom soft blur gradient overlays */}
           <div className="absolute inset-x-0 -top-4 h-12 bg-gradient-to-b from-background to-transparent pointer-events-none z-20 backdrop-blur-[1px]" />
           <div className="absolute inset-x-0 -bottom-4 h-16 bg-gradient-to-t from-background to-transparent pointer-events-none z-20 backdrop-blur-[1px]" />
 
-          <CardSwap width="100%" height={430} cardDistance={32} verticalDistance={22}>
+          <CardSwap width="100%" height={460} cardDistance={32} verticalDistance={22}>
             {topProjects.map((p) => (
               <Card
                 key={p.id}
-                className="p-6 sm:p-8 flex flex-col justify-between cursor-pointer group select-none overflow-hidden h-full"
+                className="p-5 sm:p-7 md:p-8 flex flex-col justify-between cursor-pointer group select-none overflow-hidden h-full box-border"
                 onClick={() => navigate(`/projects/${p.id}`)}
               >
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center h-full">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6 items-stretch h-full">
                   {/* Left Column: Project Screenshot Preview */}
-                  <div className="md:col-span-6 relative aspect-[16/10] md:h-full w-full rounded-2xl overflow-hidden bg-slate-950/80 border border-slate-200 dark:border-white/10 shadow-inner flex items-center justify-center">
+                  <div className="md:col-span-5 relative w-full h-[180px] md:h-full rounded-2xl overflow-hidden bg-slate-950/80 border border-slate-200 dark:border-white/10 shadow-inner flex items-center justify-center flex-shrink-0">
                     <img
                       src={p.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png'}
                       alt={p.title}
@@ -352,25 +349,25 @@ export const Home: React.FC = () => {
                   </div>
 
                   {/* Right Column: Information & Stack Tags */}
-                  <div className="md:col-span-6 flex flex-col justify-between h-full py-1 space-y-4">
-                    <div className="space-y-2.5">
+                  <div className="md:col-span-7 flex flex-col justify-between h-full py-0.5 space-y-3">
+                    <div className="space-y-2">
                       <div className="inline-flex items-center gap-2 text-[11px] font-mono text-brand-cobalt dark:text-blue-400 font-semibold uppercase tracking-wider">
                         <span>Featured Solution</span>
                       </div>
-                      <h3 className="text-2xl sm:text-3xl font-display font-semibold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors leading-tight">
+                      <h3 className="text-xl sm:text-2xl md:text-3xl font-display font-semibold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors leading-tight">
                         {p.title}
                       </h3>
-                      <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3">
+                      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3">
                         {p.one_liner}
                       </p>
                     </div>
 
-                    <div className="space-y-4 pt-3 border-t border-slate-200 dark:border-white/10">
+                    <div className="space-y-3 pt-2.5 border-t border-slate-200 dark:border-white/10">
                       <div className="flex flex-wrap gap-1.5">
                         {p.tech_stack.slice(0, 4).map((t, idx) => (
                           <span
                             key={idx}
-                            className="px-2.5 py-1 rounded-lg text-xs font-mono bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-medium"
+                            className="px-2.5 py-0.5 rounded-lg text-[11px] font-mono bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-medium"
                           >
                             {t.name}
                           </span>
@@ -424,7 +421,7 @@ export const Home: React.FC = () => {
                 }))}
                 speed={18}
                 direction="left"
-                gap={24}
+                gap={12}
                 scaleOnHover={true}
                 onLogoHover={handleSkillHover}
                 onLogoLeave={() => setHoveredSkill(null)}
@@ -443,7 +440,7 @@ export const Home: React.FC = () => {
                 }))}
                 speed={18}
                 direction="right"
-                gap={24}
+                gap={12}
                 scaleOnHover={true}
                 onLogoHover={handleSkillHover}
                 onLogoLeave={() => setHoveredSkill(null)}
@@ -462,7 +459,7 @@ export const Home: React.FC = () => {
                 }))}
                 speed={15}
                 direction="left"
-                gap={24}
+                gap={12}
                 scaleOnHover={true}
                 onLogoHover={handleSkillHover}
                 onLogoLeave={() => setHoveredSkill(null)}
@@ -507,8 +504,11 @@ export const Home: React.FC = () => {
             </p>
           </div>
 
-          {/* Row 1 Accordion Gallery */}
-          <div className="flex flex-col space-y-2">
+          {/* Row 1 & 2 Accordion Gallery with mouse leave cleanup */}
+          <div
+            className="flex flex-col space-y-2"
+            onMouseLeave={() => setHoveredAward(null)}
+          >
             <AccordionGallery
               items={awardsRow1}
               height={260}
@@ -518,6 +518,7 @@ export const Home: React.FC = () => {
                 const item = awardsRow1[idx];
                 if (item) setHoveredAward(item);
               }}
+              onMouseLeave={() => setHoveredAward(null)}
             />
             <AccordionGallery
               items={awardsRow2}
@@ -528,6 +529,7 @@ export const Home: React.FC = () => {
                 const item = awardsRow2[idx];
                 if (item) setHoveredAward(item);
               }}
+              onMouseLeave={() => setHoveredAward(null)}
             />
           </div>
         </div>

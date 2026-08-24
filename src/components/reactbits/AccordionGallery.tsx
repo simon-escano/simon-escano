@@ -32,6 +32,8 @@ export interface AccordionGalleryProps {
   className?: string;
   onItemSelect?: (item: AccordionGalleryItem, index: number) => void;
   onItemHover?: (index: number, item: AccordionGalleryItem) => void;
+  onMouseLeave?: () => void;
+  onItemLeave?: () => void;
 }
 
 export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
@@ -56,6 +58,8 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
   className = '',
   onItemSelect,
   onItemHover,
+  onMouseLeave,
+  onItemLeave,
 }) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const panelRefs = useRef<(HTMLElement | null)[]>([]);
@@ -213,6 +217,10 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
     <div
       ref={rootRef}
       className={`accordion-gallery${vertical ? ' accordion-gallery--vertical' : ''}${className ? ` ${className}` : ''}`}
+      onMouseLeave={() => {
+        onMouseLeave?.();
+        onItemLeave?.();
+      }}
       style={{
         '--ag-accent': accentColor,
         '--ag-overlay': overlayColor,

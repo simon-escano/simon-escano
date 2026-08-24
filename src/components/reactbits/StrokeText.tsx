@@ -17,6 +17,7 @@ export interface StrokeTextProps {
   fontWeight?: number | string;
   letterSpacing?: number;
   reverse?: boolean;
+  align?: 'left' | 'center' | 'right';
   className?: string;
   style?: React.CSSProperties;
 }
@@ -36,6 +37,7 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
   fontWeight = 600,
   letterSpacing = -2,
   reverse = false,
+  align = 'left',
   className = '',
   style = {},
 }) => {
@@ -197,7 +199,12 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
       role="img"
       aria-label={String(text ?? '')}
     >
-      <svg className="stroke-text__svg" viewBox={viewBox} preserveAspectRatio="xMidYMid meet" aria-hidden="true">
+      <svg
+        className="stroke-text__svg"
+        viewBox={viewBox}
+        preserveAspectRatio={align === 'center' ? 'xMidYMid meet' : align === 'right' ? 'xMaxYMid meet' : 'xMinYMid meet'}
+        aria-hidden="true"
+      >
         {fillMode === 'wipe' && box && (
           <defs>
             <clipPath id={wipeId} clipPathUnits="userSpaceOnUse">

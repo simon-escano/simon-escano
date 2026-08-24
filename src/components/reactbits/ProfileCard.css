@@ -252,11 +252,13 @@
 
 .pc-avatar-content .avatar {
   width: 100%;
-  max-height: 80%;
-  object-fit: contain;
-  object-position: bottom center;
+  height: calc(100% - 3.8em);
+  max-height: none;
+  object-fit: cover;
+  object-position: top center;
   position: absolute;
   left: 50%;
+  top: 3.8em;
   transform-origin: 50% 100%;
   transform: translateX(calc(-50% + (var(--pointer-from-left) - 0.5) * 6px)) translateZ(0)
     scaleY(calc(1 + (var(--pointer-from-top) - 0.5) * 0.02)) scaleX(calc(1 + (var(--pointer-from-left) - 0.5) * 0.01));
@@ -375,7 +377,7 @@
 .pc-details {
   width: 100%;
   position: absolute;
-  top: 2.2em;
+  top: 1.4em;
   display: flex;
   flex-direction: column;
   font-family: 'Funnel Display', sans-serif;
