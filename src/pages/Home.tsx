@@ -83,7 +83,7 @@ export const Home: React.FC = () => {
       {/* ──────────────────────────────────────────────────────────
           1. HERO SECTION (DotField on top of ColorBends)
       ────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[92vh] flex items-center justify-center pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="relative min-h-[70vh] flex items-center justify-center pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Layered Background Shaders: ColorBends + DotField */}
         <div className="absolute inset-0 z-0 pointer-events-none opacity-40 dark:opacity-60 overflow-hidden">
           <ColorBends
@@ -116,11 +116,11 @@ export const Home: React.FC = () => {
             {/* Status Pill */}
             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/80 dark:bg-slate-900/90 border border-slate-200 dark:border-brand-cobalt/40 shadow-md backdrop-blur-md">
               <span className="relative flex h-2.5 w-2.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-orange opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-orange"></span>
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 dark:bg-emerald-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 dark:bg-emerald-400"></span>
               </span>
               <ShinyText
-                text="Available for Full-Stack & Game Development • Cebu, PH"
+                text="Open for work • Cebu, PH"
                 speed={3}
                 className="text-xs font-mono font-medium"
               />
@@ -212,7 +212,7 @@ export const Home: React.FC = () => {
                 name="simon-escano"
                 title={profile.role}
                 handle="simon-escano"
-                status="Available for Hire"
+                status="Open for Work"
                 avatarUrl="/images/Escano_Business-Profile-Image_Transparent.png"
                 behindGlowColor="rgba(56, 69, 201, 0.45)"
                 behindGlowSize="60%"
@@ -279,12 +279,8 @@ export const Home: React.FC = () => {
       <section id="featured" className="py-20 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-6 mb-8">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-cobalt/10 border border-brand-cobalt/30 text-brand-cobalt dark:text-blue-400 text-xs font-mono mb-2">
-              <Layers className="w-3.5 h-3.5 text-brand-orange" />
-              <span>Interactive 3D Deck</span>
-            </div>
             <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight">
-              Selected <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Flagship Works</GradientText>
+              Top <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Projects</GradientText>
             </h2>
           </div>
 
@@ -354,18 +350,9 @@ export const Home: React.FC = () => {
       ────────────────────────────────────────────────────────── */}
       <section className="py-20 border-t border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-slate-950/40">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-12">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-cobalt/10 border border-brand-cobalt/30 text-brand-cobalt dark:text-blue-400 text-xs font-mono mb-2">
-              <Terminal className="w-3.5 h-3.5 text-brand-orange" />
-              <span>Multi-Disciplinary Stack</span>
-            </div>
-            <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">
-              Tech Proficiency
-            </h2>
-            <p className="mt-1 text-slate-500 dark:text-slate-400 text-xs sm:text-sm font-mono">
-              (hover to show proficiency)
-            </p>
-          </div>
+          <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">
+            Tech Proficiency
+          </h2>
 
           {/* Active Hover Rating Indicator Card */}
           <div className="h-12 flex items-center justify-center mb-6">
@@ -380,7 +367,7 @@ export const Home: React.FC = () => {
                 </span>
               </div>
             ) : (
-              <span className="text-xs font-mono text-slate-400">Hover over any technology badge to inspect rating</span>
+              <span className="text-xs font-mono text-slate-400"></span>
             )}
           </div>
 
@@ -450,18 +437,9 @@ export const Home: React.FC = () => {
       ────────────────────────────────────────────────────────── */}
       <section className="py-20 border-t border-slate-200 dark:border-white/10 bg-slate-100/40 dark:bg-slate-950/70">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <div className="text-center max-w-3xl mx-auto space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-xs font-mono">
-              <Award className="w-3.5 h-3.5" />
-              <span>National & APAC Honors</span>
-            </div>
-            <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">
-              Championships & <span className="text-brand-orange">Awards</span>
-            </h2>
-            <p className="text-slate-600 dark:text-slate-400 text-xs sm:text-sm font-mono">
-              (hover over items to inspect details)
-            </p>
-          </div>
+          <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">
+            Championships & <span className="text-brand-orange">Awards</span>
+          </h2>
 
           {/* Row 1 Accordion Gallery */}
           <div className="flex flex-col space-y-2">

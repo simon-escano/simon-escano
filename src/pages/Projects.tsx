@@ -14,7 +14,7 @@ import {
 } from '@/components/reactbits';
 
 const CATEGORIES = [
-  { id: 'all', label: 'All Projects (10)' },
+  { id: 'all', label: 'All (10)' },
   { id: 'game', label: 'Game Dev' },
   { id: 'ai-health', label: 'AI & Diagnostics' },
   { id: 'cloud-tools', label: 'Cloud & Developer Tools' },
@@ -130,11 +130,10 @@ export const Projects: React.FC = () => {
               <button
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-mono whitespace-nowrap transition-all ${
-                  selectedCategory === cat.id
-                    ? 'bg-brand-cobalt text-white font-semibold shadow-md shadow-brand-cobalt/20'
-                    : 'bg-slate-100 dark:bg-slate-800/60 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
-                }`}
+                className={`px-3.5 py-1.5 rounded-full text-xs font-mono whitespace-nowrap transition-all ${selectedCategory === cat.id
+                  ? 'bg-brand-cobalt text-white font-semibold shadow-md shadow-brand-cobalt/20'
+                  : 'bg-slate-100 dark:bg-slate-800/60 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
+                  }`}
               >
                 {cat.label}
               </button>
@@ -162,10 +161,10 @@ export const Projects: React.FC = () => {
           </div>
         ) : (
           <ChromaGrid
-              items={chromaItems}
-              radius={350}
-              onItemClick={(item) => navigate(item.url || `/projects/${item.id}`)}
-            />
+            items={chromaItems}
+            radius={350}
+            onItemClick={(item) => navigate(item.url || `/projects/${item.id}`)}
+          />
         )}
 
         {/* Bottom Callout */}

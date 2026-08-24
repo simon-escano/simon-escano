@@ -133,7 +133,7 @@ export const About: React.FC = () => {
                 name="Simon Escaño"
                 title={profile.role}
                 handle="simon-escano"
-                status="Available for Hire"
+                status="Open for Work"
                 avatarUrl="/images/Escano_Business-Profile-Image_Transparent.png"
                 behindGlowColor="rgba(249, 115, 22, 0.35)"
                 behindGlowSize="60%"
