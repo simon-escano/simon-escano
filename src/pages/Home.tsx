@@ -65,15 +65,15 @@ export const Home: React.FC = () => {
   }, []);
 
   const awardImageMap: Record<number, string> = {
-    0: '/images/Seizuki/2026-05-09 11.02.47 simon-escano.github.io 6355e147fac0.png',
-    1: '/images/PixCell/2026-05-09 10.59.35 simon-escano.github.io 8baadfd5dc66.png',
-    2: '/images/Seizuki/2026-05-09 11.03.15 simon-escano.github.io 882e1e6561d1.png',
-    3: '/images/Sprout/2026-05-09 11.07.19 simon-escano.github.io 3cce6bc86a24.png',
-    4: '/images/Seizuki/2026-05-09 11.03.44 simon-escano.github.io ae874d570b61.png',
-    5: '/images/Fashion MNIST Classifier/2026-05-09 11.04.14 simon-escano.github.io eea8a264a938.png',
-    6: '/images/PixCell/2026-05-09 11.00.08 simon-escano.github.io dd8c2c1a5db4.png',
-    7: '/images/PixCell/2026-05-09 11.00.41 simon-escano.github.io 3b867c29668d.png',
-    8: '/images/Fasaar/2026-05-09 11.05.35 simon-escano.github.io 07252277d33d.png',
+    0: '/images/Achievements/champion-swiss-innovation-prize-stemiflow.jpg',
+    1: '/images/Achievements/champion-disruptorx-2026-pixcell.jpg',
+    2: '/images/Achievements/runner-up-taiwan-dsp-competition-lupuslens.png',
+    3: '/images/Achievements/finalist-ai-ready-asean-kaagapai.png',
+    4: '/images/Achievements/coauthor-icmhi-japan-conference.png',
+    5: '/images/Achievements/coauthor-philippine-computing-science-congress.jpg',
+    6: '/images/Achievements/champion-pitch-perfect-2025-pixcell.jpg',
+    7: '/images/Achievements/runner-up-dict-philippine-startup-challenge.jpg',
+    8: '/images/Achievements/first-prize-huawei-ict-competition-agiila.jpg',
   };
 
   // All 9 achievements split into 2 rows for AccordionGallery
@@ -555,8 +555,9 @@ export const Home: React.FC = () => {
               height={260}
               accentColor="#f97316"
               expandRatio={0.45}
-              onItemHover={(idx, item) => {
-                setHoveredAward(item || awardsRow1[idx]);
+              onItemHover={(idx) => {
+                const item = awardsRow1[idx];
+                if (item) setHoveredAward(item);
               }}
               onMouseLeave={() => setHoveredAward(null)}
             />
@@ -565,8 +566,9 @@ export const Home: React.FC = () => {
               height={260}
               accentColor="#3845C9"
               expandRatio={0.45}
-              onItemHover={(idx, item) => {
-                setHoveredAward(item || awardsRow2[idx]);
+              onItemHover={(idx) => {
+                const item = awardsRow2[idx];
+                if (item) setHoveredAward(item);
               }}
               onMouseLeave={() => setHoveredAward(null)}
             />
