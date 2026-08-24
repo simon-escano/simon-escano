@@ -321,11 +321,11 @@ export const Home: React.FC = () => {
           </Link>
         </div>
 
-        {/* Max 750px CardSwap container with soft vertical blur masks */}
-        <div className="max-w-[750px] mx-auto w-full relative overflow-visible min-h-[460px] py-4 flex justify-center">
+        {/* Max 750px CardSwap container with vertical overflow hidden and smooth blur fade mask */}
+        <div className="max-w-[750px] mx-auto w-full relative overflow-hidden min-h-[460px] py-6 flex justify-center [mask-image:linear-gradient(to_bottom,transparent_0%,black_6%,black_94%,transparent_100%)] [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,black_6%,black_94%,transparent_100%)]">
           {/* Top and Bottom soft blur gradient overlays */}
-          <div className="absolute inset-x-0 -top-4 h-10 bg-gradient-to-b from-background to-transparent pointer-events-none z-20 backdrop-blur-[1px]" />
-          <div className="absolute inset-x-0 -bottom-4 h-12 bg-gradient-to-t from-background to-transparent pointer-events-none z-20 backdrop-blur-[1px]" />
+          <div className="absolute inset-x-0 top-0 h-14 bg-gradient-to-b from-background via-background/80 to-transparent pointer-events-none z-30 backdrop-blur-[2px]" />
+          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none z-30 backdrop-blur-[2px]" />
 
           <CardSwap width="100%" height={400} cardDistance={28} verticalDistance={18}>
             {topProjects.map((p) => {
@@ -339,9 +339,9 @@ export const Home: React.FC = () => {
                   className="p-5 sm:p-6 flex flex-col justify-between cursor-pointer group select-none overflow-hidden h-full box-border"
                   onClick={() => navigate(`/projects/${p.id}`)}
                 >
-                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-stretch h-full">
-                    {/* Left Column: Photo Collage Preview */}
-                    <div className="sm:col-span-5 relative w-full h-[150px] sm:h-full flex items-center justify-center flex-shrink-0">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-stretch h-full">
+                    {/* Left Column: Photo Collage Preview (Takes Half the Space) */}
+                    <div className="relative w-full h-[180px] sm:h-full flex items-center justify-center flex-shrink-0">
                       {shown.length <= 1 ? (
                         <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-950/80 border border-slate-200 dark:border-white/10">
                           <img
@@ -352,7 +352,7 @@ export const Home: React.FC = () => {
                           />
                         </div>
                       ) : shown.length === 2 ? (
-                        <div className="grid grid-cols-2 gap-1.5 w-full h-full rounded-xl overflow-hidden border border-slate-200 dark:border-white/10 bg-slate-950/60 p-1">
+                        <div className="grid grid-rows-2 gap-1.5 w-full h-full rounded-xl overflow-hidden border border-slate-200 dark:border-white/10 bg-slate-950/60 p-1">
                           {shown.map((src, i) => (
                             <div key={i} className="relative rounded-lg overflow-hidden h-full">
                               <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
@@ -385,22 +385,22 @@ export const Home: React.FC = () => {
                       </span>
                     </div>
 
-                    {/* Right Column: Information & Stack Tags */}
-                    <div className="sm:col-span-7 flex flex-col justify-between h-full py-0.5 space-y-2.5">
-                      <div className="space-y-1.5">
+                    {/* Right Column: Information & Stack Tags (Takes More Vertical Space) */}
+                    <div className="flex flex-col justify-between h-full py-1 space-y-3">
+                      <div className="space-y-2">
                         <div className="inline-flex items-center gap-1.5 text-[10px] font-mono text-brand-cobalt dark:text-blue-400 font-semibold uppercase tracking-wider">
                           <span>Featured Solution</span>
                         </div>
-                        <h3 className="text-lg sm:text-xl font-display font-semibold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors leading-tight line-clamp-1">
+                        <h3 className="text-lg sm:text-xl font-display font-semibold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors leading-tight line-clamp-2">
                           {p.title}
                         </h3>
-                        <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-2">
+                        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3 sm:line-clamp-4">
                           {p.one_liner}
                         </p>
                       </div>
 
-                      <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-white/10">
-                        <div className="flex flex-wrap gap-1">
+                      <div className="space-y-2.5 pt-2 border-t border-slate-200 dark:border-white/10">
+                        <div className="flex flex-wrap gap-1.5">
                           {p.tech_stack.slice(0, 3).map((t, idx) => (
                             <span
                               key={idx}
@@ -411,7 +411,7 @@ export const Home: React.FC = () => {
                           ))}
                         </div>
 
-                        <div className="flex items-center justify-between pt-0.5">
+                        <div className="flex items-center justify-between pt-1">
                           <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                             Architecture
                           </span>
