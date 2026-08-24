@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   ArrowRight,
@@ -507,26 +508,28 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Floating Skill Proficiency Card (Anchored near cursor) */}
-      {hoveredSkill && (
-        <div
-          className="fixed z-50 pointer-events-none transition-transform duration-75 ease-out"
-          style={{
-            left: Math.min(Math.max(16, skillCursorPos.x + 16), window.innerWidth - 250),
-            top: Math.min(Math.max(16, skillCursorPos.y - 52), window.innerHeight - 80),
-          }}
-        >
-          <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-brand-cobalt/40 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 duration-100">
-            <span className="font-mono text-sm font-semibold text-slate-900 dark:text-white">
-              {hoveredSkill.title}
-            </span>
-            <RatingBars value={hoveredSkill.proficiency} />
-            <span className="text-xs font-mono text-brand-orange font-semibold">
-              {hoveredSkill.proficiency}/10
-            </span>
-          </div>
-        </div>
-      )}
+      {/* Floating Skill Proficiency Card (Rendered directly into document.body to prevent layout/stacking context trapping) */}
+      {hoveredSkill &&
+        typeof document !== 'undefined' &&
+        createPortal(
+          <div
+            className="fixed top-0 left-0 z-[99999] pointer-events-none transition-transform duration-75 ease-out"
+            style={{
+              transform: `translate3d(${Math.min(Math.max(16, skillCursorPos.x + 16), window.innerWidth - 260)}px, ${Math.min(Math.max(16, skillCursorPos.y - 52), window.innerHeight - 80)}px, 0)`,
+            }}
+          >
+            <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-brand-cobalt/40 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 duration-100">
+              <span className="font-mono text-sm font-semibold text-slate-900 dark:text-white">
+                {hoveredSkill.title}
+              </span>
+              <RatingBars value={hoveredSkill.proficiency} />
+              <span className="text-xs font-mono text-brand-orange font-semibold">
+                {hoveredSkill.proficiency}/10
+              </span>
+            </div>
+          </div>,
+          document.body
+        )}
 
       {/* ──────────────────────────────────────────────────────────
           5. ACHIEVEMENTS & AWARDS (Two Rows Accordion + Floating Card)
@@ -552,9 +555,8 @@ export const Home: React.FC = () => {
               height={260}
               accentColor="#f97316"
               expandRatio={0.45}
-              onItemHover={(idx) => {
-                const item = awardsRow1[idx];
-                if (item) setHoveredAward(item);
+              onItemHover={(idx, item) => {
+                setHoveredAward(item || awardsRow1[idx]);
               }}
               onMouseLeave={() => setHoveredAward(null)}
             />
@@ -563,9 +565,8 @@ export const Home: React.FC = () => {
               height={260}
               accentColor="#3845C9"
               expandRatio={0.45}
-              onItemHover={(idx) => {
-                const item = awardsRow2[idx];
-                if (item) setHoveredAward(item);
+              onItemHover={(idx, item) => {
+                setHoveredAward(item || awardsRow2[idx]);
               }}
               onMouseLeave={() => setHoveredAward(null)}
             />
@@ -573,28 +574,30 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Floating Award Details Card (Anchored near cursor) */}
-      {hoveredAward && (
-        <div
-          className="fixed z-50 pointer-events-none transition-transform duration-75 ease-out max-w-sm sm:max-w-md"
-          style={{
-            left: Math.min(Math.max(16, awardCursorPos.x + 20), window.innerWidth - 380),
-            top: Math.min(Math.max(16, awardCursorPos.y - 120), window.innerHeight - 200),
-          }}
-        >
-          <div className="p-4 sm:p-5 rounded-2xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-brand-cobalt/40 shadow-2xl backdrop-blur-xl space-y-2 animate-in fade-in zoom-in-95 duration-150">
-            <span className="text-[10px] font-mono uppercase text-brand-orange font-semibold block">
-              Honors Recognition
-            </span>
-            <h4 className="text-sm sm:text-base font-display font-semibold text-slate-900 dark:text-white leading-snug">
-              {hoveredAward.fullTitle}
-            </h4>
-            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3">
-              {hoveredAward.description}
-            </p>
-          </div>
-        </div>
-      )}
+      {/* Floating Award Details Card (Rendered directly into document.body to prevent layout/stacking context trapping) */}
+      {hoveredAward &&
+        typeof document !== 'undefined' &&
+        createPortal(
+          <div
+            className="fixed top-0 left-0 z-[99999] pointer-events-none transition-transform duration-75 ease-out max-w-sm sm:max-w-md"
+            style={{
+              transform: `translate3d(${Math.min(Math.max(16, awardCursorPos.x + 20), window.innerWidth - 380)}px, ${Math.min(Math.max(16, awardCursorPos.y - 120), window.innerHeight - 200)}px, 0)`,
+            }}
+          >
+            <div className="p-4 sm:p-5 rounded-2xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-brand-cobalt/40 shadow-2xl backdrop-blur-xl space-y-2 animate-in fade-in zoom-in-95 duration-150">
+              <span className="text-[10px] font-mono uppercase text-brand-orange font-semibold block">
+                Honors Recognition
+              </span>
+              <h4 className="text-sm sm:text-base font-display font-semibold text-slate-900 dark:text-white leading-snug">
+                {hoveredAward.fullTitle}
+              </h4>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3">
+                {hoveredAward.description}
+              </p>
+            </div>
+          </div>,
+          document.body
+        )}
 
       {/* ──────────────────────────────────────────────────────────
           6. CURVED MARQUEE & CONTACT CTA

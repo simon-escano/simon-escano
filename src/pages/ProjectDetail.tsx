@@ -21,6 +21,7 @@ import {
 import dataService from '@/services/dataService';
 import { ArchitectureDiagram } from '@/components/common/ArchitectureDiagram';
 import { SpotlightCard } from '@/components/reactbits';
+import { ImageWithSkeleton } from '@/components/common/ImageWithSkeleton';
 
 export const ProjectDetail: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -58,16 +59,15 @@ export const ProjectDetail: React.FC = () => {
         setIsLightboxOpen(false);
       } else if (e.key === 'ArrowLeft') {
         setActiveImageIndex((prev) => (prev > 0 ? prev - 1 : project.gallery.length - 1));
-        setZoomScale(1);
-        setPanPosition({ x: 0, y: 0 });
       } else if (e.key === 'ArrowRight') {
         setActiveImageIndex((prev) => (prev < project.gallery.length - 1 ? prev + 1 : 0));
-        setZoomScale(1);
-        setPanPosition({ x: 0, y: 0 });
       } else if (e.key === '+' || e.key === '=') {
         setZoomScale((prev) => Math.min(prev + 0.25, 4));
       } else if (e.key === '-') {
         setZoomScale((prev) => Math.max(prev - 0.25, 0.5));
+      } else if (e.key === '0') {
+        setZoomScale(1);
+        setPanPosition({ x: 0, y: 0 });
       }
     };
 
@@ -77,10 +77,10 @@ export const ProjectDetail: React.FC = () => {
 
   if (!project) {
     return (
-      <div className="min-h-screen pt-32 pb-20 px-4 flex flex-col items-center justify-center text-center space-y-4">
-        <h1 className="text-3xl font-display font-semibold text-slate-900 dark:text-white">Project Not Found</h1>
-        <p className="text-slate-600 dark:text-slate-400 max-w-md">
-          The requested project could not be found.
+      <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 space-y-4">
+        <h1 className="text-2xl font-display font-semibold">Project Not Found</h1>
+        <p className="text-sm text-slate-500 max-w-md">
+          The requested coordinate or project slug does not exist in the registry.
         </p>
         <Link
           to="/projects"
@@ -197,12 +197,12 @@ export const ProjectDetail: React.FC = () => {
                     : 'border-slate-200 dark:border-white/10 opacity-70 hover:opacity-100 hover:border-slate-400 dark:hover:border-white/30'
                 }`}
               >
-                <img
+                <ImageWithSkeleton
                   src={img}
                   alt={`${project.title} view ${idx + 1}`}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                <span className="absolute bottom-1.5 left-1.5 px-2 py-0.5 rounded text-[10px] font-mono bg-black/75 text-white backdrop-blur-sm">
+                <span className="absolute bottom-1.5 left-1.5 px-2 py-0.5 rounded text-[10px] font-mono bg-black/75 text-white backdrop-blur-sm z-20">
                   View {idx + 1}
                 </span>
               </button>
@@ -211,15 +211,19 @@ export const ProjectDetail: React.FC = () => {
 
           {/* Right Column: Main Image with Click-to-Zoom */}
           <div className="lg:col-span-9 relative rounded-2xl overflow-hidden bg-slate-950/40 border border-slate-200 dark:border-white/10 group shadow-md flex items-center justify-center min-h-[340px] max-h-[580px]">
-            <img
-              src={activeImageSrc}
-              alt={project.title}
+            <div
               onClick={() => {
                 resetZoomPan();
                 setIsLightboxOpen(true);
               }}
-              className="w-full h-full max-h-[580px] object-contain cursor-zoom-in transition-transform duration-300 group-hover:scale-[1.01]"
-            />
+              className="w-full h-full max-h-[580px] flex items-center justify-center cursor-zoom-in group-hover:scale-[1.01] transition-transform duration-300"
+            >
+              <ImageWithSkeleton
+                src={activeImageSrc}
+                alt={project.title}
+                className="w-full h-full max-h-[580px] object-contain"
+              />
+            </div>
 
             {/* Click to Zoom Overlay Badge */}
             <button
@@ -227,7 +231,7 @@ export const ProjectDetail: React.FC = () => {
                 resetZoomPan();
                 setIsLightboxOpen(true);
               }}
-              className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono bg-slate-900/90 hover:bg-slate-900 text-white border border-white/15 backdrop-blur-md transition-all shadow-lg hover:scale-105"
+              className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono bg-slate-900/90 hover:bg-slate-900 text-white border border-white/15 backdrop-blur-md transition-all shadow-lg hover:scale-105 z-20"
             >
               <Maximize2 className="w-3.5 h-3.5 text-brand-orange" />
               <span>Full Screen Pan & Zoom</span>
