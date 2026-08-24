@@ -147,13 +147,13 @@ export const About: React.FC = () => {
 
         {/* Career Experience Timeline */}
         <div className="space-y-8">
-          <div className="flex items-center gap-2 text-xs font-mono text-brand-orange uppercase tracking-wider font-semibold">
-            <Briefcase className="w-4 h-4" />
-            <span>Professional Career</span>
+          <div className="flex items-center gap-4 text-xs font-mono text-brand-orange tracking-wider font-semibold">
+            <Briefcase className="size-10" />
+            <h2 className="font-display text-3xl sm:text-4xl font-semibold text-slate-900 dark:text-white">
+              Industry Experience
+            </h2>
           </div>
-          <h2 className="font-display text-3xl sm:text-4xl font-semibold text-slate-900 dark:text-white">
-            Industry Experience
-          </h2>
+
 
           <div className="space-y-6">
             {experience.map((exp) => (
@@ -188,13 +188,12 @@ export const About: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Education */}
           <div className="space-y-6">
-            <div className="flex items-center gap-2 text-xs font-mono text-brand-cobalt dark:text-blue-400 uppercase tracking-wider font-semibold">
-              <GraduationCap className="w-4 h-4 text-brand-orange" />
-              <span>Academic Foundation</span>
+            <div className="flex items-center gap-4 text-xs font-mono text-brand-cobalt dark:text-blue-400 tracking-wider font-semibold">
+              <GraduationCap className="size-10 text-brand-cobalt" />
+              <h2 className="font-display text-3xl sm:text-4xl font-semibold text-slate-900 dark:text-white">
+                Formal Education
+              </h2>
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
-              Formal Education
-            </h2>
 
             <div className="p-6 rounded-2xl bg-white/80 dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 shadow-sm space-y-3">
               <div className="text-xs font-mono text-brand-orange font-semibold">{education?.date}</div>
@@ -217,13 +216,12 @@ export const About: React.FC = () => {
 
           {/* Certifications & Industry Badges */}
           <div className="space-y-6">
-            <div className="flex items-center gap-2 text-xs font-mono text-emerald-500 uppercase tracking-wider font-semibold">
-              <ShieldCheck className="w-4 h-4" />
-              <span>Verified Competencies</span>
+            <div className="flex items-center gap-4 text-xs font-mono text-emerald-500 tracking-wider font-semibold">
+              <ShieldCheck className="size-10 text-emerald-500" />
+              <h2 className="font-display text-3xl sm:text-4xl font-semibold text-slate-900 dark:text-white">
+                Verified Competencies
+              </h2>
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
-              Certifications & Badges
-            </h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {credentials
@@ -248,13 +246,12 @@ export const About: React.FC = () => {
 
         {/* Spoken & Natural Languages (10-Bar Ratings) */}
         <div className="space-y-6">
-          <div className="flex items-center gap-2 text-xs font-mono text-brand-orange uppercase tracking-wider font-semibold">
-            <Globe className="w-4 h-4" />
-            <span>Communication & Languages</span>
+          <div className="flex items-center gap-4 text-xs font-mono text-brand-orange tracking-wider font-semibold">
+            <Globe className="size-10 text-brand-orange" />
+            <h2 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
+              Languages
+            </h2>
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
-            Languages
-          </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {languages.map((lang, idx) => (
@@ -284,13 +281,12 @@ export const About: React.FC = () => {
         {/* Engineering Principles Bento Grid */}
         <div className="space-y-8">
           <div className="text-center max-w-3xl mx-auto space-y-2">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-cobalt/10 border border-brand-cobalt/30 text-brand-cobalt dark:text-blue-400 text-xs font-mono">
-              <Code className="w-3.5 h-3.5 text-brand-orange" />
-              <span>Core Philosophy</span>
+            <div className="inline-flex items-center gap-4 text-xs font-mono text-brand-orange tracking-wider font-semibold">
+              <Code className="size-10 text-brand-cobalt" />
+              <h2 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
+                Engineering Principles
+              </h2>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl font-semibold text-slate-900 dark:text-white">
-              Engineering Principles
-            </h2>
             <p className="text-sm text-slate-600 dark:text-slate-400">
               Guiding standards embedded in every codebase, pipeline, and architecture.
             </p>
@@ -317,7 +313,7 @@ export const About: React.FC = () => {
           glowColor="235 70 60"
           borderRadius={24}
         >
-          <div className="p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-left space-y-2">
               <h3 className="text-2xl sm:text-3xl font-display font-semibold text-slate-900 dark:text-white">
                 Ready to collaborate with simon-escano?
