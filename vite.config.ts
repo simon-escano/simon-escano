@@ -24,6 +24,7 @@ export default defineConfig({
           'vendor-gsap': ['gsap'],
           'vendor-ogl': ['ogl'],
           'vendor-icons': ['lucide-react'],
+          'vendor-mermaid': ['mermaid'],
         },
       },
     },
