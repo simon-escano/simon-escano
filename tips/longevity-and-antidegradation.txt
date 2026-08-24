@@ -1,9 +1,0 @@
-Bake external data at build time (SSG): Pre-render dynamic data (GitHub repos, blog posts) into static JSON/HTML instead of fetching live in the user's browser.
-
-Modern asset compression: Convert all screenshots and mockups to WebP/AVIF and replace heavy GIFs with looping MP4/WebM videos.
-
-Component-level memory hygiene: Clean up all event listeners (scroll, resize), intervals, and custom observers inside unmount lifecycles (useEffect return cleanup).
-
-Pause canvas & shader loops: Attach an IntersectionObserver to pause React Bits WebGL/canvas animations as soon as they leave the viewport.
-
-Optimize animation bundles: Wrap your app with Motion's <LazyMotion features="{domAnimation}"> and rely on GPU-accelerated transforms (transform, opacity) rather than layout triggers.
