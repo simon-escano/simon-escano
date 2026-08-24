@@ -134,6 +134,7 @@ export const About: React.FC = () => {
                 title={profile.role}
                 handle="simon-escano"
                 status="Open to work"
+                iconUrl='/images/icon-pattern.png'
                 avatarUrl="/images/Escano_Business-Profile-Image_Transparent.png"
                 behindGlowColor="rgba(249, 115, 22, 0.35)"
                 behindGlowSize="60%"

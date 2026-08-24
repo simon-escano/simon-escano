@@ -17,7 +17,7 @@ export interface StrokeTextProps {
   fontWeight?: number | string;
   letterSpacing?: number;
   reverse?: boolean;
-  align?: 'left' | 'center' | 'right';
+  align?: 'left' | 'center' | 'right' | 'auto';
   className?: string;
   style?: React.CSSProperties;
 }
@@ -37,7 +37,7 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
   fontWeight = 600,
   letterSpacing = -2,
   reverse = false,
-  align = 'left',
+  align = 'auto',
   className = '',
   style = {},
 }) => {
@@ -46,6 +46,14 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
   const wipeRectRef = useRef<SVGRectElement>(null);
 
   const [box, setBox] = useState<{ x: number; y: number; width: number; height: number } | null>(null);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    const check = () => setIsDesktop(window.innerWidth >= 1024);
+    check();
+    window.addEventListener('resize', check);
+    return () => window.removeEventListener('resize', check);
+  }, []);
 
   const rawId = useId();
   const wipeId = `stroke-text-wipe-${rawId.replace(/[^a-zA-Z0-9_-]/g, '')}`;
@@ -190,6 +198,7 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
   }, [box, dash, drawDuration, fillDelay, stagger, ease, trigger, fillMode, reverse]);
 
   const viewBox = box ? `${box.x} ${box.y} ${box.width} ${box.height}` : `0 ${-fontSize} 600 ${fontSize * 1.3}`;
+  const effectiveAlign = align === 'auto' ? (isDesktop ? 'left' : 'center') : align;
 
   return (
     <span
@@ -202,7 +211,7 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
       <svg
         className="stroke-text__svg"
         viewBox={viewBox}
-        preserveAspectRatio={align === 'center' ? 'xMidYMid meet' : align === 'right' ? 'xMaxYMid meet' : 'xMinYMid meet'}
+        preserveAspectRatio={effectiveAlign === 'center' ? 'xMidYMid meet' : effectiveAlign === 'right' ? 'xMaxYMid meet' : 'xMinYMid meet'}
         aria-hidden="true"
       >
         {fillMode === 'wipe' && box && (

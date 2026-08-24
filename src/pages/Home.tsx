@@ -115,7 +115,7 @@ export const Home: React.FC = () => {
       {/* ──────────────────────────────────────────────────────────
           1. HERO SECTION (ColorBends base + DotField overlay)
       ────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[70vh] flex items-center justify-center pt-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="relative min-h-[64vh] flex items-center justify-center pt-28 pb-16 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Layered Background Shaders: ColorBends as base ambient shader, DotField on top */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           {/* Base Shader Layer: ColorBends */}
@@ -167,7 +167,7 @@ export const Home: React.FC = () => {
             <div className="w-full flex justify-center lg:justify-start">
               <StrokeText
                 text="simon-escano"
-                align="left"
+                align="auto"
                 strokeColor="#3845C9"
                 fillColor="currentColor"
                 strokeWidth={1.8}
