@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   ArrowRight,
@@ -40,8 +40,32 @@ export const Home: React.FC = () => {
   const techStack = dataService.getTechStack();
   const achievements = dataService.getAchievements();
 
-  const [activeHoveredSkill, setActiveHoveredSkill] = useState<{ title: string; proficiency: number } | null>(null);
-  const [hoveredAwardIndex, setHoveredAwardIndex] = useState<number | null>(null);
+  // Floating cursor hover states
+  const [hoveredSkill, setHoveredSkill] = useState<{ title: string; proficiency: number } | null>(null);
+  const [skillCursorPos, setSkillCursorPos] = useState({ x: 0, y: 0 });
+
+  const [hoveredAward, setHoveredAward] = useState<{
+    id: string;
+    image: string;
+    label: string;
+    fullTitle: string;
+    description: string;
+  } | null>(null);
+  const [awardCursorPos, setAwardCursorPos] = useState({ x: 0, y: 0 });
+
+  // Global mouse move tracker for smooth floating card placement
+  useEffect(() => {
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (hoveredSkill) {
+        setSkillCursorPos({ x: e.clientX, y: e.clientY });
+      }
+      if (hoveredAward) {
+        setAwardCursorPos({ x: e.clientX, y: e.clientY });
+      }
+    };
+    window.addEventListener('mousemove', handleGlobalMouseMove, { passive: true });
+    return () => window.removeEventListener('mousemove', handleGlobalMouseMove);
+  }, [hoveredSkill, hoveredAward]);
 
   const awardImageMap: Record<number, string> = {
     0: '/images/Seizuki/2026-05-09 11.02.47 simon-escano.github.io 6355e147fac0.png',
@@ -86,31 +110,33 @@ export const Home: React.FC = () => {
 
   const handleSkillHover = (logo: { title?: string; proficiency?: number }) => {
     if (logo.title && typeof logo.proficiency === 'number') {
-      setActiveHoveredSkill({ title: logo.title, proficiency: logo.proficiency });
+      setHoveredSkill({ title: logo.title, proficiency: logo.proficiency });
     }
   };
-
-  const displayedAward =
-    hoveredAwardIndex !== null ? allAccordionAwards[hoveredAwardIndex] : allAccordionAwards[0];
 
   return (
     <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* ──────────────────────────────────────────────────────────
-          1. HERO SECTION (DotField on top of ColorBends)
+          1. HERO SECTION (ColorBends base + DotField overlay)
       ────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[70vh] flex items-center justify-center pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-        {/* Layered Background Shaders: ColorBends + DotField */}
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-40 dark:opacity-60 overflow-hidden">
-          <ColorBends
-            colors={['#3845C9', '#60a5fa', '#f97316']}
-            rotation={75}
-            speed={0.15}
-            scale={1.2}
-            warpStrength={0.8}
-            intensity={1.1}
-            transparent={true}
-          />
-          <div className="absolute inset-0">
+      <section className="relative min-h-[72vh] flex items-center justify-center pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        {/* Layered Background Shaders: ColorBends as base ambient shader, DotField on top */}
+        <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+          {/* Base Shader Layer: ColorBends */}
+          <div className="absolute inset-0 opacity-50 dark:opacity-70">
+            <ColorBends
+              colors={['#3845C9', '#60a5fa', '#f97316']}
+              rotation={75}
+              speed={0.15}
+              scale={1.25}
+              warpStrength={0.85}
+              intensity={1.15}
+              transparent={true}
+            />
+          </div>
+
+          {/* Foreground Canvas Layer: Interactive DotField */}
+          <div className="absolute inset-0 opacity-80 dark:opacity-90">
             <DotField
               dotRadius={1.5}
               dotSpacing={16}
@@ -122,11 +148,11 @@ export const Home: React.FC = () => {
           </div>
         </div>
 
-        {/* Smooth blur and gradient transition to the next section */}
-        <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none backdrop-blur-[1px] z-10" />
+        {/* Smooth gradient & blur transition to the impact metrics */}
+        <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background via-background/85 to-transparent pointer-events-none backdrop-blur-[2px] z-10" />
 
         <div className="relative z-20 max-w-[1280px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          {/* Left Column: Responsive Text Alignment (Centered on small, Left-aligned on large) */}
+          {/* Left Column: Responsive Text Alignment */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
             {/* Status Pill */}
             <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/80 dark:bg-slate-900/90 border border-slate-200 dark:border-brand-cobalt/40 shadow-md backdrop-blur-md">
@@ -188,7 +214,7 @@ export const Home: React.FC = () => {
                   else navigate('/projects');
                 }}
               >
-                <span>Explore 10 Projects</span>
+                <span>Explore Projects</span>
                 <ArrowRight className="w-4 h-4 ml-1 text-brand-orange" />
               </SpecularButton>
 
@@ -240,38 +266,28 @@ export const Home: React.FC = () => {
       </section>
 
       {/* ──────────────────────────────────────────────────────────
-          2. IMPACT METRICS BAR (CountUp + Spotlight)
+          2. IMPACT METRICS BAR (Focused 3-card layout without project counts)
       ────────────────────────────────────────────────────────── */}
       <section id="stats" className="py-12 border-y border-slate-200 dark:border-white/10 bg-slate-50/60 dark:bg-slate-900/40 backdrop-blur-md">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
               <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-semibold text-brand-orange">
-                <CountUp to={10} duration={1.5} />
-                <span>+</span>
+                <CountUp to={9} duration={1.5} />
+                <span>🏆</span>
               </div>
               <p className="mt-2 text-xs sm:text-sm font-mono text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                Flagship Projects
+                Hackathon Championships
               </p>
             </SpotlightCard>
 
             <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
               <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-semibold text-brand-cobalt dark:text-blue-400">
-                <CountUp to={9} duration={1.5} />
-                <span>🏆</span>
-              </div>
-              <p className="mt-2 text-xs sm:text-sm font-mono text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                Hackathon Awards
-              </p>
-            </SpotlightCard>
-
-            <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
-              <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-semibold text-brand-orange">
                 <CountUp to={5} duration={1.5} />
                 <span>+</span>
               </div>
               <p className="mt-2 text-xs sm:text-sm font-mono text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                Industry Badges
+                Industry Certifications
               </p>
             </SpotlightCard>
 
@@ -281,7 +297,7 @@ export const Home: React.FC = () => {
                 <span>%</span>
               </div>
               <p className="mt-2 text-xs sm:text-sm font-mono text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                Performance Focus
+                Architectural Rigor
               </p>
             </SpotlightCard>
           </div>
@@ -289,13 +305,13 @@ export const Home: React.FC = () => {
       </section>
 
       {/* ──────────────────────────────────────────────────────────
-          3. TOP 5 FLAGSHIP SHOWCASE (CardSwap with Photos)
+          3. FLAGSHIP SHOWCASE (Full 1280px Max-Width CardSwap)
       ────────────────────────────────────────────────────────── */}
       <section id="featured" className="py-20 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-6 mb-8">
           <div>
             <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight">
-              Top <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Projects</GradientText>
+              Flagship <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Projects</GradientText>
             </h2>
           </div>
 
@@ -303,56 +319,75 @@ export const Home: React.FC = () => {
             to="/projects"
             className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-mono font-medium text-white transition-all group"
           >
-            <span>View All 10 Projects</span>
+            <span>View All Projects</span>
             <ChevronRight className="w-4 h-4 text-brand-orange group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
-        <div className="flex justify-center overflow-visible min-h-[420px] py-8">
-          <CardSwap width={480} height={370} cardDistance={45} verticalDistance={28}>
+        {/* Full-width CardSwap with soft-edge vertical blur masks */}
+        <div className="relative overflow-visible min-h-[480px] py-6 flex justify-center">
+          {/* Top and Bottom soft blur gradient overlays */}
+          <div className="absolute inset-x-0 -top-4 h-12 bg-gradient-to-b from-background to-transparent pointer-events-none z-20 backdrop-blur-[1px]" />
+          <div className="absolute inset-x-0 -bottom-4 h-16 bg-gradient-to-t from-background to-transparent pointer-events-none z-20 backdrop-blur-[1px]" />
+
+          <CardSwap width="100%" height={430} cardDistance={32} verticalDistance={22}>
             {topProjects.map((p) => (
               <Card
                 key={p.id}
-                className="p-5 flex flex-col justify-between cursor-pointer group h-full select-none"
+                className="p-6 sm:p-8 flex flex-col justify-between cursor-pointer group select-none overflow-hidden h-full"
                 onClick={() => navigate(`/projects/${p.id}`)}
               >
-                <div>
-                  {/* Embedded Project Image */}
-                  <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden mb-3 bg-slate-950/80 border border-slate-200 dark:border-white/10">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center h-full">
+                  {/* Left Column: Project Screenshot Preview */}
+                  <div className="md:col-span-6 relative aspect-[16/10] md:h-full w-full rounded-2xl overflow-hidden bg-slate-950/80 border border-slate-200 dark:border-white/10 shadow-inner flex items-center justify-center">
                     <img
                       src={p.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png'}
                       alt={p.title}
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
-                    <span className="absolute top-2 right-2 px-2.5 py-0.5 rounded-md text-[10px] font-mono bg-slate-900/90 text-brand-orange border border-white/10 font-semibold backdrop-blur-md">
+                    <span className="absolute top-3 right-3 px-3 py-1 rounded-lg text-[11px] font-mono bg-slate-900/90 text-brand-orange border border-white/10 font-semibold backdrop-blur-md shadow-md">
                       {p.contributions.split('&')[0]?.trim() || 'Architecture'}
                     </span>
                   </div>
 
-                  <h3 className="text-lg sm:text-xl font-display font-semibold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors">
-                    {p.title}
-                  </h3>
-                  <p className="mt-1 text-xs text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
-                    {p.one_liner}
-                  </p>
-                </div>
+                  {/* Right Column: Information & Stack Tags */}
+                  <div className="md:col-span-6 flex flex-col justify-between h-full py-1 space-y-4">
+                    <div className="space-y-2.5">
+                      <div className="inline-flex items-center gap-2 text-[11px] font-mono text-brand-cobalt dark:text-blue-400 font-semibold uppercase tracking-wider">
+                        <span>Featured Solution</span>
+                      </div>
+                      <h3 className="text-2xl sm:text-3xl font-display font-semibold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors leading-tight">
+                        {p.title}
+                      </h3>
+                      <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3">
+                        {p.one_liner}
+                      </p>
+                    </div>
 
-                <div className="mt-3 pt-3 border-t border-slate-200 dark:border-white/10 flex items-center justify-between">
-                  <div className="flex flex-wrap gap-1">
-                    {p.tech_stack.slice(0, 3).map((t, idx) => (
-                      <span
-                        key={idx}
-                        className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300"
-                      >
-                        {t.name}
-                      </span>
-                    ))}
+                    <div className="space-y-4 pt-3 border-t border-slate-200 dark:border-white/10">
+                      <div className="flex flex-wrap gap-1.5">
+                        {p.tech_stack.slice(0, 4).map((t, idx) => (
+                          <span
+                            key={idx}
+                            className="px-2.5 py-1 rounded-lg text-xs font-mono bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-medium"
+                          >
+                            {t.name}
+                          </span>
+                        ))}
+                      </div>
+
+                      <div className="flex items-center justify-between pt-1">
+                        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
+                          Production Architecture
+                        </span>
+                        <span className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-brand-cobalt dark:text-blue-400 group-hover:text-brand-orange group-hover:translate-x-1 transition-all">
+                          <span>Inspect Project</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </span>
+                      </div>
+                    </div>
                   </div>
-                  <span className="text-xs font-mono font-semibold text-brand-cobalt dark:text-blue-400 group-hover:underline flex items-center gap-1">
-                    <span>Inspect</span>
-                    <ArrowRight className="w-3.5 h-3.5" />
-                  </span>
                 </div>
               </Card>
             ))}
@@ -361,32 +396,22 @@ export const Home: React.FC = () => {
       </section>
 
       {/* ──────────────────────────────────────────────────────────
-          4. TECH PROFICIENCY (LogoLoop + 10-Bar Hover Rating)
+          4. TECH PROFICIENCY (Slower Loops + Cursor-Following Hover Card)
       ────────────────────────────────────────────────────────── */}
       <section className="py-20 border-t border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-slate-950/40">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">
-            Tech Proficiency
-          </h2>
-
-          {/* Active Hover Rating Indicator Card */}
-          <div className="h-12 flex items-center justify-center mb-6">
-            {activeHoveredSkill ? (
-              <div className="inline-flex items-center gap-3 px-4 py-2 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-brand-cobalt/40 shadow-lg animate-in fade-in zoom-in-95 duration-150">
-                <span className="font-mono text-sm font-semibold text-slate-900 dark:text-white">
-                  {activeHoveredSkill.title}
-                </span>
-                <RatingBars value={activeHoveredSkill.proficiency} />
-                <span className="text-xs font-mono text-brand-orange font-semibold">
-                  {activeHoveredSkill.proficiency}/10
-                </span>
-              </div>
-            ) : (
-              <span className="text-xs font-mono text-slate-400"></span>
-            )}
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-8">
+            <div>
+              <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">
+                Tech Proficiency
+              </h2>
+              <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1">
+                Hover over any technology badge to inspect verified competency ratings.
+              </p>
+            </div>
           </div>
 
-          <div className="space-y-5">
+          <div className="space-y-6">
             {/* Frontend Row */}
             <div>
               <div className="text-[11px] font-mono uppercase tracking-wider text-brand-cobalt dark:text-blue-400 mb-2 px-2 font-semibold">
@@ -397,12 +422,12 @@ export const Home: React.FC = () => {
                   title: item.title,
                   proficiency: item.proficiency,
                 }))}
-                speed={45}
+                speed={18}
                 direction="left"
-                gap={20}
+                gap={24}
                 scaleOnHover={true}
                 onLogoHover={handleSkillHover}
-                onLogoLeave={() => setActiveHoveredSkill(null)}
+                onLogoLeave={() => setHoveredSkill(null)}
               />
             </div>
 
@@ -416,12 +441,12 @@ export const Home: React.FC = () => {
                   title: item.title,
                   proficiency: item.proficiency,
                 }))}
-                speed={45}
+                speed={18}
                 direction="right"
-                gap={20}
+                gap={24}
                 scaleOnHover={true}
                 onLogoHover={handleSkillHover}
-                onLogoLeave={() => setActiveHoveredSkill(null)}
+                onLogoLeave={() => setHoveredSkill(null)}
               />
             </div>
 
@@ -435,26 +460,52 @@ export const Home: React.FC = () => {
                   title: item.title,
                   proficiency: item.proficiency,
                 }))}
-                speed={40}
+                speed={15}
                 direction="left"
-                gap={20}
+                gap={24}
                 scaleOnHover={true}
                 onLogoHover={handleSkillHover}
-                onLogoLeave={() => setActiveHoveredSkill(null)}
+                onLogoLeave={() => setHoveredSkill(null)}
               />
             </div>
           </div>
         </div>
       </section>
 
+      {/* Floating Skill Proficiency Card (Anchored near cursor) */}
+      {hoveredSkill && (
+        <div
+          className="fixed z-50 pointer-events-none transition-transform duration-75 ease-out"
+          style={{
+            left: Math.min(Math.max(16, skillCursorPos.x + 16), window.innerWidth - 250),
+            top: Math.min(Math.max(16, skillCursorPos.y - 52), window.innerHeight - 80),
+          }}
+        >
+          <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-brand-cobalt/40 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 duration-100">
+            <span className="font-mono text-sm font-semibold text-slate-900 dark:text-white">
+              {hoveredSkill.title}
+            </span>
+            <RatingBars value={hoveredSkill.proficiency} />
+            <span className="text-xs font-mono text-brand-orange font-semibold">
+              {hoveredSkill.proficiency}/10
+            </span>
+          </div>
+        </div>
+      )}
+
       {/* ──────────────────────────────────────────────────────────
-          5. ACHIEVEMENTS & AWARDS (Two Rows Accordion + Hover Card)
+          5. ACHIEVEMENTS & AWARDS (Two Rows Accordion + Floating Card)
       ────────────────────────────────────────────────────────── */}
       <section className="py-20 border-t border-slate-200 dark:border-white/10 bg-slate-100/40 dark:bg-slate-950/70">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-          <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">
-            Championships & <span className="text-brand-orange">Awards</span>
-          </h2>
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+          <div>
+            <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">
+              Championships & <span className="text-brand-orange">Awards</span>
+            </h2>
+            <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1">
+              National and international hackathons, competitions, and peer-reviewed conference publications.
+            </p>
+          </div>
 
           {/* Row 1 Accordion Gallery */}
           <div className="flex flex-col space-y-2">
@@ -463,37 +514,47 @@ export const Home: React.FC = () => {
               height={260}
               accentColor="#f97316"
               expandRatio={0.45}
-              onItemHover={(idx) => setHoveredAwardIndex(idx)}
+              onItemHover={(idx) => {
+                const item = awardsRow1[idx];
+                if (item) setHoveredAward(item);
+              }}
             />
             <AccordionGallery
               items={awardsRow2}
               height={260}
               accentColor="#3845C9"
               expandRatio={0.45}
-              onItemHover={(idx) => setHoveredAwardIndex(idx + awardsRow1.length)}
+              onItemHover={(idx) => {
+                const item = awardsRow2[idx];
+                if (item) setHoveredAward(item);
+              }}
             />
           </div>
-
-          {/* Dynamic Hover Details Card */}
-          {displayedAward && (
-            <div className="p-6 sm:p-8 rounded-3xl bg-white/90 dark:bg-slate-900/70 border border-slate-200 dark:border-brand-cobalt/30 shadow-xl backdrop-blur-md transition-all duration-300">
-              <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-200 dark:border-white/10 pb-4 mb-4">
-                <div>
-                  <span className="text-[11px] font-mono uppercase text-brand-orange font-semibold">
-                    Honors Recognition
-                  </span>
-                  <h3 className="text-xl sm:text-2xl font-display font-semibold text-slate-900 dark:text-white mt-1">
-                    {displayedAward.fullTitle}
-                  </h3>
-                </div>
-              </div>
-              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
-                {displayedAward.description}
-              </p>
-            </div>
-          )}
         </div>
       </section>
+
+      {/* Floating Award Details Card (Anchored near cursor) */}
+      {hoveredAward && (
+        <div
+          className="fixed z-50 pointer-events-none transition-transform duration-75 ease-out max-w-sm sm:max-w-md"
+          style={{
+            left: Math.min(Math.max(16, awardCursorPos.x + 20), window.innerWidth - 380),
+            top: Math.min(Math.max(16, awardCursorPos.y - 120), window.innerHeight - 200),
+          }}
+        >
+          <div className="p-4 sm:p-5 rounded-2xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-brand-cobalt/40 shadow-2xl backdrop-blur-xl space-y-2 animate-in fade-in zoom-in-95 duration-150">
+            <span className="text-[10px] font-mono uppercase text-brand-orange font-semibold block">
+              Honors Recognition
+            </span>
+            <h4 className="text-sm sm:text-base font-display font-semibold text-slate-900 dark:text-white leading-snug">
+              {hoveredAward.fullTitle}
+            </h4>
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3">
+              {hoveredAward.description}
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* ──────────────────────────────────────────────────────────
           6. CURVED MARQUEE & CONTACT CTA

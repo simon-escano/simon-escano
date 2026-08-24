@@ -73,6 +73,7 @@
   background: rgba(0, 0, 0, 0.9);
   backface-visibility: hidden;
   overflow: hidden;
+  font-family: 'Inter', sans-serif;
 }
 
 .pc-card:hover,
@@ -251,12 +252,15 @@
 
 .pc-avatar-content .avatar {
   width: 100%;
+  max-height: 80%;
+  object-fit: contain;
+  object-position: bottom center;
   position: absolute;
   left: 50%;
   transform-origin: 50% 100%;
   transform: translateX(calc(-50% + (var(--pointer-from-left) - 0.5) * 6px)) translateZ(0)
     scaleY(calc(1 + (var(--pointer-from-top) - 0.5) * 0.02)) scaleX(calc(1 + (var(--pointer-from-left) - 0.5) * 0.01));
-  bottom: -1px;
+  bottom: 0;
   backface-visibility: hidden;
   will-change: transform;
   transition: transform 120ms ease-out;
@@ -288,6 +292,7 @@
   border-radius: calc(max(0px, var(--card-radius) - var(--ui-inset) + var(--ui-radius-bias)));
   padding: 12px 14px;
   pointer-events: auto;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .pc-user-details {
@@ -320,16 +325,18 @@
 }
 
 .pc-handle {
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   color: rgba(255, 255, 255, 0.9);
   line-height: 1;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .pc-status {
-  font-size: 14px;
+  font-size: 12px;
   color: rgba(255, 255, 255, 0.7);
   line-height: 1;
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .pc-contact-btn {
@@ -342,6 +349,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   backdrop-filter: blur(10px);
+  font-family: 'JetBrains Mono', monospace;
 }
 
 .pc-contact-btn:hover {
@@ -367,15 +375,17 @@
 .pc-details {
   width: 100%;
   position: absolute;
-  top: 3em;
+  top: 2.2em;
   display: flex;
   flex-direction: column;
+  font-family: 'Funnel Display', sans-serif;
 }
 
 .pc-details h3 {
+  font-family: 'Funnel Display', sans-serif;
   font-weight: 600;
   margin: 0;
-  font-size: min(5svh, 3em);
+  font-size: min(5svh, 2.75em);
   background-image: linear-gradient(to bottom, #fff, #6f6fbe);
   background-size: 1em 1.5em;
   -webkit-text-fill-color: transparent;
@@ -384,11 +394,12 @@
 }
 
 .pc-details p {
-  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
   position: relative;
-  top: -12px;
+  top: -10px;
   white-space: nowrap;
-  font-size: 16px;
+  font-size: 14px;
   margin: 0 auto;
   width: min-content;
   background-image: linear-gradient(to bottom, #fff, #4a4ac0);

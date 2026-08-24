@@ -90,16 +90,16 @@ export const About: React.FC = () => {
             <div className="grid grid-cols-3 gap-4 pt-2">
               <div className="text-left">
                 <div className="text-2xl sm:text-3xl font-display font-semibold text-brand-orange">
-                  <CountUp to={10} duration={1.2} />+
+                  <CountUp to={9} duration={1.2} />
                 </div>
-                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Shipped Projects</div>
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Major Awards</div>
               </div>
 
               <div className="text-left">
                 <div className="text-2xl sm:text-3xl font-display font-semibold text-brand-cobalt dark:text-blue-400">
-                  <CountUp to={9} duration={1.2} />
+                  <CountUp to={5} duration={1.2} />+
                 </div>
-                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Major Awards</div>
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Certifications</div>
               </div>
 
               <div className="text-left">

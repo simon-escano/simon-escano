@@ -14,7 +14,7 @@ import {
 } from '@/components/reactbits';
 
 const CATEGORIES = [
-  { id: 'all', label: 'All (10)' },
+  { id: 'all', label: 'All' },
   { id: 'game', label: 'Game Dev' },
   { id: 'ai-health', label: 'AI & Diagnostics' },
   { id: 'cloud-tools', label: 'Cloud & Developer Tools' },
@@ -105,7 +105,7 @@ export const Projects: React.FC = () => {
           </h1>
 
           <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
-            10 production-grade solutions across low-level retro game architecture, biomedical AI diagnostics,
+            Production-grade solutions across low-level retro game architecture, biomedical AI diagnostics,
             vector database engines, and cross-platform desktop automation.
           </p>
         </div>
