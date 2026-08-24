@@ -128,7 +128,7 @@ export const About: React.FC = () => {
 
           {/* 3D Profile Card */}
           <div className="lg:col-span-5 flex justify-center">
-            <div className="w-full max-w-sm sm:max-w-md">
+            <div className="flex w-full max-w-sm sm:max-w-md justify-center">
               <ProfileCard
                 name="Simon Escaño"
                 title={profile.role}
