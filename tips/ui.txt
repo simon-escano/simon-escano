@@ -1,0 +1,32 @@
+use motion.dev + reactbits.dev + shadcn ui
+- Use blue and orange for the colors 
+- use "Funnel Display" for the primary font
+- have light and dark mode (system by default)
+- Use Motion.dev for 80% of your site. It handles enter/exit transitions, layout animations (layoutId), hover physics, and scroll visibility naturally within React’s lifecycle without leaking event listeners.
+- have "home" (where everything is previewed like the projects, tech stack, work experience, achievements, etc.), "about" where everything about me except projects are shown, "projects" page where a list of all my projects are shown, "contact" where it has an input and where recruiters can send me an email.
+- use "molten metal" from reactbits backgrounds for the background
+- use "card swap" component from reactbits for my top 5 projects
+- use "border glow" component from reactbits for appropriate cards to use
+- use "spotlight card" component from reactbits for appropriate cards to use
+- use "lanyard" component from reactbits for my profile
+- use "glass surface" component where appropriate
+- use "tilted card" component where appropriate
+- use "curved input" component for contact form
+- use "specular button" component for important buttons
+- use "drift wall" component for a preview of all my projects (repeat to make it look like i have so much projects)
+- use "chroma grid" component for the projects page
+- each project should have its own page when clicking one of the items in the "drift wall" preview in the home or the "chroma grid" items in the projects page
+- use "magic bento" component where appropriate
+- use "accordion gallery" component for my achievements
+- use "logo loop" component for the tech stack in home page and for each project (the loop with text if possible, and when hovering the item, it shows more info about the tech like my proficiency for that tech, or its role in the project)
+- for my tech stack in general, separate each category of tech stack into different logo/text loops.
+- use "magnet" animation for the get in touch button
+- use "gradient text" text animation where appropriate
+- use "scrambled text" text animation for my philosophy/tagline
+- use "curved loop" text animation where appropriate
+- use "shiny text" text animation where appropriate
+- use "count up" text animation to show 10+ shipped projects
+- use "stroke text" animation for the hero, or introduction of me
+- Limit GPU Canvas/Shader Effects: Use at most one heavy canvas or WebGL background effect (from React Bits) and restrict it to the hero section.
+- Disconnect Off-Screen Animations: Use an IntersectionObserver to pause canvas render loops and heavy CSS/JS animations as soon as the user scrolls past the hero section.
+- Leverage LazyMotion: In Motion.dev, wrap your app in <LazyMotion features="{domAnimation}"> to dynamically load animation features and keep your initial bundle footprint tiny.
