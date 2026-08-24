@@ -20,7 +20,7 @@ export const Footer: React.FC = () => {
           <div className="md:col-span-2 space-y-4">
             <Link to="/" className="inline-flex items-center gap-3 group">
               <Logo className="w-8 h-8 group-hover:scale-105 transition-transform" />
-              <span className="font-display font-semibold text-xl tracking-tight text-foreground">
+              <span className="font-display font-medium text-xl tracking-tight text-foreground">
                 simon-escano
               </span>
             </Link>
@@ -38,7 +38,7 @@ export const Footer: React.FC = () => {
 
           {/* Col 2: Navigation */}
           <div className="space-y-3">
-            <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">
+            <h4 className="text-xs font-mono font-medium uppercase tracking-wider text-foreground">
               Navigation
             </h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
@@ -67,7 +67,7 @@ export const Footer: React.FC = () => {
 
           {/* Col 3: Connect & Socials */}
           <div className="space-y-3">
-            <h4 className="text-xs font-mono font-semibold uppercase tracking-wider text-foreground">
+            <h4 className="text-xs font-mono font-medium uppercase tracking-wider text-foreground">
               Connect
             </h4>
             <div className="flex items-center gap-3">

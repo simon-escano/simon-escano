@@ -100,7 +100,7 @@ export const Projects: React.FC = () => {
       <div className="max-w-[1280px] mx-auto space-y-12">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight">
             Built by <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>simon-escano</GradientText>
           </h1>
 
@@ -131,7 +131,7 @@ export const Projects: React.FC = () => {
                 key={cat.id}
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-3.5 py-1.5 rounded-full text-xs font-mono whitespace-nowrap transition-all ${selectedCategory === cat.id
-                  ? 'bg-brand-cobalt text-white font-semibold shadow-md shadow-brand-cobalt/20'
+                  ? 'bg-brand-cobalt text-white font-medium shadow-md shadow-brand-cobalt/20'
                   : 'bg-slate-100 dark:bg-slate-800/60 hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700'
                   }`}
               >
@@ -145,7 +145,7 @@ export const Projects: React.FC = () => {
         {filteredProjects.length === 0 ? (
           <div className="text-center py-20 bg-white/60 dark:bg-slate-900/30 rounded-3xl border border-slate-200 dark:border-white/10 space-y-4">
             <Filter className="w-12 h-12 text-slate-400 mx-auto" />
-            <h3 className="text-xl font-display font-semibold text-slate-900 dark:text-white">No projects found</h3>
+            <h3 className="text-xl font-display font-medium text-slate-900 dark:text-white">No projects found</h3>
             <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
               No projects match your current search query or filter. Try clearing filters.
             </p>
@@ -169,7 +169,7 @@ export const Projects: React.FC = () => {
 
         {/* Bottom Callout */}
         <div className="mt-16 p-8 rounded-3xl bg-white/80 dark:bg-slate-900/40 border border-brand-cobalt/30 text-center space-y-4 shadow-sm backdrop-blur-md">
-          <h3 className="text-2xl font-display font-semibold text-slate-900 dark:text-white">
+          <h3 className="text-2xl font-display font-medium text-slate-900 dark:text-white">
             Need an engineered solution customized for your stack?
           </h3>
           <p className="text-sm text-slate-600 dark:text-slate-300 max-w-lg mx-auto leading-relaxed">

@@ -46,7 +46,7 @@ export const Navbar: React.FC = () => {
                 <Logo className="w-8 h-8 drop-shadow-sm" />
               </div>
               <div className="flex flex-col">
-                <span className="font-display font-semibold text-lg tracking-tight text-foreground group-hover:text-brand-orange transition-colors">
+                <span className="font-display font-medium text-lg tracking-tight text-foreground group-hover:text-brand-orange transition-colors">
                   simon-escano
                 </span>
                 <span className="text-[10px] font-mono tracking-wider text-muted-foreground">
@@ -68,11 +68,11 @@ export const Navbar: React.FC = () => {
                   className={({ isActive }) =>
                     scrolled
                       ? `text-xs font-mono font-medium transition-colors ${isActive
-                        ? 'text-brand-orange font-semibold'
+                        ? 'text-brand-orange font-medium'
                         : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
                       }`
                       : `relative px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-200 ${isActive
-                        ? 'bg-brand-cobalt text-white shadow-sm font-semibold'
+                        ? 'bg-brand-cobalt text-white shadow-sm font-medium'
                         : 'text-muted-foreground hover:text-foreground hover:bg-slate-200/50 dark:hover:bg-slate-800/50'
                       }`
                   }
@@ -114,7 +114,7 @@ export const Navbar: React.FC = () => {
                     to={link.path}
                     className={({ isActive }) =>
                       `px-4 py-2.5 rounded-lg text-base font-medium transition-colors ${isActive
-                        ? 'bg-brand-cobalt text-white font-semibold'
+                        ? 'bg-brand-cobalt text-white font-medium'
                         : 'text-muted-foreground hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-900'
                       }`
                     }
@@ -124,7 +124,7 @@ export const Navbar: React.FC = () => {
                 ))}
                 <NavLink
                   to="/contact"
-                  className="flex items-center justify-center gap-2 w-full py-3 text-sm font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-brand-orange to-brand-ember rounded-xl shadow-md shadow-brand-orange/20"
+                  className="flex items-center justify-center gap-2 w-full py-3 text-sm font-medium uppercase tracking-wider text-white bg-gradient-to-r from-brand-orange to-brand-ember rounded-xl shadow-md shadow-brand-orange/20"
                 >
                   <Sparkles className="w-4 h-4" />
                   <span>Get in Touch</span>

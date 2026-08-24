@@ -216,7 +216,7 @@ export const LogoLoop = memo(
         ) : item.src ? (
           <img src={item.src} alt={item.alt ?? item.title ?? ''} loading="lazy" />
         ) : (
-          <span className="font-mono text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/90 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 shadow-sm hover:border-brand-orange transition-colors">
+          <span className="font-mono text-xs font-medium px-3 py-1.5 rounded-lg bg-white/90 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 shadow-sm hover:border-brand-orange transition-colors">
             {item.title}
           </span>
         );

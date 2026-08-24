@@ -103,11 +103,11 @@ export const Contact: React.FC = () => {
       <div className="max-w-[1280px] mx-auto space-y-16">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-semibold">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-medium">
             Open to work
           </div>
 
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight pb-2 leading-tight">
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight pb-2 leading-tight">
             Let's{' '}
             <GradientText colors={['#3845C9', '#60a5fa', '#f97316']} className="inline-block pb-1">
               Build Together
@@ -127,7 +127,7 @@ export const Contact: React.FC = () => {
               <div className="space-y-6">
                 {/* Header with Title & Subtitle */}
                 <div className="space-y-1">
-                  <h3 className="font-display text-2xl font-semibold text-slate-900 dark:text-white">
+                  <h3 className="font-display text-2xl font-medium text-slate-900 dark:text-white">
                     Contact Information
                   </h3>
                   <p className="text-xs font-mono text-slate-500 dark:text-slate-400">
@@ -253,9 +253,9 @@ export const Contact: React.FC = () => {
                     <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mx-auto">
                       <CheckCircle2 className="w-8 h-8" />
                     </div>
-                    <h3 className="text-2xl font-display font-semibold text-slate-900 dark:text-white">Message Sent Successfully!</h3>
+                    <h3 className="text-2xl font-display font-medium text-slate-900 dark:text-white">Message Sent Successfully!</h3>
                     <p className="text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto leading-relaxed">
-                      Thank you for reaching out, <span className="font-semibold text-slate-900 dark:text-white">{name}</span>. simon-escano will review your message and reply back to <span className="font-mono text-brand-orange">{email}</span> promptly.
+                      Thank you for reaching out, <span className="font-medium text-slate-900 dark:text-white">{name}</span>. simon-escano will review your message and reply back to <span className="font-mono text-brand-orange">{email}</span> promptly.
                     </p>
                     <div className="pt-4">
                       <button
@@ -274,7 +274,7 @@ export const Contact: React.FC = () => {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="flex items-center gap-2 text-xs font-mono text-brand-cobalt dark:text-blue-400 uppercase tracking-wider mb-2 font-semibold">
+                    <div className="flex items-center gap-2 text-xs font-mono text-brand-cobalt dark:text-blue-400 uppercase tracking-wider mb-2 font-medium">
                       <MessageSquare className="w-4 h-4 text-brand-orange" />
                       <span>Direct Message Route</span>
                     </div>
@@ -342,22 +342,20 @@ export const Contact: React.FC = () => {
                     ────────────────────────────────────────────────────────── */}
                     <div
                       onClick={handleCaptchaClick}
-                      className={`p-4 rounded-xl border transition-all cursor-pointer select-none flex items-center justify-between ${
-                        turnstileVerified
+                      className={`p-4 rounded-xl border transition-all cursor-pointer select-none flex items-center justify-between ${turnstileVerified
                           ? 'bg-emerald-500/10 border-emerald-500/40 text-slate-900 dark:text-white'
                           : 'bg-slate-100 dark:bg-slate-800/90 border-slate-300 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 text-slate-800 dark:text-slate-300'
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center gap-3.5">
                         {/* Captcha Checkbox Indicator */}
                         <div
-                          className={`w-6 h-6 rounded-md border flex items-center justify-center transition-all ${
-                            turnstileVerified
+                          className={`w-6 h-6 rounded-md border flex items-center justify-center transition-all ${turnstileVerified
                               ? 'bg-emerald-500 border-emerald-400 text-white dark:text-slate-950 scale-105'
                               : turnstileVerifying
-                              ? 'border-brand-orange bg-slate-200 dark:bg-slate-700'
-                              : 'border-slate-400 dark:border-slate-500 bg-white dark:bg-slate-900 hover:border-brand-orange'
-                          }`}
+                                ? 'border-brand-orange bg-slate-200 dark:bg-slate-700'
+                                : 'border-slate-400 dark:border-slate-500 bg-white dark:bg-slate-900 hover:border-brand-orange'
+                            }`}
                         >
                           {turnstileVerified ? (
                             <Check className="w-4 h-4 stroke-[3]" />
@@ -371,8 +369,8 @@ export const Contact: React.FC = () => {
                             {turnstileVerified
                               ? 'Verification Successful'
                               : turnstileVerifying
-                              ? 'Verifying challenge...'
-                              : 'Verify you are human'}
+                                ? 'Verifying challenge...'
+                                : 'Verify you are human'}
                           </div>
                           <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                             Cloudflare Turnstile Managed Challenge
@@ -382,9 +380,8 @@ export const Contact: React.FC = () => {
 
                       <div className="flex flex-col items-end text-right">
                         <ShieldCheck
-                          className={`w-5 h-5 transition-colors ${
-                            turnstileVerified ? 'text-emerald-500 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'
-                          }`}
+                          className={`w-5 h-5 transition-colors ${turnstileVerified ? 'text-emerald-500 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'
+                            }`}
                         />
                         <span className="text-[9px] font-mono text-slate-500 mt-0.5">Privacy • Terms</span>
                       </div>

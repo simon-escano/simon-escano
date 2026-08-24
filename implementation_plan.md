@@ -10,7 +10,7 @@ This plan outlines the systematic updates to implement all requested changes acr
 
 > [!IMPORTANT]
 > - **Persona Naming**: All public mentions and cards across the portfolio will use `"simon-escano"`, reserving the full name "Simon Escaño" strictly for the About page story.
-> - **Font Weight Restriction**: The entire design system and components will enforce a maximum font weight of `font-semibold` (weight 600) — eliminating `font-bold`, `font-extrabold`, and `font-black`.
+> - **Font Weight Restriction**: The entire design system and components will enforce a maximum font weight of `font-medium` (weight 600) — eliminating `font-bold`, `font-extrabold`, and `font-black`.
 > - **Three.js Installation**: `three` and `@types/three` will be installed to support the `ColorBends` shader.
 > - **Hero Background**: The hero section will feature `DotField` layered on top of `ColorBends`, transitioning into the next section via a smooth blur/gradient mask.
 
@@ -27,7 +27,7 @@ This plan outlines the systematic updates to implement all requested changes acr
 
 ### Phase 2: Design System, Typography & Light Mode Overhaul
 - **Font Weight Cap**:
-  - Update `src/index.css` and all component classes to replace `font-bold`, `font-extrabold`, `font-black` (700-900) with `font-semibold` (600).
+  - Update `src/index.css` and all component classes to replace `font-bold`, `font-extrabold`, `font-black` (700-900) with `font-medium` (600).
 - **Light Mode Colors & Contrast Overhaul**:
   - Fix card backgrounds in light mode: replace hard-coded dark slate colors (`bg-slate-900/60`, `bg-[#090d16]`) with adaptive tokens (`bg-white/80 dark:bg-slate-900/70 border-slate-200/80 dark:border-white/10 text-slate-900 dark:text-white`).
   - Fix `ShinyText`: in light mode, base text is dark gray (`#475569`) with signature blue/ember shine (`#3845C9`), ensuring high contrast against light backgrounds.
@@ -49,7 +49,7 @@ This plan outlines the systematic updates to implement all requested changes acr
    - ProfileCard: name `"simon-escano"`.
    - Hero background: `DotField` on top of `ColorBends` with frosted blur/gradient transition to the stats bar.
 2. **Stats Counter**:
-   - Update labels and styling to match font-semibold and light mode contrast.
+   - Update labels and styling to match font-medium and light mode contrast.
 3. **Selected Flagship Works (CardSwap)**:
    - Remove the descriptive subtitle paragraph beneath the heading.
    - Embed screenshots/photos inside the cards in `CardSwap` with title, badge, and inspect button.

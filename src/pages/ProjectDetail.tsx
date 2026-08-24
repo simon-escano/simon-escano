@@ -78,7 +78,7 @@ export const ProjectDetail: React.FC = () => {
   if (!project) {
     return (
       <div className="min-h-[70vh] flex flex-col items-center justify-center text-center px-4 space-y-4">
-        <h1 className="text-2xl font-display font-semibold">Project Not Found</h1>
+        <h1 className="text-2xl font-display font-medium">Project Not Found</h1>
         <p className="text-sm text-slate-500 max-w-md">
           The requested coordinate or project slug does not exist in the registry.
         </p>
@@ -171,7 +171,7 @@ export const ProjectDetail: React.FC = () => {
             <span>Role: {project.contributions}</span>
           </div>
 
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-slate-900 dark:text-white">
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-slate-900 dark:text-white">
             {project.title}
           </h1>
 
@@ -191,11 +191,10 @@ export const ProjectDetail: React.FC = () => {
               <button
                 key={idx}
                 onClick={() => setActiveImageIndex(idx)}
-                className={`group relative rounded-xl overflow-hidden border text-left transition-all flex-shrink-0 lg:w-full aspect-[16/10] bg-slate-950/40 ${
-                  activeImageIndex === idx
+                className={`group relative rounded-xl overflow-hidden border text-left transition-all flex-shrink-0 lg:w-full aspect-[16/10] bg-slate-950/40 ${activeImageIndex === idx
                     ? 'border-brand-orange ring-2 ring-brand-orange/40 shadow-md scale-[1.02]'
                     : 'border-slate-200 dark:border-white/10 opacity-70 hover:opacity-100 hover:border-slate-400 dark:hover:border-white/30'
-                }`}
+                  }`}
               >
                 <ImageWithSkeleton
                   src={img}
@@ -244,7 +243,7 @@ export const ProjectDetail: React.FC = () => {
         ────────────────────────────────────────────────────────── */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <SpotlightCard className="p-6 sm:p-8 bg-white/80 dark:bg-slate-900/50 border-red-500/30 dark:border-red-500/20 shadow-sm">
-            <h3 className="text-xl font-display font-semibold text-red-600 dark:text-red-400 mb-2">
+            <h3 className="text-xl font-display font-medium text-red-600 dark:text-red-400 mb-2">
               The Challenge
             </h3>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
@@ -253,7 +252,7 @@ export const ProjectDetail: React.FC = () => {
           </SpotlightCard>
 
           <SpotlightCard className="p-6 sm:p-8 bg-white/80 dark:bg-slate-900/50 border-brand-cobalt/30 shadow-sm">
-            <h3 className="text-xl font-display font-semibold text-brand-cobalt dark:text-blue-400 mb-2">
+            <h3 className="text-xl font-display font-medium text-brand-cobalt dark:text-blue-400 mb-2">
               The Goal
             </h3>
             <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
@@ -264,11 +263,11 @@ export const ProjectDetail: React.FC = () => {
 
         {/* Key Features */}
         <div className="space-y-6">
-          <div className="flex items-center gap-2 text-xs font-mono text-brand-orange uppercase tracking-wider font-semibold">
+          <div className="flex items-center gap-2 text-xs font-mono text-brand-orange uppercase tracking-wider font-medium">
             <CheckCircle2 className="w-4 h-4" />
             <span>Core Capabilities & Innovation</span>
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
+          <h2 className="font-display text-2xl sm:text-3xl font-medium text-slate-900 dark:text-white">
             Key Features
           </h2>
 
@@ -278,7 +277,7 @@ export const ProjectDetail: React.FC = () => {
                 key={idx}
                 className="p-6 rounded-2xl bg-white/80 dark:bg-slate-900/40 border border-slate-200 dark:border-white/10 shadow-sm space-y-2 hover:border-brand-orange/40 transition-colors"
               >
-                <div className="w-8 h-8 rounded-lg bg-brand-cobalt/10 text-brand-cobalt dark:text-blue-400 flex items-center justify-center font-mono font-semibold text-sm mb-3">
+                <div className="w-8 h-8 rounded-lg bg-brand-cobalt/10 text-brand-cobalt dark:text-blue-400 flex items-center justify-center font-mono font-medium text-sm mb-3">
                   {idx + 1}
                 </div>
                 <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
@@ -293,7 +292,7 @@ export const ProjectDetail: React.FC = () => {
         {project.architecture_diagram_code && (
           <div className="space-y-6">
             <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 text-xs font-mono text-brand-cobalt dark:text-blue-400 uppercase tracking-wider font-semibold">
+              <div className="flex items-center gap-2 text-xs font-mono text-brand-cobalt dark:text-blue-400 uppercase tracking-wider font-medium">
                 <GitBranch className="w-4 h-4 text-brand-orange" />
                 <span>Structural System Design</span>
               </div>
@@ -307,11 +306,11 @@ export const ProjectDetail: React.FC = () => {
 
         {/* Tech Stack Matrix */}
         <div className="space-y-6">
-          <div className="flex items-center gap-2 text-xs font-mono text-emerald-500 uppercase tracking-wider font-semibold">
+          <div className="flex items-center gap-2 text-xs font-mono text-emerald-500 uppercase tracking-wider font-medium">
             <Code2 className="w-4 h-4" />
             <span>Technology Matrix & Roles</span>
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
+          <h2 className="font-display text-2xl sm:text-3xl font-medium text-slate-900 dark:text-white">
             Tech Stack
           </h2>
 
@@ -322,7 +321,7 @@ export const ProjectDetail: React.FC = () => {
                 className="p-4 rounded-xl bg-white/80 dark:bg-slate-900/40 border border-slate-200 dark:border-white/10 shadow-sm space-y-1.5"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-sm font-semibold text-slate-900 dark:text-white">
+                  <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">
                     {t.name}
                   </span>
                 </div>
@@ -336,18 +335,18 @@ export const ProjectDetail: React.FC = () => {
 
         {/* Results & Metrics */}
         <div className="p-8 rounded-3xl bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 shadow-sm space-y-6">
-          <div className="flex items-center gap-2 text-xs font-mono text-brand-orange uppercase tracking-wider font-semibold">
+          <div className="flex items-center gap-2 text-xs font-mono text-brand-orange uppercase tracking-wider font-medium">
             <Zap className="w-4 h-4" />
             <span>Production Impact</span>
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
+          <h2 className="font-display text-2xl sm:text-3xl font-medium text-slate-900 dark:text-white">
             Measured Results & Outcomes
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2">
             {[project.results.performance, project.results.scale, project.results.utility].map((r, idx) => (
               <div key={idx} className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/5 space-y-1">
-                <div className="text-xs font-mono uppercase text-brand-orange font-semibold">
+                <div className="text-xs font-mono uppercase text-brand-orange font-medium">
                   {r.icon}
                 </div>
                 <div className="font-medium text-sm text-slate-900 dark:text-white">{r.text}</div>
@@ -366,7 +365,7 @@ export const ProjectDetail: React.FC = () => {
               <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
               <span>Previous Project</span>
             </div>
-            <div className="font-display text-lg font-semibold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors mt-2">
+            <div className="font-display text-lg font-medium text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors mt-2">
               {prevProject.title}
             </div>
           </Link>
@@ -379,7 +378,7 @@ export const ProjectDetail: React.FC = () => {
               <span>Next Project</span>
               <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
             </div>
-            <div className="font-display text-lg font-semibold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors mt-2">
+            <div className="font-display text-lg font-medium text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors mt-2">
               {nextProject.title}
             </div>
           </Link>
@@ -397,7 +396,7 @@ export const ProjectDetail: React.FC = () => {
           {/* Top Control Bar */}
           <div className="flex items-center justify-between text-white z-20 pb-4 border-b border-white/10">
             <div className="flex items-center gap-3">
-              <span className="font-display text-lg font-semibold">{project.title}</span>
+              <span className="font-display text-lg font-medium">{project.title}</span>
               <span className="text-xs font-mono text-white/60">
                 ({activeImageIndex + 1} / {project.gallery.length})
               </span>
@@ -438,9 +437,8 @@ export const ProjectDetail: React.FC = () => {
 
           {/* Interactive Image Viewport */}
           <div
-            className={`relative flex-1 flex items-center justify-center overflow-hidden ${
-              zoomScale > 1 ? 'cursor-grab active:cursor-grabbing' : 'cursor-default'
-            }`}
+            className={`relative flex-1 flex items-center justify-center overflow-hidden ${zoomScale > 1 ? 'cursor-grab active:cursor-grabbing' : 'cursor-default'
+              }`}
             onMouseDown={handleMouseDown}
             onMouseMove={handleMouseMove}
             onMouseUp={handleMouseUp}
@@ -494,11 +492,10 @@ export const ProjectDetail: React.FC = () => {
                     setActiveImageIndex(idx);
                     resetZoomPan();
                   }}
-                  className={`w-16 h-11 rounded-lg overflow-hidden border transition-all flex-shrink-0 ${
-                    activeImageIndex === idx
+                  className={`w-16 h-11 rounded-lg overflow-hidden border transition-all flex-shrink-0 ${activeImageIndex === idx
                       ? 'border-brand-orange ring-2 ring-brand-orange/40 scale-105'
                       : 'border-white/20 opacity-50 hover:opacity-100'
-                  }`}
+                    }`}
                 >
                   <img src={img} alt="" className="w-full h-full object-cover" />
                 </button>

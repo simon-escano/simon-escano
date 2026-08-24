@@ -26,7 +26,7 @@ All UI enhancements, layout refinements, interactive Captcha, transparent Chroma
 
 - **Width & Rhythm**: All page sections, floating headers, and footers are constrained to `max-w-[1280px] mx-auto`.
 - **Branding**: Public UI standardizes on `"simon-escano"`, reserving full name `"Simon Escaño"` strictly for the narrative story on the About page.
-- **Typography & Font Weight**: Maximum font weight is capped at `font-semibold` (weight 600) — avoiding `font-bold` and `font-extrabold`.
+- **Typography & Font Weight**: Maximum font weight is capped at `font-medium` (weight 600) — avoiding `font-bold` and `font-extrabold`.
 - **Theme Support**: Adaptive styling across Dark (`#090d16` neutral base) and Light mode (`#ffffff`/`#f8fafc` backdrop, dark slate high-contrast cards).
 - **Shader & Canvas Hygiene**: WebGL shaders (`ColorBends`, `DotField`, `ProfileCard`) are responsive and optimized for GPU performance.
 

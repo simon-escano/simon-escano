@@ -182,11 +182,11 @@ export const Home: React.FC = () => {
             </div>
 
             {/* Tagline */}
-            <h2 className="text-2xl sm:text-3xl font-display font-semibold tracking-tight text-slate-800 dark:text-slate-100 text-center lg:text-left w-full">
+            <h2 className="text-2xl sm:text-3xl font-display font-medium tracking-tight text-slate-800 dark:text-slate-100 text-center lg:text-left w-full">
               <GradientText
                 colors={['#3845C9', '#60a5fa', '#f97316']}
                 animationSpeed={5}
-                className="font-semibold"
+                className="font-medium"
               >
                 Full-Stack Developer & Software Engineer
               </GradientText>
@@ -271,7 +271,7 @@ export const Home: React.FC = () => {
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
-              <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-semibold text-brand-orange">
+              <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-medium text-brand-orange">
                 <CountUp to={9} duration={1.5} />
               </div>
               <p className="mt-2 text-xs sm:text-sm font-mono text-slate-600 dark:text-slate-400 uppercase tracking-wider">
@@ -280,7 +280,7 @@ export const Home: React.FC = () => {
             </SpotlightCard>
 
             <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
-              <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-semibold text-brand-cobalt dark:text-blue-400">
+              <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-medium text-brand-cobalt dark:text-blue-400">
                 <CountUp to={5} duration={1.5} />
                 <span>+</span>
               </div>
@@ -290,7 +290,7 @@ export const Home: React.FC = () => {
             </SpotlightCard>
 
             <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
-              <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-semibold text-emerald-500">
+              <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-medium text-emerald-500">
                 <CountUp to={100} duration={1.5} />
                 <span>%</span>
               </div>
@@ -308,7 +308,7 @@ export const Home: React.FC = () => {
       <section id="featured" className="py-20 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-6 mb-8">
           <div>
-            <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight">
+            <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-tight">
               Top <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Projects</GradientText>
             </h2>
           </div>
@@ -372,7 +372,7 @@ export const Home: React.FC = () => {
                             <div className="relative rounded-lg overflow-hidden h-full">
                               <img src={shown[2]} alt="" className="w-full h-full object-cover" loading="lazy" />
                               {extra > 0 && (
-                                <span className="absolute inset-0 flex items-center justify-center bg-slate-950/75 text-white font-mono font-semibold text-xs backdrop-blur-[2px]">
+                                <span className="absolute inset-0 flex items-center justify-center bg-slate-950/75 text-white font-mono font-medium text-xs backdrop-blur-[2px]">
                                   +{extra}
                                 </span>
                               )}
@@ -381,7 +381,7 @@ export const Home: React.FC = () => {
                         </div>
                       )}
 
-                      <span className="absolute top-2 right-2 px-2 py-0.5 rounded text-[10px] font-mono bg-slate-900/90 text-brand-orange border border-white/10 font-semibold backdrop-blur-md shadow-md">
+                      <span className="absolute top-2 right-2 px-2 py-0.5 rounded text-[10px] font-mono bg-slate-900/90 text-brand-orange border border-white/10 font-medium backdrop-blur-md shadow-md">
                         {p.contributions.split('&')[0]?.trim() || 'Architecture'}
                       </span>
                     </div>
@@ -389,10 +389,10 @@ export const Home: React.FC = () => {
                     {/* Right Column: Information & Stack Tags (Takes More Vertical Space) */}
                     <div className="flex flex-col justify-between h-full py-1 space-y-3">
                       <div className="space-y-2">
-                        <div className="inline-flex items-center gap-1.5 text-[10px] font-mono text-brand-cobalt dark:text-blue-400 font-semibold uppercase tracking-wider">
+                        <div className="inline-flex items-center gap-1.5 text-[10px] font-mono text-brand-cobalt dark:text-blue-400 font-medium uppercase tracking-wider">
                           <span>Featured Solution</span>
                         </div>
-                        <h3 className="text-lg sm:text-xl font-display font-semibold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors leading-tight line-clamp-2">
+                        <h3 className="text-lg sm:text-xl font-display font-medium text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors leading-tight line-clamp-2">
                           {p.title}
                         </h3>
                         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3 sm:line-clamp-4">
@@ -416,7 +416,7 @@ export const Home: React.FC = () => {
                           <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
                             Architecture
                           </span>
-                          <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-brand-cobalt dark:text-blue-400 group-hover:text-brand-orange group-hover:translate-x-1 transition-all">
+                          <span className="inline-flex items-center gap-1 text-[11px] font-mono font-medium text-brand-cobalt dark:text-blue-400 group-hover:text-brand-orange group-hover:translate-x-1 transition-all">
                             <span>Inspect</span>
                             <ArrowRight className="w-3.5 h-3.5" />
                           </span>
@@ -438,7 +438,7 @@ export const Home: React.FC = () => {
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-2 mb-8">
             <div>
-              <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">
+              <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-tight text-slate-900 dark:text-white">
                 Tech Proficiency
               </h2>
               <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1">
@@ -450,7 +450,7 @@ export const Home: React.FC = () => {
           <div className="space-y-6">
             {/* Frontend Row */}
             <div>
-              <div className="text-[11px] font-mono uppercase tracking-wider text-brand-cobalt dark:text-blue-400 mb-2 px-2 font-semibold">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-brand-cobalt dark:text-blue-400 mb-2 px-2 font-medium">
                 Frontend & UI Architecture
               </div>
               <LogoLoop
@@ -469,7 +469,7 @@ export const Home: React.FC = () => {
 
             {/* Backend Row */}
             <div>
-              <div className="text-[11px] font-mono uppercase tracking-wider text-brand-orange mb-2 px-2 font-semibold">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-brand-orange mb-2 px-2 font-medium">
                 Backend, Cloud & Microservices
               </div>
               <LogoLoop
@@ -488,7 +488,7 @@ export const Home: React.FC = () => {
 
             {/* Game Dev, AI & Database Row */}
             <div>
-              <div className="text-[11px] font-mono uppercase tracking-wider text-emerald-500 mb-2 px-2 font-semibold">
+              <div className="text-[11px] font-mono uppercase tracking-wider text-emerald-500 mb-2 px-2 font-medium">
                 Game Physics, AI Diagnostics & Storage
               </div>
               <LogoLoop
@@ -519,11 +519,11 @@ export const Home: React.FC = () => {
             }}
           >
             <div className="flex items-center gap-3 px-4 py-2.5 rounded-xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-brand-cobalt/40 shadow-2xl backdrop-blur-xl animate-in fade-in zoom-in-95 duration-100">
-              <span className="font-mono text-sm font-semibold text-slate-900 dark:text-white">
+              <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">
                 {hoveredSkill.title}
               </span>
               <RatingBars value={hoveredSkill.proficiency} />
-              <span className="text-xs font-mono text-brand-orange font-semibold">
+              <span className="text-xs font-mono text-brand-orange font-medium">
                 {hoveredSkill.proficiency}/10
               </span>
             </div>
@@ -537,7 +537,7 @@ export const Home: React.FC = () => {
       <section className="py-20 border-t border-slate-200 dark:border-white/10 bg-slate-100/40 dark:bg-slate-950/70">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
           <div>
-            <h2 className="font-display text-3xl sm:text-4xl font-semibold tracking-tight text-slate-900 dark:text-white">
+            <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-tight text-slate-900 dark:text-white">
               Championships & <span className="text-brand-orange">Awards</span>
             </h2>
             <p className="text-xs font-mono text-slate-500 dark:text-slate-400 mt-1">
@@ -587,10 +587,10 @@ export const Home: React.FC = () => {
             }}
           >
             <div className="p-4 sm:p-5 rounded-2xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-brand-cobalt/40 shadow-2xl backdrop-blur-xl space-y-2 animate-in fade-in zoom-in-95 duration-150">
-              <span className="text-[10px] font-mono uppercase text-brand-orange font-semibold block">
+              <span className="text-[10px] font-mono uppercase text-brand-orange font-medium block">
                 Honors Recognition
               </span>
-              <h4 className="text-sm sm:text-base font-display font-semibold text-slate-900 dark:text-white leading-snug">
+              <h4 className="text-sm sm:text-base font-display font-medium text-slate-900 dark:text-white leading-snug">
                 {hoveredAward.fullTitle}
               </h4>
               <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3">
@@ -610,7 +610,7 @@ export const Home: React.FC = () => {
             marqueeText="LET'S BUILD SOMETHING EXTRAORDINARY TOGETHER ✦ FULL STACK ✦ GAME DEV ✦ SIMON-ESCANO ✦ "
             speed={1.4}
             curveAmount={130}
-            className="fill-slate-800 dark:fill-white font-display text-3xl sm:text-4xl font-semibold uppercase tracking-widest"
+            className="fill-slate-800 dark:fill-white font-display text-3xl sm:text-4xl font-medium uppercase tracking-widest"
           />
         </div>
 
@@ -622,7 +622,7 @@ export const Home: React.FC = () => {
             glowRadius={35}
           >
             <div className="p-8 sm:p-12 text-center space-y-6">
-              <h3 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
+              <h3 className="font-display text-2xl sm:text-3xl font-medium text-slate-900 dark:text-white">
                 Have a project or opportunity in mind?
               </h3>
               <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">

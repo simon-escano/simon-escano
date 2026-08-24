@@ -334,7 +334,7 @@ export const MagicBento: React.FC<MagicBentoProps> = ({
               enableMagnetism={enableMagnetism}
             >
               <div className="magic-bento-card__header">
-                {card.label && <span className="magic-bento-card__label text-brand-orange font-semibold">{card.label}</span>}
+                {card.label && <span className="magic-bento-card__label text-brand-orange font-medium">{card.label}</span>}
                 {card.icon && <div className="text-brand-cobalt dark:text-blue-400">{card.icon}</div>}
               </div>
               <div className="magic-bento-card__content">
@@ -357,7 +357,7 @@ export const MagicBento: React.FC<MagicBentoProps> = ({
         return (
           <div key={index} className={baseClassName} style={cardStyle}>
             <div className="magic-bento-card__header">
-              {card.label && <span className="magic-bento-card__label text-brand-orange font-semibold">{card.label}</span>}
+              {card.label && <span className="magic-bento-card__label text-brand-orange font-medium">{card.label}</span>}
               {card.icon && <div className="text-brand-cobalt dark:text-blue-400">{card.icon}</div>}
             </div>
             <div className="magic-bento-card__content">

@@ -78,7 +78,7 @@ export const About: React.FC = () => {
               <ShinyText text="About • Architect & Innovator" speed={3} />
             </div>
 
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-center lg:text-left">
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-center lg:text-left">
               Full-Stack Developer <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>&</GradientText> Software Engineer
             </h1>
 
@@ -89,21 +89,21 @@ export const About: React.FC = () => {
 
             <div className="grid grid-cols-3 gap-4 pt-2 w-full max-w-lg">
               <div className="text-center lg:text-left">
-                <div className="text-2xl sm:text-3xl font-display font-semibold text-brand-orange">
+                <div className="text-2xl sm:text-3xl font-display font-medium text-brand-orange">
                   <CountUp to={9} duration={1.2} />
                 </div>
                 <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Major Awards</div>
               </div>
 
               <div className="text-center lg:text-left">
-                <div className="text-2xl sm:text-3xl font-display font-semibold text-brand-cobalt dark:text-blue-400">
+                <div className="text-2xl sm:text-3xl font-display font-medium text-brand-cobalt dark:text-blue-400">
                   <CountUp to={5} duration={1.2} />+
                 </div>
                 <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Certifications</div>
               </div>
 
               <div className="text-center lg:text-left">
-                <div className="text-2xl sm:text-3xl font-display font-semibold text-emerald-500">
+                <div className="text-2xl sm:text-3xl font-display font-medium text-emerald-500">
                   <CountUp to={100} duration={1.2} />%
                 </div>
                 <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Commitment</div>
@@ -147,9 +147,9 @@ export const About: React.FC = () => {
 
         {/* Career Experience Timeline */}
         <div className="space-y-8">
-          <div className="flex items-center gap-4 text-xs font-mono text-brand-orange tracking-wider font-semibold">
+          <div className="flex items-center gap-4 text-xs font-mono text-brand-orange tracking-wider font-medium">
             <Briefcase className="size-10" />
-            <h2 className="font-display text-3xl sm:text-4xl font-semibold text-slate-900 dark:text-white">
+            <h2 className="font-display text-3xl sm:text-4xl font-medium text-slate-900 dark:text-white">
               Industry Experience
             </h2>
           </div>
@@ -163,8 +163,8 @@ export const About: React.FC = () => {
               >
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-white/10 pb-4 mb-6">
                   <div>
-                    <h3 className="text-2xl font-display font-semibold text-slate-900 dark:text-white">{exp.role}</h3>
-                    <div className="text-brand-orange font-mono text-sm font-semibold">{exp.company}</div>
+                    <h3 className="text-2xl font-display font-medium text-slate-900 dark:text-white">{exp.role}</h3>
+                    <div className="text-brand-orange font-mono text-sm font-medium">{exp.company}</div>
                   </div>
                   <div className="text-xs font-mono text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 w-fit">
                     {exp.date_range} • {exp.location}
@@ -188,20 +188,20 @@ export const About: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Education */}
           <div className="space-y-6">
-            <div className="flex items-center gap-4 text-xs font-mono text-brand-cobalt dark:text-blue-400 tracking-wider font-semibold">
+            <div className="flex items-center gap-4 text-xs font-mono text-brand-cobalt dark:text-blue-400 tracking-wider font-medium">
               <GraduationCap className="size-10 text-brand-cobalt" />
-              <h2 className="font-display text-3xl sm:text-4xl font-semibold text-slate-900 dark:text-white">
+              <h2 className="font-display text-3xl sm:text-4xl font-medium text-slate-900 dark:text-white">
                 Formal Education
               </h2>
             </div>
 
             <div className="p-6 rounded-2xl bg-white/80 dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 shadow-sm space-y-3">
-              <div className="text-xs font-mono text-brand-orange font-semibold">{education?.date}</div>
-              <h3 className="text-xl font-display font-semibold text-slate-900 dark:text-white">
+              <div className="text-xs font-mono text-brand-orange font-medium">{education?.date}</div>
+              <h3 className="text-xl font-display font-medium text-slate-900 dark:text-white">
                 {education?.title ?? 'Bachelor of Science in Computer Science'}
               </h3>
               {education?.description && (
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-medium border border-emerald-500/20">
                   {education.description}
                 </div>
               )}
@@ -216,9 +216,9 @@ export const About: React.FC = () => {
 
           {/* Certifications & Industry Badges */}
           <div className="space-y-6">
-            <div className="flex items-center gap-4 text-xs font-mono text-emerald-500 tracking-wider font-semibold">
+            <div className="flex items-center gap-4 text-xs font-mono text-emerald-500 tracking-wider font-medium">
               <ShieldCheck className="size-10 text-emerald-500" />
-              <h2 className="font-display text-3xl sm:text-4xl font-semibold text-slate-900 dark:text-white">
+              <h2 className="font-display text-3xl sm:text-4xl font-medium text-slate-900 dark:text-white">
                 Verified Competencies
               </h2>
             </div>
@@ -232,10 +232,10 @@ export const About: React.FC = () => {
                     className="p-4 rounded-xl bg-white/70 dark:bg-slate-900/40 border border-slate-200 dark:border-white/10 shadow-sm flex flex-col justify-between"
                   >
                     <div>
-                      <div className="text-[10px] font-mono uppercase text-brand-orange font-semibold">
+                      <div className="text-[10px] font-mono uppercase text-brand-orange font-medium">
                         {cred.institution}
                       </div>
-                      <h4 className="text-sm font-semibold text-slate-900 dark:text-white mt-1 leading-snug">{cred.title}</h4>
+                      <h4 className="text-sm font-medium text-slate-900 dark:text-white mt-1 leading-snug">{cred.title}</h4>
                     </div>
                     {cred.date && <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-2">{cred.date}</div>}
                   </div>
@@ -246,9 +246,9 @@ export const About: React.FC = () => {
 
         {/* Spoken & Natural Languages (10-Bar Ratings) */}
         <div className="space-y-6">
-          <div className="flex items-center gap-4 text-xs font-mono text-brand-orange tracking-wider font-semibold">
+          <div className="flex items-center gap-4 text-xs font-mono text-brand-orange tracking-wider font-medium">
             <Globe className="size-10 text-brand-orange" />
-            <h2 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
+            <h2 className="font-display text-2xl sm:text-3xl font-medium text-slate-900 dark:text-white">
               Languages
             </h2>
           </div>
@@ -260,8 +260,8 @@ export const About: React.FC = () => {
                 className="p-5 rounded-2xl bg-white/80 dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 shadow-sm space-y-3"
               >
                 <div className="flex items-center justify-between">
-                  <h4 className="font-display font-semibold text-slate-900 dark:text-white text-lg">{lang.title}</h4>
-                  <span className="text-[11px] font-mono text-brand-orange font-semibold">
+                  <h4 className="font-display font-medium text-slate-900 dark:text-white text-lg">{lang.title}</h4>
+                  <span className="text-[11px] font-mono text-brand-orange font-medium">
                     {lang.level}
                   </span>
                 </div>
@@ -281,9 +281,9 @@ export const About: React.FC = () => {
         {/* Engineering Principles Bento Grid */}
         <div className="space-y-8">
           <div className="text-center max-w-3xl mx-auto space-y-2">
-            <div className="inline-flex items-center gap-4 text-xs font-mono text-brand-orange tracking-wider font-semibold">
+            <div className="inline-flex items-center gap-4 text-xs font-mono text-brand-orange tracking-wider font-medium">
               <Code className="size-10 text-brand-cobalt" />
-              <h2 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
+              <h2 className="font-display text-2xl sm:text-3xl font-medium text-slate-900 dark:text-white">
                 Engineering Principles
               </h2>
             </div>
@@ -315,7 +315,7 @@ export const About: React.FC = () => {
         >
           <div className="p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="text-center md:text-left space-y-2">
-              <h3 className="text-2xl sm:text-3xl font-display font-semibold text-slate-900 dark:text-white">
+              <h3 className="text-2xl sm:text-3xl font-display font-medium text-slate-900 dark:text-white">
                 Ready to collaborate with simon-escano?
               </h3>
               <p className="text-sm text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">

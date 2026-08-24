@@ -26,7 +26,7 @@ export const NotFound: React.FC = () => {
               />
             </div>
 
-            <h1 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
+            <h1 className="font-display text-2xl sm:text-3xl font-medium text-slate-900 dark:text-white">
               Page Not Found
             </h1>
 
