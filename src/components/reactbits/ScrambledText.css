@@ -1,0 +1,16 @@
+.scrambled-text-block {
+  font-family: "JetBrains Mono", monospace;
+  font-size: clamp(0.9rem, 2vw, 1.25rem);
+  color: inherit;
+  line-height: 1.6;
+}
+
+.scrambled-char {
+  display: inline-block;
+  will-change: transform;
+  transition: color 0.15s ease;
+}
+
+.scrambled-char--active {
+  color: #f97316;
+}
