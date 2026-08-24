@@ -8,7 +8,7 @@ To combine all of these React Bits components and motion physics into a polished
 
 Avoid putting multiple high-intensity effects in the same viewport. Every section needs a single **hero element** and quiet supporting elements.
 
-* **Hero Section:** Keep the *Molten Metal* shader canvas strictly behind your main headline and *Lanyard* 3D card. Use *Stroke Text* sparingly (only on your name or primary role), and pair it with a plain, highly legible sans-serif font for your subheadline.
+* **Hero Section:** Keep the *Molten Metal* shader canvas strictly behind your main headline and profile-card. Use *Stroke Text* sparingly (only on your name or primary role), and pair it with a plain, highly legible sans-serif font for your subheadline.
 * **Feature Cards (Card Swap / Spotlight / Bento):** Do not combine *Border Glow*, *Spotlight Card*, *Glass Surface*, and *Tilted Card* all on the same single card.
 * Use **Spotlight Card** for the primary Bento grid containers.
 * Use **Tilted Card** exclusively for interactive media previews.
@@ -39,7 +39,7 @@ Organize your four main views so the components feel natural rather than crammed
 
 ```
 ├── Home Page
-│   ├── Hero: Molten Metal Canvas + Lanyard Profile + Stroke Text Name + Magnet CTA
+│   ├── Hero: Molten Metal Canvas + Profile Card + Stroke Text Name + Magnet CTA
 │   ├── Stats Bar: Count Up (10+ Projects) + Shiny Text Status
 │   ├── Featured Work: Card Swap (Top 5 Projects)
 │   ├── Project Wall: Drift Wall preview (endless infinite scroll)
@@ -72,6 +72,6 @@ Organize your four main views so the components feel natural rather than crammed
 
 ### 5. Defensive Performance Checklist
 
-* **Canvas Viewport Culling:** Wrap the *Molten Metal* shader and *Lanyard* WebGL canvases in an `IntersectionObserver`. When scrolled out of view, set `cancelAnimationFrame` or toggle component rendering off.
+* **Canvas Viewport Culling:** Wrap the *Molten Metal* shader and *Profile Card* WebGL canvases in an `IntersectionObserver`. When scrolled out of view, set `cancelAnimationFrame` or toggle component rendering off.
 * **Bundle Optimization:** Ensure Motion runs strictly under `<LazyMotion features="{domAnimation}" strict>` to prevent dragging the full Framer Motion bundle into the initial page load.
 * **Logo Loop Efficiency:** In the categorized tech stack rows, use CSS translation keyframes (`transform: translate3d`) for infinite scrolling rather than heavy JavaScript loops. Attach shadcn `Tooltip` or `Popover` components to each item so proficiency info appears on hover without blocking the scroll thread.
