@@ -75,11 +75,11 @@ export const About: React.FC = () => {
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-cobalt/10 border border-brand-cobalt/30 text-brand-cobalt dark:text-blue-400 text-xs font-mono">
               <Sparkles className="w-3.5 h-3.5 text-brand-orange" />
-              <ShinyText text="About • Software Architect & Innovator" speed={3} />
+              <ShinyText text="About • Architect & Innovator" speed={3} />
             </div>
 
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-center lg:text-left">
-              Full-Stack Engineer <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>&</GradientText> CS Researcher
+              Full-Stack Developer <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>&</GradientText> Software Engineer
             </h1>
 
             {/* Single Merged Cohesive Bio Paragraph */}

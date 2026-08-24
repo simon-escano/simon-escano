@@ -92,6 +92,29 @@ export const ScrambledText: React.FC<ScrambledTextProps> = ({
     });
   };
 
+  // Group chars into words for word-level wrapping (break on spaces only, not mid-character)
+  type IndexedChar = (typeof chars)[number] & { idx: number };
+  const wordGroups = React.useMemo(() => {
+    const groups: { chars: IndexedChar[]; isSpace: boolean }[] = [];
+    let currentWord: IndexedChar[] = [];
+
+    chars.forEach((c, i) => {
+      if (c.isSpace) {
+        if (currentWord.length > 0) {
+          groups.push({ chars: currentWord, isSpace: false });
+          currentWord = [];
+        }
+        groups.push({ chars: [{ ...c, idx: i }], isSpace: true });
+      } else {
+        currentWord.push({ ...c, idx: i });
+      }
+    });
+    if (currentWord.length > 0) {
+      groups.push({ chars: currentWord, isSpace: false });
+    }
+    return groups;
+  }, [chars]);
+
   return (
     <div
       ref={rootRef}
@@ -100,22 +123,30 @@ export const ScrambledText: React.FC<ScrambledTextProps> = ({
       style={style}
     >
       <p>
-        {chars.map((c, i) =>
-          c.isSpace ? (
-            <span key={i} className="scrambled-char--space">
-              {'\u00A0'}
+        {wordGroups.map((group, gi) => {
+          if (group.isSpace) {
+            return (
+              <span key={`space-${group.chars[0].idx}`} className="scrambled-char--space">
+                {'\u00A0'}
+              </span>
+            );
+          }
+
+          return (
+            <span key={`word-${gi}`} className="scrambled-word">
+              {group.chars.map((c) => (
+                <span
+                  key={c.idx}
+                  data-idx={c.idx}
+                  className={`scrambled-char ${c.active ? 'scrambled-char--active' : ''}`}
+                  onMouseEnter={() => scrambleChar(c.idx)}
+                >
+                  {c.current}
+                </span>
+              ))}
             </span>
-          ) : (
-            <span
-              key={i}
-              data-idx={i}
-              className={`scrambled-char ${c.active ? 'scrambled-char--active' : ''}`}
-              onMouseEnter={() => scrambleChar(i)}
-            >
-              {c.current}
-            </span>
-          )
-        )}
+          );
+        })}
       </p>
     </div>
   );

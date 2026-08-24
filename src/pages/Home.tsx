@@ -3,12 +3,12 @@ import { createPortal } from 'react-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   ArrowRight,
-  Sparkles,
   Code,
   ShieldCheck,
   ExternalLink,
   ChevronRight,
   Trophy,
+  ArrowUpRight,
 } from 'lucide-react';
 import dataService from '@/services/dataService';
 import { RatingBars } from '@/components/common/RatingBars';
@@ -188,7 +188,7 @@ export const Home: React.FC = () => {
                 animationSpeed={5}
                 className="font-semibold"
               >
-                Full-Stack Developer & Software Architect
+                Full-Stack Developer & Software Engineer
               </GradientText>
             </h2>
 
@@ -221,7 +221,7 @@ export const Home: React.FC = () => {
                   to="/contact"
                   className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-medium text-sm transition-all shadow-md"
                 >
-                  <Sparkles className="w-4 h-4 text-brand-orange" />
+                  <ArrowUpRight className="w-4 h-4 text-brand-orange" />
                   <span>Get in Touch</span>
                 </Link>
               </Magnet>
@@ -231,7 +231,7 @@ export const Home: React.FC = () => {
             <div className="flex flex-wrap gap-2 pt-2 justify-center lg:justify-start">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono bg-brand-cobalt/10 border border-brand-cobalt/30 text-brand-cobalt dark:text-blue-400">
                 <Trophy className="w-3.5 h-3.5 text-brand-orange" />
-                <span>9x Hackathon Winner</span>
+                <span>9x Competition Placer</span>
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-mono bg-brand-cobalt/10 border border-brand-cobalt/30 text-brand-cobalt dark:text-blue-400">
                 <Code className="w-3.5 h-3.5 text-brand-cobalt dark:text-blue-400" />
@@ -246,7 +246,7 @@ export const Home: React.FC = () => {
 
           {/* Right Column: 3D Profile Card */}
           <div className="lg:col-span-5 flex items-center justify-center">
-            <div className="w-full max-w-sm sm:max-w-md">
+            <div className="flex justify-center w-full max-w-sm sm:max-w-md">
               <ProfileCard
                 name="simon-escano"
                 title={profile.role}
@@ -275,7 +275,7 @@ export const Home: React.FC = () => {
                 <CountUp to={9} duration={1.5} />
               </div>
               <p className="mt-2 text-xs sm:text-sm font-mono text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                Competitions won
+                Competitions Placed
               </p>
             </SpotlightCard>
 
