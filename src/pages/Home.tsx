@@ -297,7 +297,7 @@ export const Home: React.FC = () => {
           </Link>
         </div>
 
-        <div className="flex justify-center overflow-hidden min-h-[420px] py-8">
+        <div className="flex justify-center overflow-visible min-h-[420px] py-8">
           <CardSwap width={480} height={370} cardDistance={45} verticalDistance={28}>
             {topProjects.map((p) => (
               <Card
