@@ -33,7 +33,7 @@ export const Navbar: React.FC = () => {
       <div
         className={`pointer-events-auto mx-auto transition-all duration-500 ease-out ${
           scrolled
-            ? 'mt-3 w-[calc(100%-1.5rem)] max-w-[1280px] rounded-2xl bg-background/70 dark:bg-slate-950/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-lg shadow-slate-900/10 py-2 px-4 sm:px-5'
+            ? 'mt-3 w-[calc(100%-1.5rem)] max-w-[1280px] rounded-full bg-background/80 dark:bg-slate-950/80 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-lg shadow-slate-900/10 py-2 px-4 sm:px-6'
             : 'mt-0 w-full max-w-none rounded-none bg-transparent border border-transparent shadow-none py-5 px-4 sm:px-6 lg:px-8'
         }`}
       >
@@ -56,17 +56,29 @@ export const Navbar: React.FC = () => {
               </div>
             </NavLink>
 
-            <nav className="hidden md:flex items-center gap-1 bg-slate-100/70 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200/60 dark:border-slate-800/80 p-1.5 rounded-full shadow-inner">
+            <nav
+              className={`hidden md:flex items-center transition-all duration-300 ${
+                scrolled
+                  ? 'gap-5 bg-transparent border-none p-0 shadow-none'
+                  : 'gap-1 bg-slate-100/70 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200/60 dark:border-slate-800/80 p-1.5 rounded-full shadow-inner'
+              }`}
+            >
               {navLinks.map((link) => (
                 <NavLink
                   key={link.path}
                   to={link.path}
                   className={({ isActive }) =>
-                    `relative px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-200 ${
-                      isActive
-                        ? 'bg-brand-cobalt text-white shadow-sm font-semibold'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-slate-200/50 dark:hover:bg-slate-800/50'
-                    }`
+                    scrolled
+                      ? `text-xs font-mono font-medium transition-colors ${
+                          isActive
+                            ? 'text-brand-orange font-semibold'
+                            : 'text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
+                        }`
+                      : `relative px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-200 ${
+                          isActive
+                            ? 'bg-brand-cobalt text-white shadow-sm font-semibold'
+                            : 'text-muted-foreground hover:text-foreground hover:bg-slate-200/50 dark:hover:bg-slate-800/50'
+                        }`
                   }
                 >
                   {link.name}

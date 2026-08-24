@@ -153,7 +153,7 @@ export const ChromaGrid: React.FC<ChromaGridProps> = ({
           onClick={() => handleCardClick(c)}
           style={{
             '--card-border': c.borderColor || '#3845c9',
-            '--card-gradient': c.gradient || 'linear-gradient(180deg, rgba(30, 41, 59, 0.7) 0%, rgba(9, 13, 22, 0.95) 100%)',
+            ...(c.gradient ? { '--card-gradient': c.gradient } : {}),
           } as React.CSSProperties}
         >
           <ProjectCollage images={c.images && c.images.length > 0 ? c.images : [c.image]} title={c.title} />

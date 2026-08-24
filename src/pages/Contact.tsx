@@ -107,8 +107,11 @@ export const Contact: React.FC = () => {
             Open to work
           </div>
 
-          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
-            Let's <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Build Together</GradientText>
+          <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight pb-2 leading-tight">
+            Let's{' '}
+            <GradientText colors={['#3845C9', '#60a5fa', '#f97316']} className="inline-block pb-1">
+              Build Together
+            </GradientText>
           </h1>
 
           <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
@@ -241,7 +244,6 @@ export const Contact: React.FC = () => {
             <BorderGlow
               edgeSensitivity={30}
               glowColor="235 70 60"
-              backgroundColor="rgba(19, 27, 46, 0.85)"
               borderRadius={28}
               className="flex-1"
             >
@@ -251,9 +253,9 @@ export const Contact: React.FC = () => {
                     <div className="w-16 h-16 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mx-auto">
                       <CheckCircle2 className="w-8 h-8" />
                     </div>
-                    <h3 className="text-2xl font-display font-semibold text-white">Message Sent Successfully!</h3>
-                    <p className="text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
-                      Thank you for reaching out, <span className="font-semibold text-white">{name}</span>. simon-escano will review your message and reply back to <span className="font-mono text-brand-orange">{email}</span> promptly.
+                    <h3 className="text-2xl font-display font-semibold text-slate-900 dark:text-white">Message Sent Successfully!</h3>
+                    <p className="text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto leading-relaxed">
+                      Thank you for reaching out, <span className="font-semibold text-slate-900 dark:text-white">{name}</span>. simon-escano will review your message and reply back to <span className="font-mono text-brand-orange">{email}</span> promptly.
                     </p>
                     <div className="pt-4">
                       <button
@@ -264,7 +266,7 @@ export const Contact: React.FC = () => {
                           setMessage('');
                           setTurnstileVerified(false);
                         }}
-                        className="px-6 py-2.5 rounded-full text-xs font-mono bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white transition-colors"
+                        className="px-6 py-2.5 rounded-full text-xs font-mono bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 text-slate-900 dark:text-white transition-colors"
                       >
                         Send Another Message
                       </button>
@@ -272,7 +274,7 @@ export const Contact: React.FC = () => {
                   </div>
                 ) : (
                   <form onSubmit={handleSubmit} className="space-y-5">
-                    <div className="flex items-center gap-2 text-xs font-mono text-blue-400 uppercase tracking-wider mb-2 font-semibold">
+                    <div className="flex items-center gap-2 text-xs font-mono text-brand-cobalt dark:text-blue-400 uppercase tracking-wider mb-2 font-semibold">
                       <MessageSquare className="w-4 h-4 text-brand-orange" />
                       <span>Direct Message Route</span>
                     </div>
@@ -280,38 +282,38 @@ export const Contact: React.FC = () => {
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                       {/* Name */}
                       <div className="space-y-2">
-                        <label className="block text-xs font-mono text-slate-300">Your Name *</label>
+                        <label className="block text-xs font-mono text-slate-700 dark:text-slate-300">Your Name *</label>
                         <input
                           type="text"
                           required
                           value={name}
                           onChange={(e) => setName(e.target.value)}
                           placeholder="e.g. Alex Miller"
-                          className="w-full px-4 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 focus:border-brand-cobalt focus:outline-none text-sm text-white placeholder-slate-500 transition-colors"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 focus:border-brand-cobalt focus:outline-none text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 transition-colors"
                         />
                       </div>
 
                       {/* Email */}
                       <div className="space-y-2">
-                        <label className="block text-xs font-mono text-slate-300">Email Address *</label>
+                        <label className="block text-xs font-mono text-slate-700 dark:text-slate-300">Email Address *</label>
                         <input
                           type="email"
                           required
                           value={email}
                           onChange={(e) => setEmail(e.target.value)}
                           placeholder="you@company.com"
-                          className="w-full px-4 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 focus:border-brand-cobalt focus:outline-none text-sm text-white placeholder-slate-500 transition-colors"
+                          className="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 focus:border-brand-cobalt focus:outline-none text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 transition-colors"
                         />
                       </div>
                     </div>
 
                     {/* Subject / Scope */}
                     <div className="space-y-2">
-                      <label className="block text-xs font-mono text-slate-300">Inquiry Scope</label>
+                      <label className="block text-xs font-mono text-slate-700 dark:text-slate-300">Inquiry Scope</label>
                       <select
                         value={subject}
                         onChange={(e) => setSubject(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-800/80 border border-slate-700 focus:border-brand-cobalt focus:outline-none text-sm text-white transition-colors"
+                        className="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 focus:border-brand-cobalt focus:outline-none text-sm text-slate-900 dark:text-white transition-colors"
                       >
                         <option value="Full-Stack Web Development">Full-Stack Web Development</option>
                         <option value="Game Architecture & Development">Game Architecture & Development</option>
@@ -324,14 +326,14 @@ export const Contact: React.FC = () => {
 
                     {/* Message */}
                     <div className="space-y-2">
-                      <label className="block text-xs font-mono text-slate-300">Message *</label>
+                      <label className="block text-xs font-mono text-slate-700 dark:text-slate-300">Message *</label>
                       <textarea
                         required
                         rows={4}
                         value={message}
                         onChange={(e) => setMessage(e.target.value)}
                         placeholder="Tell simon-escano about your project, engineering role, or technical vision..."
-                        className="w-full px-4 py-3 rounded-xl bg-slate-800/80 border border-slate-700 focus:border-brand-cobalt focus:outline-none text-sm text-white placeholder-slate-500 transition-colors resize-y"
+                        className="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 focus:border-brand-cobalt focus:outline-none text-sm text-slate-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-500 transition-colors resize-y"
                       />
                     </div>
 
@@ -342,8 +344,8 @@ export const Contact: React.FC = () => {
                       onClick={handleCaptchaClick}
                       className={`p-4 rounded-xl border transition-all cursor-pointer select-none flex items-center justify-between ${
                         turnstileVerified
-                          ? 'bg-emerald-950/30 border-emerald-500/40 text-white'
-                          : 'bg-slate-800/90 border-slate-700 hover:border-slate-500 text-slate-300'
+                          ? 'bg-emerald-500/10 border-emerald-500/40 text-slate-900 dark:text-white'
+                          : 'bg-slate-100 dark:bg-slate-800/90 border-slate-300 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 text-slate-800 dark:text-slate-300'
                       }`}
                     >
                       <div className="flex items-center gap-3.5">
@@ -351,10 +353,10 @@ export const Contact: React.FC = () => {
                         <div
                           className={`w-6 h-6 rounded-md border flex items-center justify-center transition-all ${
                             turnstileVerified
-                              ? 'bg-emerald-500 border-emerald-400 text-slate-950 scale-105'
+                              ? 'bg-emerald-500 border-emerald-400 text-white dark:text-slate-950 scale-105'
                               : turnstileVerifying
-                              ? 'border-brand-orange bg-slate-700'
-                              : 'border-slate-500 bg-slate-900 hover:border-brand-orange'
+                              ? 'border-brand-orange bg-slate-200 dark:bg-slate-700'
+                              : 'border-slate-400 dark:border-slate-500 bg-white dark:bg-slate-900 hover:border-brand-orange'
                           }`}
                         >
                           {turnstileVerified ? (
@@ -372,7 +374,7 @@ export const Contact: React.FC = () => {
                               ? 'Verifying challenge...'
                               : 'Verify you are human'}
                           </div>
-                          <div className="text-[10px] font-mono text-slate-400">
+                          <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
                             Cloudflare Turnstile Managed Challenge
                           </div>
                         </div>
@@ -381,7 +383,7 @@ export const Contact: React.FC = () => {
                       <div className="flex flex-col items-end text-right">
                         <ShieldCheck
                           className={`w-5 h-5 transition-colors ${
-                            turnstileVerified ? 'text-emerald-400' : 'text-slate-500'
+                            turnstileVerified ? 'text-emerald-500 dark:text-emerald-400' : 'text-slate-400 dark:text-slate-500'
                           }`}
                         />
                         <span className="text-[9px] font-mono text-slate-500 mt-0.5">Privacy • Terms</span>

@@ -315,10 +315,10 @@ export const MagicBento: React.FC<MagicBentoProps> = ({
   return (
     <div className={`card-grid bento-section ${className}`.trim()} ref={gridRef}>
       {cards.map((card, index) => {
-        const baseClassName = `magic-bento-card ${enableBorderGlow ? 'magic-bento-card--border-glow' : ''} ${card.className || ''}`;
-        const cardStyle: React.CSSProperties = {
-          backgroundColor: card.color || 'rgba(19, 27, 46, 0.75)',
-        };
+        const baseClassName = `magic-bento-card ${enableBorderGlow ? 'magic-bento-card--border-glow' : ''} ${card.className || ''}`.trim();
+        const cardStyle: React.CSSProperties = card.color
+          ? { backgroundColor: card.color }
+          : {};
 
         if (enableStars) {
           return (
@@ -343,7 +343,7 @@ export const MagicBento: React.FC<MagicBentoProps> = ({
                 {card.tags && (
                   <div className="flex flex-wrap gap-1.5 mt-3">
                     {card.tags.map((t: string, idx: number) => (
-                      <span key={idx} className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 border border-white/10 text-slate-300">
+                      <span key={idx} className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-medium">
                         {t}
                       </span>
                     ))}

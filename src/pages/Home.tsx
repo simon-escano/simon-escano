@@ -251,6 +251,7 @@ export const Home: React.FC = () => {
                 title={profile.role}
                 handle="simon-escano"
                 status="Open to work"
+                iconUrl="/favicon.svg"
                 avatarUrl="/images/Escano_Business-Profile-Image_Transparent.png"
                 behindGlowColor="rgba(56, 69, 201, 0.45)"
                 behindGlowSize="60%"
@@ -271,7 +272,6 @@ export const Home: React.FC = () => {
             <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
               <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-semibold text-brand-orange">
                 <CountUp to={9} duration={1.5} />
-                <span>🏆</span>
               </div>
               <p className="mt-2 text-xs sm:text-sm font-mono text-slate-600 dark:text-slate-400 uppercase tracking-wider">
                 Hackathon Championships
@@ -302,7 +302,7 @@ export const Home: React.FC = () => {
       </section>
 
       {/* ──────────────────────────────────────────────────────────
-          3. FLAGSHIP SHOWCASE (Full 1280px Max-Width CardSwap)
+          3. FLAGSHIP SHOWCASE (Max 750px CardSwap with Photo Collage)
       ────────────────────────────────────────────────────────── */}
       <section id="featured" className="py-20 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-6 mb-8">
@@ -321,73 +321,111 @@ export const Home: React.FC = () => {
           </Link>
         </div>
 
-        {/* Full-width CardSwap with soft-edge vertical blur masks */}
-        <div className="relative overflow-hidden min-h-[490px] py-6 flex justify-center">
+        {/* Max 750px CardSwap container with soft vertical blur masks */}
+        <div className="max-w-[750px] mx-auto w-full relative overflow-visible min-h-[460px] py-4 flex justify-center">
           {/* Top and Bottom soft blur gradient overlays */}
-          <div className="absolute inset-x-0 -top-4 h-12 bg-gradient-to-b from-background to-transparent pointer-events-none z-20 backdrop-blur-[1px]" />
-          <div className="absolute inset-x-0 -bottom-4 h-16 bg-gradient-to-t from-background to-transparent pointer-events-none z-20 backdrop-blur-[1px]" />
+          <div className="absolute inset-x-0 -top-4 h-10 bg-gradient-to-b from-background to-transparent pointer-events-none z-20 backdrop-blur-[1px]" />
+          <div className="absolute inset-x-0 -bottom-4 h-12 bg-gradient-to-t from-background to-transparent pointer-events-none z-20 backdrop-blur-[1px]" />
 
-          <CardSwap width="100%" height={460} cardDistance={32} verticalDistance={22}>
-            {topProjects.map((p) => (
-              <Card
-                key={p.id}
-                className="p-5 sm:p-7 md:p-8 flex flex-col justify-between cursor-pointer group select-none overflow-hidden h-full box-border"
-                onClick={() => navigate(`/projects/${p.id}`)}
-              >
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-5 md:gap-6 items-stretch h-full">
-                  {/* Left Column: Project Screenshot Preview */}
-                  <div className="md:col-span-5 relative w-full h-[180px] md:h-full rounded-2xl overflow-hidden bg-slate-950/80 border border-slate-200 dark:border-white/10 shadow-inner flex items-center justify-center flex-shrink-0">
-                    <img
-                      src={p.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png'}
-                      alt={p.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                    <span className="absolute top-3 right-3 px-3 py-1 rounded-lg text-[11px] font-mono bg-slate-900/90 text-brand-orange border border-white/10 font-semibold backdrop-blur-md shadow-md">
-                      {p.contributions.split('&')[0]?.trim() || 'Architecture'}
-                    </span>
-                  </div>
+          <CardSwap width="100%" height={400} cardDistance={28} verticalDistance={18}>
+            {topProjects.map((p) => {
+              const pics = p.gallery.filter(Boolean);
+              const extra = Math.max(0, pics.length - 3);
+              const shown = pics.slice(0, 3);
 
-                  {/* Right Column: Information & Stack Tags */}
-                  <div className="md:col-span-7 flex flex-col justify-between h-full py-0.5 space-y-3">
-                    <div className="space-y-2">
-                      <div className="inline-flex items-center gap-2 text-[11px] font-mono text-brand-cobalt dark:text-blue-400 font-semibold uppercase tracking-wider">
-                        <span>Featured Solution</span>
-                      </div>
-                      <h3 className="text-xl sm:text-2xl md:text-3xl font-display font-semibold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors leading-tight">
-                        {p.title}
-                      </h3>
-                      <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3">
-                        {p.one_liner}
-                      </p>
+              return (
+                <Card
+                  key={p.id}
+                  className="p-5 sm:p-6 flex flex-col justify-between cursor-pointer group select-none overflow-hidden h-full box-border"
+                  onClick={() => navigate(`/projects/${p.id}`)}
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-stretch h-full">
+                    {/* Left Column: Photo Collage Preview */}
+                    <div className="sm:col-span-5 relative w-full h-[150px] sm:h-full flex items-center justify-center flex-shrink-0">
+                      {shown.length <= 1 ? (
+                        <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-950/80 border border-slate-200 dark:border-white/10">
+                          <img
+                            src={shown[0] || '/images/Escano_Business-Profile-Image_Transparent.png'}
+                            alt={p.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            loading="lazy"
+                          />
+                        </div>
+                      ) : shown.length === 2 ? (
+                        <div className="grid grid-cols-2 gap-1.5 w-full h-full rounded-xl overflow-hidden border border-slate-200 dark:border-white/10 bg-slate-950/60 p-1">
+                          {shown.map((src, i) => (
+                            <div key={i} className="relative rounded-lg overflow-hidden h-full">
+                              <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
+                            </div>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="grid grid-cols-12 gap-1.5 w-full h-full rounded-xl overflow-hidden border border-slate-200 dark:border-white/10 bg-slate-950/60 p-1">
+                          <div className="col-span-7 relative rounded-lg overflow-hidden h-full">
+                            <img src={shown[0]} alt="" className="w-full h-full object-cover" loading="lazy" />
+                          </div>
+                          <div className="col-span-5 grid grid-rows-2 gap-1.5 h-full">
+                            <div className="relative rounded-lg overflow-hidden h-full">
+                              <img src={shown[1]} alt="" className="w-full h-full object-cover" loading="lazy" />
+                            </div>
+                            <div className="relative rounded-lg overflow-hidden h-full">
+                              <img src={shown[2]} alt="" className="w-full h-full object-cover" loading="lazy" />
+                              {extra > 0 && (
+                                <span className="absolute inset-0 flex items-center justify-center bg-slate-950/75 text-white font-mono font-semibold text-xs backdrop-blur-[2px]">
+                                  +{extra}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+
+                      <span className="absolute top-2 right-2 px-2 py-0.5 rounded text-[10px] font-mono bg-slate-900/90 text-brand-orange border border-white/10 font-semibold backdrop-blur-md shadow-md">
+                        {p.contributions.split('&')[0]?.trim() || 'Architecture'}
+                      </span>
                     </div>
 
-                    <div className="space-y-3 pt-2.5 border-t border-slate-200 dark:border-white/10">
-                      <div className="flex flex-wrap gap-1.5">
-                        {p.tech_stack.slice(0, 4).map((t, idx) => (
-                          <span
-                            key={idx}
-                            className="px-2.5 py-0.5 rounded-lg text-[11px] font-mono bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-medium"
-                          >
-                            {t.name}
+                    {/* Right Column: Information & Stack Tags */}
+                    <div className="sm:col-span-7 flex flex-col justify-between h-full py-0.5 space-y-2.5">
+                      <div className="space-y-1.5">
+                        <div className="inline-flex items-center gap-1.5 text-[10px] font-mono text-brand-cobalt dark:text-blue-400 font-semibold uppercase tracking-wider">
+                          <span>Featured Solution</span>
+                        </div>
+                        <h3 className="text-lg sm:text-xl font-display font-semibold text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors leading-tight line-clamp-1">
+                          {p.title}
+                        </h3>
+                        <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-2">
+                          {p.one_liner}
+                        </p>
+                      </div>
+
+                      <div className="space-y-2 pt-2 border-t border-slate-200 dark:border-white/10">
+                        <div className="flex flex-wrap gap-1">
+                          {p.tech_stack.slice(0, 3).map((t, idx) => (
+                            <span
+                              key={idx}
+                              className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-medium"
+                            >
+                              {t.name}
+                            </span>
+                          ))}
+                        </div>
+
+                        <div className="flex items-center justify-between pt-0.5">
+                          <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
+                            Architecture
                           </span>
-                        ))}
-                      </div>
-
-                      <div className="flex items-center justify-between pt-1">
-                        <span className="text-xs font-mono text-slate-500 dark:text-slate-400">
-                          Production Architecture
-                        </span>
-                        <span className="inline-flex items-center gap-1.5 text-xs font-mono font-semibold text-brand-cobalt dark:text-blue-400 group-hover:text-brand-orange group-hover:translate-x-1 transition-all">
-                          <span>Inspect Project</span>
-                          <ArrowRight className="w-4 h-4" />
-                        </span>
+                          <span className="inline-flex items-center gap-1 text-[11px] font-mono font-semibold text-brand-cobalt dark:text-blue-400 group-hover:text-brand-orange group-hover:translate-x-1 transition-all">
+                            <span>Inspect</span>
+                            <ArrowRight className="w-3.5 h-3.5" />
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              </Card>
-            ))}
+                </Card>
+              );
+            })}
           </CardSwap>
         </div>
       </section>
@@ -575,15 +613,14 @@ export const Home: React.FC = () => {
           <BorderGlow
             edgeSensitivity={35}
             glowColor="24 95 53"
-            backgroundColor="rgba(19, 27, 46, 0.85)"
             borderRadius={28}
             glowRadius={35}
           >
             <div className="p-8 sm:p-12 text-center space-y-6">
-              <h3 className="font-display text-2xl sm:text-3xl font-semibold text-white">
+              <h3 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
                 Have a project or opportunity in mind?
               </h3>
-              <p className="text-slate-300 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
                 Type your inquiry or email below to jump directly into a connected discussion with simon-escano.
               </p>
 
@@ -599,7 +636,7 @@ export const Home: React.FC = () => {
                 />
               </div>
 
-              <div className="flex items-center justify-center gap-6 pt-4 text-xs font-mono text-slate-400">
+              <div className="flex items-center justify-center gap-6 pt-4 text-xs font-mono text-slate-500 dark:text-slate-400">
                 <a
                   href={`mailto:${profile.contact.email}`}
                   className="hover:text-brand-orange transition-colors flex items-center gap-1"

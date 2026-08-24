@@ -1,3 +1,13 @@
+:root {
+  --border-glow-default-bg: rgba(255, 255, 255, 0.95);
+  --border-glow-default-border: rgba(0, 0, 0, 0.08);
+}
+
+.dark {
+  --border-glow-default-bg: rgba(19, 27, 46, 0.85);
+  --border-glow-default-border: rgba(255, 255, 255, 0.12);
+}
+
 .border-glow-card {
   --edge-proximity: 0;
   --cursor-angle: 45deg;
@@ -12,8 +22,9 @@
   isolation: isolate;
   transform: translate3d(0, 0, 0.01px);
   display: grid;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: var(--card-bg, #090d16);
+  border: 1px solid var(--border-glow-default-border);
+  background: var(--card-bg, var(--border-glow-default-bg));
+  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
   overflow: visible;
 }
 

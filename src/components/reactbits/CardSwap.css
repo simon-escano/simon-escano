@@ -5,7 +5,7 @@
   margin: 0 auto;
 }
 
-.swap-card {
+.card {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -14,10 +14,20 @@
   will-change: transform;
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.95);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.08);
+  color: #0f172a;
   transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.swap-card:hover {
+.dark .card {
+  background: rgba(9, 13, 22, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.6);
+  color: #ffffff;
+}
+
+.card:hover {
   box-shadow: 0 25px 50px -12px rgba(56, 69, 201, 0.25);
 }

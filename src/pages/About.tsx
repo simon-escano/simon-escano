@@ -314,15 +314,14 @@ export const About: React.FC = () => {
         <BorderGlow
           edgeSensitivity={30}
           glowColor="235 70 60"
-          backgroundColor="rgba(19, 27, 46, 0.85)"
           borderRadius={24}
         >
           <div className="p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left space-y-2">
-              <h3 className="text-2xl sm:text-3xl font-display font-semibold text-white">
+              <h3 className="text-2xl sm:text-3xl font-display font-semibold text-slate-900 dark:text-white">
                 Ready to collaborate with simon-escano?
               </h3>
-              <p className="text-sm text-slate-300 max-w-xl leading-relaxed">
+              <p className="text-sm text-slate-600 dark:text-slate-300 max-w-xl leading-relaxed">
                 Open for full-stack engineering roles, game development projects, and innovative technical collaborations.
               </p>
             </div>

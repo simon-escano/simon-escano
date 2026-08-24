@@ -20,7 +20,7 @@ export const BorderGlow: React.FC<BorderGlowProps> = ({
   className = '',
   edgeSensitivity = 30,
   glowColor = '235 70 60',
-  backgroundColor = 'rgba(19, 27, 46, 0.8)',
+  backgroundColor,
   borderRadius = 24,
   glowRadius = 30,
   coneSpread = 25,

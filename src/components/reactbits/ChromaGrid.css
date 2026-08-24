@@ -1,3 +1,19 @@
+:root {
+  --chroma-card-bg: rgba(255, 255, 255, 0.95);
+  --chroma-card-border: rgba(0, 0, 0, 0.08);
+  --chroma-card-title: #0f172a;
+  --chroma-card-text: #475569;
+  --chroma-card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+
+.dark {
+  --chroma-card-bg: rgba(19, 27, 46, 0.8);
+  --chroma-card-border: rgba(255, 255, 255, 0.1);
+  --chroma-card-title: #ffffff;
+  --chroma-card-text: rgba(255, 255, 255, 0.7);
+  --chroma-card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
+}
+
 .chroma-grid {
   position: relative;
   width: 100%;
@@ -8,9 +24,6 @@
   max-width: 100%;
   margin: 0 auto;
   box-sizing: border-box;
-  padding: 16px;
-  border-radius: 24px;
-  overflow: hidden;
 
   --x: 50%;
   --y: 50%;
@@ -23,18 +36,21 @@
   flex-direction: column;
   border-radius: 20px;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: border-color 0.3s ease, transform 0.3s ease;
-  background: var(--card-gradient, rgba(19, 27, 46, 0.8));
+  border: 1px solid var(--chroma-card-border);
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--card-gradient, var(--chroma-card-bg));
+  box-shadow: var(--chroma-card-shadow);
+  backdrop-filter: blur(12px);
 
   --mouse-x: 50%;
   --mouse-y: 50%;
-  --spotlight-color: rgba(56, 69, 201, 0.4);
+  --spotlight-color: rgba(56, 69, 201, 0.25);
 }
 
 .chroma-card:hover {
   border-color: var(--card-border, #3845c9);
   transform: translateY(-2px);
+  box-shadow: 0 12px 30px -4px rgba(56, 69, 201, 0.15);
 }
 
 .chroma-card::before {
@@ -135,13 +151,13 @@
   font-family: "Funnel Display", sans-serif;
   font-size: 1.15rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--chroma-card-title);
   line-height: 1.2;
 }
 
 .chroma-info .role {
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--chroma-card-text);
   line-height: 1.4;
 }
 

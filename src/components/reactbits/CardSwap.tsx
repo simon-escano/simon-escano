@@ -14,30 +14,25 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
   customClass?: string;
 }
 
-export const Card = forwardRef<HTMLDivElement, CardProps>(({ customClass, className = '', ...rest }, ref) => (
-  <div
-    ref={ref}
-    {...rest}
-    className={`swap-card bg-white/95 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 shadow-2xl text-slate-900 dark:text-white backdrop-blur-xl ${customClass ?? ''} ${className}`.trim()}
-  />
-));
+export const Card = forwardRef<HTMLDivElement, CardProps>(
+  ({ customClass, className = '', ...rest }, ref) => (
+    <div
+      ref={ref}
+      {...rest}
+      className={`card ${customClass ?? ''} ${className}`.trim()}
+    />
+  )
+);
 Card.displayName = 'Card';
 
-interface CardSlot {
-  x: number;
-  y: number;
-  z: number;
-  zIndex: number;
-}
-
-const makeSlot = (i: number, distX: number, distY: number, total: number): CardSlot => ({
+const makeSlot = (i: number, distX: number, distY: number, total: number) => ({
   x: i * distX,
   y: -i * distY,
   z: -i * distX * 1.5,
   zIndex: total - i,
 });
 
-const placeNow = (el: HTMLElement | null, slot: CardSlot, skew: number) => {
+const placeNow = (el: HTMLElement | null, slot: ReturnType<typeof makeSlot>, skew: number) => {
   if (!el) return;
   gsap.set(el, {
     x: slot.x,
@@ -67,37 +62,18 @@ export interface CardSwapProps {
 }
 
 export const CardSwap: React.FC<CardSwapProps> = ({
-  width = 460,
-  height = 360,
-  cardDistance = 50,
-  verticalDistance = 40,
-  delay = 4500,
-  pauseOnHover = true,
+  width = 500,
+  height = 400,
+  cardDistance = 60,
+  verticalDistance = 70,
+  delay = 5000,
+  pauseOnHover = false,
   onCardClick,
-  skewAmount = 4,
+  skewAmount = 6,
   easing = 'elastic',
   children,
   className = '',
 }) => {
-  const config =
-    easing === 'elastic'
-      ? {
-        ease: 'elastic.out(0.6,0.9)',
-        durDrop: 1.6,
-        durMove: 1.6,
-        durReturn: 1.6,
-        promoteOverlap: 0.8,
-        returnDelay: 0.05,
-      }
-      : {
-        ease: 'power1.inOut',
-        durDrop: 0.8,
-        durMove: 0.8,
-        durReturn: 0.8,
-        promoteOverlap: 0.45,
-        returnDelay: 0.2,
-      };
-
   const childArr = useMemo(() => Children.toArray(children), [children]);
   const refs = useMemo(
     () => childArr.map(() => React.createRef<HTMLDivElement>()),
@@ -111,8 +87,29 @@ export const CardSwap: React.FC<CardSwapProps> = ({
   const container = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    const config =
+      easing === 'elastic'
+        ? {
+            ease: 'elastic.out(0.6,0.9)',
+            durDrop: 2,
+            durMove: 2,
+            durReturn: 2,
+            promoteOverlap: 0.9,
+            returnDelay: 0.05,
+          }
+        : {
+            ease: 'power1.inOut',
+            durDrop: 0.8,
+            durMove: 0.8,
+            durReturn: 0.8,
+            promoteOverlap: 0.45,
+            returnDelay: 0.2,
+          };
+
     const total = refs.length;
-    refs.forEach((r, i) => placeNow(r.current, makeSlot(i, cardDistance, verticalDistance, total), skewAmount));
+    refs.forEach((r, i) =>
+      placeNow(r.current, makeSlot(i, cardDistance, verticalDistance, total), skewAmount)
+    );
 
     const swap = () => {
       if (order.current.length < 2) return;
@@ -125,7 +122,7 @@ export const CardSwap: React.FC<CardSwapProps> = ({
       tlRef.current = tl;
 
       tl.to(elFront, {
-        y: '+=450',
+        y: '+=500',
         duration: config.durDrop,
         ease: config.ease,
       });
@@ -145,7 +142,7 @@ export const CardSwap: React.FC<CardSwapProps> = ({
             duration: config.durMove,
             ease: config.ease,
           },
-          `promote+=${i * 0.12}`
+          `promote+=${i * 0.15}`
         );
       });
 
@@ -200,7 +197,8 @@ export const CardSwap: React.FC<CardSwapProps> = ({
       clearInterval(intervalRef.current);
       tlRef.current?.kill();
     };
-  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing, refs, config]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [cardDistance, verticalDistance, delay, pauseOnHover, skewAmount, easing]);
 
   const cardWidth = typeof width === 'number' ? `${width}px` : width;
   const cardHeight = typeof height === 'number' ? `${height}px` : height;
@@ -208,19 +206,19 @@ export const CardSwap: React.FC<CardSwapProps> = ({
   const rendered = childArr.map((child, i) =>
     isValidElement(child)
       ? cloneElement(child as React.ReactElement<any>, {
-        key: i,
-        ref: refs[i],
-        style: {
-          width: cardWidth,
-          height: cardHeight,
-          maxWidth: '100%',
-          ...((child.props as any).style ?? {}),
-        },
-        onClick: (e: React.MouseEvent) => {
-          (child.props as any).onClick?.(e);
-          onCardClick?.(i);
-        },
-      })
+          key: i,
+          ref: refs[i],
+          style: {
+            width: cardWidth,
+            height: cardHeight,
+            maxWidth: '100%',
+            ...((child.props as any).style ?? {}),
+          },
+          onClick: (e: React.MouseEvent) => {
+            (child.props as any).onClick?.(e);
+            onCardClick?.(i);
+          },
+        })
       : child
   );
 
@@ -228,7 +226,7 @@ export const CardSwap: React.FC<CardSwapProps> = ({
     <div
       ref={container}
       className={`card-swap-container ${className}`.trim()}
-      style={{ width: cardWidth, height: cardHeight, maxWidth: '100%' }}
+      style={{ width: cardWidth, height: cardHeight }}
     >
       {rendered}
     </div>
