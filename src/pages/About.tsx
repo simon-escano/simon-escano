@@ -29,6 +29,7 @@ export const About: React.FC = () => {
   const experience = dataService.getExperience();
   const credentials = dataService.getCredentials();
   const languages = dataService.getLanguages();
+  const education = credentials.find((c) => c.type === 'education');
 
   // Punchy, simplified principles for Bento Grid
   const principles = [
@@ -196,15 +197,17 @@ export const About: React.FC = () => {
             </h2>
 
             <div className="p-6 rounded-2xl bg-white/80 dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 shadow-sm space-y-3">
-              <div className="text-xs font-mono text-brand-orange font-semibold">Aug 23, 2022 - May 29, 2026 (Graduating)</div>
+              <div className="text-xs font-mono text-brand-orange font-semibold">{education?.date}</div>
               <h3 className="text-xl font-display font-semibold text-slate-900 dark:text-white">
-                Bachelor of Science in Computer Science
+                {education?.title ?? 'Bachelor of Science in Computer Science'}
               </h3>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20">
-                Cum Laude Candidate • 4.59 / 5.0 GWA
-              </div>
+              {education?.description && (
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20">
+                  {education.description}
+                </div>
+              )}
               <p className="text-sm text-slate-700 dark:text-slate-300 pt-1">
-                Cebu Institute of Technology - University (CIT-U)
+                {education?.institution}
               </p>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed pt-1">
                 Specialized in Algorithm Design, State-Driven Game Architectures, Biomedical Signal Processing, and Distributed Cloud Computing.
@@ -262,7 +265,7 @@ export const About: React.FC = () => {
                 <div className="flex items-center justify-between">
                   <h4 className="font-display font-semibold text-slate-900 dark:text-white text-lg">{lang.title}</h4>
                   <span className="text-[11px] font-mono text-brand-orange font-semibold">
-                    {lang.proficiency === 10 ? 'Native / Fluent' : lang.proficiency >= 7 ? 'Advanced' : 'Beginner'}
+                    {lang.level}
                   </span>
                 </div>
 
@@ -294,7 +297,13 @@ export const About: React.FC = () => {
           </div>
 
           <MagicBento
-            cards={principles}
+            cards={principles.map((p) => ({
+              title: p.title,
+              description: p.description,
+              label: p.label,
+              tags: p.tags,
+              className: p.className,
+            }))}
             particleCount={10}
             glowColor="56, 69, 201"
             enableTilt={true}

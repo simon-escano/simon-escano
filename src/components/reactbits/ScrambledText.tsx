@@ -103,7 +103,7 @@ export const ScrambledText: React.FC<ScrambledTextProps> = ({
         {chars.map((c, i) =>
           c.isSpace ? (
             <span key={i} className="scrambled-char--space">
-              {' '}
+              {'\u00A0'}
             </span>
           ) : (
             <span

@@ -27,12 +27,12 @@ export const NotFound: React.FC = () => {
               />
             </div>
 
-            <h1 className="font-display text-2xl sm:text-3xl font-extrabold text-white">
+            <h1 className="font-display text-2xl sm:text-3xl font-semibold text-white">
               Page Not Found
             </h1>
 
             <p className="text-sm text-slate-300 max-w-md mx-auto leading-relaxed">
-              The requested coordinate or URL does not exist in Simon Escaño’s portfolio.
+              The requested coordinate or URL does not exist in this portfolio.
             </p>
 
             <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">

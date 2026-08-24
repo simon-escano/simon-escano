@@ -94,6 +94,7 @@ export interface Credential {
 export interface Language {
   title: string;
   proficiency: number;
+  level: string;
 }
 
 export interface PortfolioData {

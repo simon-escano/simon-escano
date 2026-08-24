@@ -10,7 +10,7 @@ export interface CurvedLoopProps {
 }
 
 export const CurvedLoop: React.FC<CurvedLoopProps> = ({
-  marqueeText = 'Simon Escaño ✦ Full Stack & Game Engineer ✦ Innovation Champion ✦ ',
+  marqueeText = 'simon-escano ✦ Full Stack & Game Engineer ✦ Innovation Champion ✦ ',
   speed = 1.5,
   className = 'fill-slate-100 dark:fill-white font-display text-4xl uppercase tracking-wider',
   curveAmount = 180,
@@ -126,7 +126,7 @@ export const CurvedLoop: React.FC<CurvedLoopProps> = ({
           <path id={pathId} d={pathD} fill="none" stroke="transparent" />
         </defs>
         {ready && (
-          <text fontWeight="bold" xmlSpace="preserve" className={className}>
+          <text fontWeight="600" xmlSpace="preserve" className={className}>
             <textPath ref={textPathRef} href={`#${pathId}`} startOffset={offset + 'px'} xmlSpace="preserve">
               {totalText}
             </textPath>

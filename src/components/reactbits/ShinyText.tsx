@@ -30,8 +30,8 @@ export const ShinyText: React.FC<ShinyTextProps> = ({
   direction = 'left',
   delay = 0,
 }) => {
-  const { theme } = useTheme();
-  const isDark = theme === 'dark';
+  const { actualTheme } = useTheme();
+  const isDark = actualTheme === 'dark';
 
   const baseColor = color || (isDark ? '#94a3b8' : '#475569');
   const highlightColor = shineColor || (isDark ? '#ffffff' : '#3845C9');

@@ -806,7 +806,7 @@
             "company": "AMCS Group Inc.",
             "role": "Data Analyst Intern",
             "location": "Cebu City, Philippines",
-            "date_range": "2025-06-09 - 2025-08-19",
+            "date_range": "Jun 2025 - Aug 2025",
             "contributions": [
                 "Engineered a C# (Avalonia) and PowerShell desktop app to automate Power BI workflows, reducing manual errors.",
                 "Transformed raw client data into interactive Power BI dashboards, delivering actionable business insights."
@@ -1098,20 +1098,24 @@
     ],
     "languages": [
         {
-            "title": "Cebuano",
-            "proficiency": 10
-        },
-        {
             "title": "English",
-            "proficiency": 9
+            "proficiency": 10,
+            "level": "Fluent"
         },
         {
-            "title": "Filipino",
-            "proficiency": 8
+            "title": "Tagalog",
+            "proficiency": 10,
+            "level": "Native"
+        },
+        {
+            "title": "Cebuano",
+            "proficiency": 10,
+            "level": "Native"
         },
         {
             "title": "Japanese",
-            "proficiency": 2
+            "proficiency": 3,
+            "level": "Beginner"
         }
     ]
 }

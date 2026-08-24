@@ -124,7 +124,7 @@ export const Projects: React.FC = () => {
           </div>
 
           {/* Category Tabs (Cleanly Centered, Scrollbar Hidden) */}
-          <div className="flex items-center gap-2 overflow-x-auto w-full md:w-auto [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden">
+          <div className="flex flex-wrap items-center justify-center md:justify-end gap-2 w-full md:flex-1">
             {CATEGORIES.map((cat) => (
               <button
                 key={cat.id}
