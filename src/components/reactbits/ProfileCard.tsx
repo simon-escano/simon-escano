@@ -51,7 +51,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
   enableMobileTilt = false,
   mobileTiltSensitivity = 5,
   miniAvatarUrl,
-  name = 'Simon Escaño',
+  name = 'simon-escano',
   title = 'Full-Stack Developer',
   handle = 'simon-escano',
   status = 'Available for Hire',

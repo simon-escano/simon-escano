@@ -11,6 +11,7 @@ import {
   Sparkles,
 } from 'lucide-react';
 import dataService from '@/services/dataService';
+import { RatingBars } from '@/components/common/RatingBars';
 import {
   ProfileCard,
   SpotlightCard,
@@ -29,38 +30,38 @@ export const About: React.FC = () => {
   const credentials = dataService.getCredentials();
   const languages = dataService.getLanguages();
 
-  // Principles for Bento Grid
+  // Punchy, simplified principles for Bento Grid
   const principles = [
     {
-      title: 'Architectural Correctness First',
-      label: 'Philosophy',
+      title: 'Architectural Rigor',
+      label: 'Core Philosophy',
       description:
-        'Systems should be designed with strict separation of concerns, modular state machines, and high maintainability from day zero.',
-      tags: ['Design Patterns', 'Clean Architecture', 'Type Safety'],
+        'Zero debt architecture. Strict separation of concerns, modular state machines, and high maintainability from day zero.',
+      tags: ['Clean Architecture', 'Type Safety', 'Modularity'],
       className: 'lg:col-span-2',
     },
     {
-      title: 'Performance & Latency Optimization',
-      label: 'Engineering Focus',
+      title: 'Obsessive Speed',
+      label: 'Performance',
       description:
-        'Zero tolerance for unnecessary re-renders, sluggish frame rates, or bloated network payloads. Every millisecond counts.',
-      tags: ['WebGL', 'A* Pathfinding', 'Edge Caching'],
+        'Zero tolerance for unnecessary re-renders, sluggish frame rates, or bloated payloads. Every millisecond counts.',
+      tags: ['WebGL', 'A* Pathfinding', 'Sub-Second'],
       className: 'lg:col-span-1',
     },
     {
-      title: 'User-Obsessed Aesthetics',
-      label: 'UI/UX Design',
+      title: 'Tactile Aesthetics',
+      label: 'UI/UX Craft',
       description:
-        'Engineering without great UX is incomplete. Interfaces must be vibrant, tactile, accessible, and joyful to operate.',
-      tags: ['Micro-Interactions', 'Motion Physics', 'Responsive'],
+        'Interfaces must be vibrant, tactile, accessible, and joyful to operate with motion physics.',
+      tags: ['Motion Physics', 'Responsive', 'Polished'],
       className: 'lg:col-span-1',
     },
     {
-      title: 'Continuous Innovation & Hackathons',
-      label: 'Track Record',
+      title: 'Rapid Prototyping',
+      label: 'Competitive Edge',
       description:
         'Thriving under high-pressure competitive environments, shipping 9 award-winning national and international prototypes.',
-      tags: ['Rapid Prototyping', 'Team Leadership', 'Pitching'],
+      tags: ['9x Champion', 'Agile Execution', 'Leadership'],
       className: 'lg:col-span-2',
     },
   ];
@@ -71,46 +72,41 @@ export const About: React.FC = () => {
         {/* Hero Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-cobalt/10 border border-brand-cobalt/30 text-blue-400 text-xs font-mono">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-cobalt/10 border border-brand-cobalt/30 text-brand-cobalt dark:text-blue-400 text-xs font-mono">
               <Sparkles className="w-3.5 h-3.5 text-brand-orange" />
               <ShinyText text="About • Software Architect & Innovator" speed={3} />
             </div>
 
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight">
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
               Driven by <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Rigorous Engineering</GradientText> & Creative Vision
             </h1>
 
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-              I am Simon Escaño, a full-stack engineer and computer science researcher based in Cebu, Philippines.
-              I bridge complex backend architectures and low-level game mechanics with intuitive, high-performance web applications.
-            </p>
-
-            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
-              With a background spanning 9 national and international hackathon championships, Scopus-indexed medical informatics research,
-              and cross-platform desktop automation, I build resilient systems engineered to solve real-world problems.
+            {/* Single Merged Cohesive Bio Paragraph */}
+            <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+              I am Simon Escaño, a full-stack engineer, computer science researcher, and 9-time hackathon champion graduating Cum Laude with a 4.59 / 5.0 GWA from Cebu Institute of Technology - University. I bridge complex backend architectures and low-level game mechanics with intuitive, high-performance web systems — with work spanning Scopus-indexed medical informatics research, photogrammetry streaming engines, and automated enterprise workflows.
             </p>
 
             {/* Quick Stats Pills */}
-            <div className="grid grid-cols-3 gap-4 pt-4">
-              <div className="p-4 rounded-2xl bg-slate-900/60 border border-white/10 text-center">
-                <div className="text-2xl sm:text-3xl font-display font-extrabold text-brand-orange">
+            <div className="grid grid-cols-3 gap-4 pt-2">
+              <div className="p-4 rounded-2xl bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 shadow-sm text-center">
+                <div className="text-2xl sm:text-3xl font-display font-semibold text-brand-orange">
                   <CountUp to={10} duration={1.2} />+
                 </div>
-                <div className="text-[11px] font-mono text-slate-400 mt-1 uppercase">Shipped Projects</div>
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Shipped Projects</div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-slate-900/60 border border-white/10 text-center">
-                <div className="text-2xl sm:text-3xl font-display font-extrabold text-brand-cobalt dark:text-blue-400">
+              <div className="p-4 rounded-2xl bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 shadow-sm text-center">
+                <div className="text-2xl sm:text-3xl font-display font-semibold text-brand-cobalt dark:text-blue-400">
                   <CountUp to={9} duration={1.2} />
                 </div>
-                <div className="text-[11px] font-mono text-slate-400 mt-1 uppercase">Major Awards</div>
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Major Awards</div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-slate-900/60 border border-white/10 text-center">
-                <div className="text-2xl sm:text-3xl font-display font-extrabold text-emerald-400">
+              <div className="p-4 rounded-2xl bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 shadow-sm text-center">
+                <div className="text-2xl sm:text-3xl font-display font-semibold text-emerald-500">
                   <CountUp to={100} duration={1.2} />%
                 </div>
-                <div className="text-[11px] font-mono text-slate-400 mt-1 uppercase">Commitment</div>
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Commitment</div>
               </div>
             </div>
 
@@ -123,9 +119,9 @@ export const About: React.FC = () => {
 
               <Link
                 to="/projects"
-                className="px-6 py-3 rounded-full bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-brand-cobalt text-sm font-medium text-slate-200 transition-all"
+                className="px-6 py-3 rounded-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-800 dark:hover:bg-slate-700 text-sm font-medium transition-all shadow-sm"
               >
-                Inspect Portfolio Case Studies
+                Inspect Projects
               </Link>
             </div>
           </div>
@@ -134,7 +130,7 @@ export const About: React.FC = () => {
           <div className="lg:col-span-5 flex justify-center">
             <div className="w-full max-w-sm sm:max-w-md">
               <ProfileCard
-                name={profile.name}
+                name="Simon Escaño"
                 title={profile.role}
                 handle="simon-escano"
                 status="Available for Hire"
@@ -150,11 +146,11 @@ export const About: React.FC = () => {
 
         {/* Career Experience Timeline */}
         <div className="space-y-8">
-          <div className="flex items-center gap-2 text-xs font-mono text-brand-orange uppercase tracking-wider">
+          <div className="flex items-center gap-2 text-xs font-mono text-brand-orange uppercase tracking-wider font-semibold">
             <Briefcase className="w-4 h-4" />
             <span>Professional Career</span>
           </div>
-          <h2 className="font-display text-3xl sm:text-4xl font-bold text-white">
+          <h2 className="font-display text-3xl sm:text-4xl font-semibold text-slate-900 dark:text-white">
             Industry Experience
           </h2>
 
@@ -162,22 +158,22 @@ export const About: React.FC = () => {
             {experience.map((exp) => (
               <SpotlightCard
                 key={exp.id}
-                className="p-8 bg-slate-900/50 border-white/10 relative overflow-hidden"
+                className="p-8 bg-white/80 dark:bg-slate-900/50 border-slate-200 dark:border-white/10 shadow-sm relative overflow-hidden"
               >
-                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-white/10 pb-4 mb-6">
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-200 dark:border-white/10 pb-4 mb-6">
                   <div>
-                    <h3 className="text-2xl font-display font-bold text-white">{exp.role}</h3>
+                    <h3 className="text-2xl font-display font-semibold text-slate-900 dark:text-white">{exp.role}</h3>
                     <div className="text-brand-orange font-mono text-sm font-semibold">{exp.company}</div>
                   </div>
-                  <div className="text-xs font-mono text-slate-400 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700 w-fit">
+                  <div className="text-xs font-mono text-slate-500 dark:text-slate-400 bg-slate-100 dark:bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-200 dark:border-slate-700 w-fit">
                     {exp.date_range} • {exp.location}
                   </div>
                 </div>
 
                 <div className="space-y-3">
                   {exp.contributions.map((item, idx) => (
-                    <div key={idx} className="flex items-start gap-3 text-sm text-slate-300 leading-relaxed">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400 mt-1 flex-shrink-0" />
+                    <div key={idx} className="flex items-start gap-3 text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-500 mt-1 flex-shrink-0" />
                       <span>{item}</span>
                     </div>
                   ))}
@@ -191,23 +187,26 @@ export const About: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Education */}
           <div className="space-y-6">
-            <div className="flex items-center gap-2 text-xs font-mono text-blue-400 uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-xs font-mono text-brand-cobalt dark:text-blue-400 uppercase tracking-wider font-semibold">
               <GraduationCap className="w-4 h-4 text-brand-orange" />
               <span>Academic Foundation</span>
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
+            <h2 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
               Formal Education
             </h2>
 
-            <div className="p-6 rounded-2xl bg-slate-900/50 border border-white/10 space-y-3">
-              <div className="text-xs font-mono text-brand-orange font-semibold">2022 - 2026 (Graduating)</div>
-              <h3 className="text-xl font-display font-bold text-white">
+            <div className="p-6 rounded-2xl bg-white/80 dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 shadow-sm space-y-3">
+              <div className="text-xs font-mono text-brand-orange font-semibold">Aug 23, 2022 - May 29, 2026 (Graduating)</div>
+              <h3 className="text-xl font-display font-semibold text-slate-900 dark:text-white">
                 Bachelor of Science in Computer Science
               </h3>
-              <p className="text-sm text-slate-300">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-semibold border border-emerald-500/20">
+                Cum Laude Candidate • 4.59 / 5.0 GWA
+              </div>
+              <p className="text-sm text-slate-700 dark:text-slate-300 pt-1">
                 Cebu Institute of Technology - University (CIT-U)
               </p>
-              <p className="text-xs text-muted-foreground leading-relaxed pt-2">
+              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed pt-1">
                 Specialized in Algorithm Design, State-Driven Game Architectures, Biomedical Signal Processing, and Distributed Cloud Computing.
               </p>
             </div>
@@ -215,11 +214,11 @@ export const About: React.FC = () => {
 
           {/* Certifications & Industry Badges */}
           <div className="space-y-6">
-            <div className="flex items-center gap-2 text-xs font-mono text-emerald-400 uppercase tracking-wider">
+            <div className="flex items-center gap-2 text-xs font-mono text-emerald-500 uppercase tracking-wider font-semibold">
               <ShieldCheck className="w-4 h-4" />
               <span>Verified Competencies</span>
             </div>
-            <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
+            <h2 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
               Certifications & Badges
             </h2>
 
@@ -229,44 +228,51 @@ export const About: React.FC = () => {
                 .map((cred) => (
                   <div
                     key={cred.id}
-                    className="p-4 rounded-xl bg-slate-900/40 border border-white/10 flex flex-col justify-between"
+                    className="p-4 rounded-xl bg-white/70 dark:bg-slate-900/40 border border-slate-200 dark:border-white/10 shadow-sm flex flex-col justify-between"
                   >
                     <div>
                       <div className="text-[10px] font-mono uppercase text-brand-orange font-semibold">
                         {cred.institution}
                       </div>
-                      <h4 className="text-sm font-semibold text-white mt-1 leading-snug">{cred.title}</h4>
+                      <h4 className="text-sm font-semibold text-slate-900 dark:text-white mt-1 leading-snug">{cred.title}</h4>
                     </div>
-                    {cred.date && <div className="text-[10px] font-mono text-slate-400 mt-2">{cred.date}</div>}
+                    {cred.date && <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 mt-2">{cred.date}</div>}
                   </div>
                 ))}
             </div>
           </div>
         </div>
 
-        {/* Spoken & Natural Languages */}
+        {/* Spoken & Natural Languages (10-Bar Ratings) */}
         <div className="space-y-6">
-          <div className="flex items-center gap-2 text-xs font-mono text-brand-orange uppercase tracking-wider">
+          <div className="flex items-center gap-2 text-xs font-mono text-brand-orange uppercase tracking-wider font-semibold">
             <Globe className="w-4 h-4" />
-            <span>Communication</span>
+            <span>Communication & Languages</span>
           </div>
-          <h2 className="font-display text-2xl sm:text-3xl font-bold text-white">
+          <h2 className="font-display text-2xl sm:text-3xl font-semibold text-slate-900 dark:text-white">
             Languages
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {languages.map((lang, idx) => (
               <div
                 key={idx}
-                className="p-5 rounded-2xl bg-slate-900/50 border border-white/10 flex items-center justify-between"
+                className="p-5 rounded-2xl bg-white/80 dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 shadow-sm space-y-3"
               >
-                <div>
-                  <h4 className="font-display font-bold text-white text-lg">{lang.title}</h4>
-                  <p className="text-xs font-mono text-slate-400 mt-0.5">Proficiency: {lang.proficiency}/10</p>
+                <div className="flex items-center justify-between">
+                  <h4 className="font-display font-semibold text-slate-900 dark:text-white text-lg">{lang.title}</h4>
+                  <span className="text-[11px] font-mono text-brand-orange font-semibold">
+                    {lang.proficiency === 10 ? 'Native / Fluent' : lang.proficiency >= 7 ? 'Advanced' : 'Beginner'}
+                  </span>
                 </div>
-                <span className="px-2.5 py-1 rounded-md bg-brand-cobalt/20 border border-brand-cobalt/40 text-blue-300 text-xs font-mono">
-                  Fluent
-                </span>
+
+                <div className="pt-1">
+                  <RatingBars value={lang.proficiency} />
+                </div>
+
+                <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400">
+                  Level {lang.proficiency} of 10
+                </div>
               </div>
             ))}
           </div>
@@ -274,15 +280,15 @@ export const About: React.FC = () => {
 
         {/* Engineering Principles Bento Grid */}
         <div className="space-y-8">
-          <div className="text-center max-w-3xl mx-auto space-y-3">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-cobalt/10 border border-brand-cobalt/30 text-blue-400 text-xs font-mono">
+          <div className="text-center max-w-3xl mx-auto space-y-2">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-cobalt/10 border border-brand-cobalt/30 text-brand-cobalt dark:text-blue-400 text-xs font-mono">
               <Code className="w-3.5 h-3.5 text-brand-orange" />
               <span>Core Philosophy</span>
             </div>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold text-white">
+            <h2 className="font-display text-3xl sm:text-4xl font-semibold text-slate-900 dark:text-white">
               Engineering Principles
             </h2>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-slate-600 dark:text-slate-400">
               Guiding standards embedded in every codebase, pipeline, and architecture.
             </p>
           </div>
@@ -305,10 +311,10 @@ export const About: React.FC = () => {
         >
           <div className="p-8 sm:p-12 flex flex-col md:flex-row items-center justify-between gap-6">
             <div className="text-center md:text-left space-y-2">
-              <h3 className="text-2xl sm:text-3xl font-display font-bold text-white">
-                Ready to collaborate or hire Simon?
+              <h3 className="text-2xl sm:text-3xl font-display font-semibold text-white">
+                Ready to collaborate with simon-escano?
               </h3>
-              <p className="text-sm text-slate-300 max-w-xl">
+              <p className="text-sm text-slate-300 max-w-xl leading-relaxed">
                 Open for full-stack engineering roles, game development projects, and innovative technical collaborations.
               </p>
             </div>

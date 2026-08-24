@@ -31,6 +31,7 @@ export interface AccordionGalleryProps {
   grayscale?: boolean;
   className?: string;
   onItemSelect?: (item: AccordionGalleryItem, index: number) => void;
+  onItemHover?: (index: number, item: AccordionGalleryItem) => void;
 }
 
 export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
@@ -54,6 +55,7 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
   grayscale = true,
   className = '',
   onItemSelect,
+  onItemHover,
 }) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const panelRefs = useRef<(HTMLElement | null)[]>([]);
@@ -178,6 +180,7 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
   );
 
   const handleEnter = (i: number) => {
+    onItemHover?.(i, items[i]);
     if (trigger === 'hover') {
       setActive(i);
       onItemSelect?.(items[i], i);

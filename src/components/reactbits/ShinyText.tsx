@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useAnimationFrame, useTransform } from 'motion/react';
+import { useTheme } from '@/context/ThemeContext';
 import './ShinyText.css';
 
 export interface ShinyTextProps {
@@ -21,14 +22,20 @@ export const ShinyText: React.FC<ShinyTextProps> = ({
   disabled = false,
   speed = 2.5,
   className = '',
-  color = '#94a3b8',
-  shineColor = '#ffffff',
+  color,
+  shineColor,
   spread = 120,
   yoyo = false,
   pauseOnHover = false,
   direction = 'left',
   delay = 0,
 }) => {
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
+
+  const baseColor = color || (isDark ? '#94a3b8' : '#475569');
+  const highlightColor = shineColor || (isDark ? '#ffffff' : '#3845C9');
+
   const [isPaused, setIsPaused] = useState(false);
   const progress = useMotionValue(0);
   const elapsedRef = useRef(0);
@@ -49,10 +56,9 @@ export const ShinyText: React.FC<ShinyTextProps> = ({
       return;
     }
 
-    const deltaTime = time - lastTimeRef.current;
+    const delta = time - lastTimeRef.current;
     lastTimeRef.current = time;
-
-    elapsedRef.current += deltaTime;
+    elapsedRef.current += delta;
 
     if (yoyo) {
       const cycleDuration = animationDuration + delayDuration;
@@ -101,7 +107,7 @@ export const ShinyText: React.FC<ShinyTextProps> = ({
   }, [pauseOnHover]);
 
   const gradientStyle: React.CSSProperties = {
-    backgroundImage: `linear-gradient(${spread}deg, ${color} 0%, ${color} 35%, ${shineColor} 50%, ${color} 65%, ${color} 100%)`,
+    backgroundImage: `linear-gradient(${spread}deg, ${baseColor} 0%, ${baseColor} 35%, ${highlightColor} 50%, ${baseColor} 65%, ${baseColor} 100%)`,
     backgroundSize: '200% auto',
     WebkitBackgroundClip: 'text',
     backgroundClip: 'text',

@@ -31,6 +31,8 @@ export interface LogoLoopProps {
   fadeOutColor?: string;
   scaleOnHover?: boolean;
   renderItem?: (item: LogoItem, key: React.Key) => React.ReactNode;
+  onLogoHover?: (item: LogoItem) => void;
+  onLogoLeave?: () => void;
   ariaLabel?: string;
   className?: string;
   style?: React.CSSProperties;
@@ -52,6 +54,8 @@ export const LogoLoop = memo(
     fadeOutColor,
     scaleOnHover = true,
     renderItem,
+    onLogoHover,
+    onLogoLeave,
     ariaLabel = 'Technology stack',
     className = '',
     style,
@@ -188,13 +192,20 @@ export const LogoLoop = memo(
 
     const handleMouseLeave = useCallback(() => {
       if (effectiveHoverSpeed !== undefined) setIsHovered(false);
-    }, [effectiveHoverSpeed]);
+      onLogoLeave?.();
+    }, [effectiveHoverSpeed, onLogoLeave]);
 
     const renderLogoItem = useCallback(
       (item: LogoItem, key: React.Key) => {
         if (renderItem) {
           return (
-            <li className="logoloop__item" key={key} role="listitem">
+            <li
+              className="logoloop__item cursor-pointer"
+              key={key}
+              role="listitem"
+              onMouseEnter={() => onLogoHover?.(item)}
+              onMouseLeave={() => onLogoLeave?.()}
+            >
               {renderItem(item, key)}
             </li>
           );
@@ -205,13 +216,19 @@ export const LogoLoop = memo(
         ) : item.src ? (
           <img src={item.src} alt={item.alt ?? item.title ?? ''} loading="lazy" />
         ) : (
-          <span className="font-mono text-xs font-semibold px-3 py-1.5 rounded-lg bg-slate-800/80 border border-slate-700 text-slate-200">
+          <span className="font-mono text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/90 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 shadow-sm hover:border-brand-orange transition-colors">
             {item.title}
           </span>
         );
 
         return (
-          <li className="logoloop__item" key={key} role="listitem">
+          <li
+            className="logoloop__item cursor-pointer"
+            key={key}
+            role="listitem"
+            onMouseEnter={() => onLogoHover?.(item)}
+            onMouseLeave={() => onLogoLeave?.()}
+          >
             {item.href ? (
               <a href={item.href} target="_blank" rel="noreferrer noopener" className="logoloop__link">
                 {content}
@@ -222,7 +239,7 @@ export const LogoLoop = memo(
           </li>
         );
       },
-      [renderItem]
+      [renderItem, onLogoHover, onLogoLeave]
     );
 
     const logoLists = useMemo(

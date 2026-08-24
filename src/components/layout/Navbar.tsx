@@ -48,8 +48,8 @@ export const Navbar: React.FC = () => {
               <Logo className="w-8 h-8 drop-shadow-sm" />
             </div>
             <div className="flex flex-col">
-              <span className="font-display font-bold text-lg tracking-tight text-foreground group-hover:text-brand-orange transition-colors">
-                Simon Escaño
+              <span className="font-display font-semibold text-lg tracking-tight text-foreground group-hover:text-brand-orange transition-colors">
+                simon-escano
               </span>
               <span className="text-[10px] font-mono tracking-wider uppercase text-muted-foreground">
                 Full-Stack Architect

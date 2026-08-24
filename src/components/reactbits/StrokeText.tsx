@@ -22,7 +22,7 @@ export interface StrokeTextProps {
 }
 
 export const StrokeText: React.FC<StrokeTextProps> = ({
-  text = 'Simon Escaño',
+  text = 'simon-escano',
   strokeColor = '#3845C9',
   fillColor = '#f97316',
   strokeWidth = 2,
@@ -33,7 +33,7 @@ export const StrokeText: React.FC<StrokeTextProps> = ({
   trigger = 'mount',
   fillMode = 'wipe',
   fontSize = 110,
-  fontWeight = 800,
+  fontWeight = 600,
   letterSpacing = -2,
   reverse = false,
   className = '',

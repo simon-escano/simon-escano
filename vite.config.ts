@@ -25,6 +25,7 @@ export default defineConfig({
           'vendor-ogl': ['ogl'],
           'vendor-icons': ['lucide-react'],
           'vendor-mermaid': ['mermaid'],
+          'vendor-three': ['three'],
         },
       },
     },

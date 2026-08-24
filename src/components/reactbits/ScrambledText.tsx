@@ -21,7 +21,7 @@ export const ScrambledText: React.FC<ScrambledTextProps> = ({
 }) => {
   const rootRef = useRef<HTMLDivElement>(null);
   const text = String(children);
-  const [chars, setChars] = useState<{ original: string; current: string; active: boolean }[]>([]);
+  const [chars, setChars] = useState<{ original: string; current: string; active: boolean; isSpace: boolean }[]>([]);
   const timeoutRefs = useRef<(number | null)[]>([]);
 
   useEffect(() => {
@@ -30,6 +30,7 @@ export const ScrambledText: React.FC<ScrambledTextProps> = ({
         original: char,
         current: char,
         active: false,
+        isSpace: char === ' ' || char === '\n',
       }))
     );
     timeoutRefs.current = new Array(text.length).fill(null);
@@ -37,7 +38,7 @@ export const ScrambledText: React.FC<ScrambledTextProps> = ({
 
   const scrambleChar = useCallback(
     (index: number) => {
-      if (text[index] === ' ') return;
+      if (text[index] === ' ' || text[index] === '\n') return;
       const original = text[index];
       let iterations = 0;
       const maxIterations = 6;
@@ -50,7 +51,7 @@ export const ScrambledText: React.FC<ScrambledTextProps> = ({
         if (iterations >= maxIterations) {
           setChars((prev) => {
             const next = [...prev];
-            if (next[index]) next[index] = { original, current: original, active: false };
+            if (next[index]) next[index] = { original, current: original, active: false, isSpace: false };
             return next;
           });
           return;
@@ -59,7 +60,7 @@ export const ScrambledText: React.FC<ScrambledTextProps> = ({
         const randChar = scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
         setChars((prev) => {
           const next = [...prev];
-          if (next[index]) next[index] = { original, current: randChar, active: true };
+          if (next[index]) next[index] = { original, current: randChar, active: true, isSpace: false };
           return next;
         });
 
@@ -75,9 +76,11 @@ export const ScrambledText: React.FC<ScrambledTextProps> = ({
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     const root = rootRef.current;
     if (!root) return;
-    const spans = root.querySelectorAll<HTMLSpanElement>('.scrambled-char');
+    const spans = root.querySelectorAll<HTMLSpanElement>('.scrambled-char:not(.scrambled-char--space)');
 
-    spans.forEach((span, idx) => {
+    spans.forEach((span) => {
+      const idx = Number(span.dataset.idx);
+      if (isNaN(idx)) return;
       const rect = span.getBoundingClientRect();
       const cx = rect.left + rect.width / 2;
       const cy = rect.top + rect.height / 2;
@@ -97,15 +100,22 @@ export const ScrambledText: React.FC<ScrambledTextProps> = ({
       style={style}
     >
       <p>
-        {chars.map((c, i) => (
-          <span
-            key={i}
-            className={`scrambled-char ${c.active ? 'scrambled-char--active' : ''}`}
-            onMouseEnter={() => scrambleChar(i)}
-          >
-            {c.current}
-          </span>
-        ))}
+        {chars.map((c, i) =>
+          c.isSpace ? (
+            <span key={i} className="scrambled-char--space">
+              {' '}
+            </span>
+          ) : (
+            <span
+              key={i}
+              data-idx={i}
+              className={`scrambled-char ${c.active ? 'scrambled-char--active' : ''}`}
+              onMouseEnter={() => scrambleChar(i)}
+            >
+              {c.current}
+            </span>
+          )
+        )}
       </p>
     </div>
   );

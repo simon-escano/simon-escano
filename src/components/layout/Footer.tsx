@@ -9,7 +9,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="relative border-t border-border bg-slate-900/40 dark:bg-slate-950/80 backdrop-blur-md pt-16 pb-12 overflow-hidden">
+    <footer className="relative border-t border-border bg-slate-100/70 dark:bg-slate-950/80 backdrop-blur-md pt-16 pb-12 overflow-hidden">
       {/* Decorative gradient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-brand-cobalt/60 to-transparent" />
       <div className="absolute top-0 left-1/3 w-1/4 h-24 bg-brand-cobalt/5 blur-3xl pointer-events-none rounded-full" />
@@ -20,8 +20,8 @@ export const Footer: React.FC = () => {
           <div className="md:col-span-2 space-y-4">
             <Link to="/" className="inline-flex items-center gap-3 group">
               <Logo className="w-8 h-8 group-hover:scale-105 transition-transform" />
-              <span className="font-display font-bold text-xl tracking-tight text-foreground">
-                Simon Escaño
+              <span className="font-display font-semibold text-xl tracking-tight text-foreground">
+                simon-escano
               </span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
@@ -105,7 +105,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} Simon Escaño. Designed & built with precision.</p>
+          <p>© {new Date().getFullYear()} simon-escano. Designed & built with precision.</p>
           <div className="flex items-center gap-6">
             <span className="font-mono text-[11px]">
               Vite • React • Tailwind • Motion

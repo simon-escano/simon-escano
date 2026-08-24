@@ -19,3 +19,5 @@ export * from './GradientText';
 export * from './ScrambledText';
 export * from './ShinyText';
 export * from './StrokeText';
+export * from './DotField';
+export * from './ColorBends';

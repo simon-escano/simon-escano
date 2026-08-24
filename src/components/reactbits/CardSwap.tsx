@@ -18,7 +18,7 @@ export const Card = forwardRef<HTMLDivElement, CardProps>(({ customClass, classN
   <div
     ref={ref}
     {...rest}
-    className={`swap-card bg-slate-900/90 dark:bg-slate-950/90 border border-slate-800/80 dark:border-slate-800 backdrop-blur-xl ${customClass ?? ''} ${className}`.trim()}
+    className={`swap-card bg-white/95 dark:bg-slate-950/90 border border-slate-200 dark:border-slate-800 shadow-2xl text-slate-900 dark:text-white backdrop-blur-xl ${customClass ?? ''} ${className}`.trim()}
   />
 ));
 Card.displayName = 'Card';
