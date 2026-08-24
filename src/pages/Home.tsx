@@ -493,9 +493,6 @@ export const Home: React.FC = () => {
                     {displayedAward.fullTitle}
                   </h3>
                 </div>
-                <span className="px-3 py-1 rounded-full text-xs font-mono bg-brand-cobalt/10 border border-brand-cobalt/30 text-brand-cobalt dark:text-blue-400 font-semibold">
-                  Verified Honor
-                </span>
               </div>
               <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
                 {displayedAward.description}
