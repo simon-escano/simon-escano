@@ -1,0 +1,7 @@
+Rich OpenGraph/Twitter cards: Configure dynamic og:image tags and metadata for social previews.
+
+SEO fundamentals: Include semantic HTML structure, a clean sitemap.xml, and valid JSON-LD schema.
+
+Layout stability (Zero CLS): Explicitly define width and height on images and self-host fonts with font-display: swap.
+
+Accessibility (a11y): Maintain full keyboard navigability and support prefers-reduced-motion media queries.
