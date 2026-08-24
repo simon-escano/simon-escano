@@ -115,7 +115,7 @@ export const Home: React.FC = () => {
       {/* ──────────────────────────────────────────────────────────
           1. HERO SECTION (ColorBends base + DotField overlay)
       ────────────────────────────────────────────────────────── */}
-      <section className="relative min-h-[72vh] flex items-center justify-center pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <section className="relative min-h-[70vh] flex items-center justify-center pt-28 px-4 sm:px-6 lg:px-8 overflow-hidden">
         {/* Layered Background Shaders: ColorBends as base ambient shader, DotField on top */}
         <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
           {/* Base Shader Layer: ColorBends */}
@@ -266,7 +266,7 @@ export const Home: React.FC = () => {
       {/* ──────────────────────────────────────────────────────────
           2. IMPACT METRICS BAR (No Top Border for Seamless Blur)
       ────────────────────────────────────────────────────────── */}
-      <section id="stats" className="py-12 border-b border-slate-200 dark:border-white/10 bg-slate-50/60 dark:bg-slate-900/40 backdrop-blur-md">
+      <section id="stats" className="pb-12 border-b bg-transparent border-slate-200 dark:border-white/10 backdrop-blur-md">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
@@ -274,7 +274,7 @@ export const Home: React.FC = () => {
                 <CountUp to={9} duration={1.5} />
               </div>
               <p className="mt-2 text-xs sm:text-sm font-mono text-slate-600 dark:text-slate-400 uppercase tracking-wider">
-                Hackathon Championships
+                Competitions won
               </p>
             </SpotlightCard>
 
