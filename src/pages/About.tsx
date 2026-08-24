@@ -72,37 +72,37 @@ export const About: React.FC = () => {
       <div className="max-w-[1280px] mx-auto space-y-20">
         {/* Hero Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          <div className="lg:col-span-7 space-y-6">
+          <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-cobalt/10 border border-brand-cobalt/30 text-brand-cobalt dark:text-blue-400 text-xs font-mono">
               <Sparkles className="w-3.5 h-3.5 text-brand-orange" />
               <ShinyText text="About • Software Architect & Innovator" speed={3} />
             </div>
 
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-center lg:text-left">
               Full-Stack Engineer <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>&</GradientText> CS Researcher
             </h1>
 
             {/* Single Merged Cohesive Bio Paragraph */}
-            <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed">
+            <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed text-center lg:text-left max-w-2xl">
               I am Simon Escaño, a Cum Laude CS graduate from CIT-U. I design and build fast, reliable systems across photogrammetry pipelines, healthcare informatics research, and scalable web apps.
             </p>
 
-            <div className="grid grid-cols-3 gap-4 pt-2">
-              <div className="text-left">
+            <div className="grid grid-cols-3 gap-4 pt-2 w-full max-w-lg">
+              <div className="text-center lg:text-left">
                 <div className="text-2xl sm:text-3xl font-display font-semibold text-brand-orange">
                   <CountUp to={9} duration={1.2} />
                 </div>
                 <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Major Awards</div>
               </div>
 
-              <div className="text-left">
+              <div className="text-center lg:text-left">
                 <div className="text-2xl sm:text-3xl font-display font-semibold text-brand-cobalt dark:text-blue-400">
                   <CountUp to={5} duration={1.2} />+
                 </div>
                 <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Certifications</div>
               </div>
 
-              <div className="text-left">
+              <div className="text-center lg:text-left">
                 <div className="text-2xl sm:text-3xl font-display font-semibold text-emerald-500">
                   <CountUp to={100} duration={1.2} />%
                 </div>
@@ -111,7 +111,7 @@ export const About: React.FC = () => {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex flex-wrap items-center gap-4 pt-2">
+            <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
               <SpecularButton onClick={() => navigate('/contact')}>
                 <span>Get in Touch</span>
                 <ArrowRight className="w-4 h-4 text-brand-orange" />
