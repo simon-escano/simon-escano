@@ -1,5 +1,5 @@
 use motion.dev + reactbits.dev + shadcn ui
-- Use blue and orange for the colors 
+- Use blue and orange for the ACCENT colors, otherwise use neutral dark/light colors
 - use "Funnel Display" for the primary font
 - have light and dark mode (system by default)
 - Use Motion.dev for 80% of your site. It handles enter/exit transitions, layout animations (layoutId), hover physics, and scroll visibility naturally within React’s lifecycle without leaking event listeners.
