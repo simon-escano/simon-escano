@@ -15,7 +15,7 @@
 * Implement semantic HTML tags (`<header>`, `<main>`, `<section>`, `<footer>`) and ARIA labels.
 
 
-4. **Motion & Interaction Layer (Motion.dev + React Bits)**
+4. **Motion & Interaction Layer (m.dev + React Bits)**
 * Integrate `<LazyMotion>` for lightweight route/card transitions.
 * Add a single React Bits background canvas/shader strictly inside the Hero section.
 * Attach `IntersectionObserver` controllers to halt background loops off-screen.

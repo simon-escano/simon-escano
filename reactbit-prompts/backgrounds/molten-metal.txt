@@ -42,7 +42,7 @@ import MoltenMetal from './MoltenMetal';
 | color1 | string | '#5227FF' | Shadow color for the dim caustic glow. |
 | color2 | string | '#FF9FFC' | Midtone color for the flowing filaments. |
 | color3 | string | '#FFFFFF' | Highlight color for the hot filament cores. |
-| speed | number | 0.35 | Animation speed of the liquid motion. |
+| speed | number | 0.35 | Animation speed of the liquid m. |
 | scale | number | 4 | Zoom of the caustic field (higher = more detail on screen). |
 | detail | number | 3 | Number of domain-folding iterations (1-8). |
 | glow | number | 1.6 | Gain applied to the accumulated filament glow. |

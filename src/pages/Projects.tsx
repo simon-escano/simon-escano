@@ -90,13 +90,14 @@ export const Projects: React.FC = () => {
     title: p.title,
     subtitle: p.one_liner,
     image: p.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png',
+    images: p.gallery,
     url: `/projects/${p.id}`,
     tags: p.tech_stack.slice(0, 3).map((t) => t.name),
   }));
 
   return (
     <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 bg-background text-foreground">
-      <div className="max-w-7xl mx-auto space-y-12">
+      <div className="max-w-[1280px] mx-auto space-y-12">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
@@ -160,13 +161,11 @@ export const Projects: React.FC = () => {
             </button>
           </div>
         ) : (
-          <div className="bg-white/60 dark:bg-slate-900/20 border border-slate-200 dark:border-white/10 rounded-3xl p-4 sm:p-6 backdrop-blur-md shadow-sm">
-            <ChromaGrid
+          <ChromaGrid
               items={chromaItems}
               radius={350}
               onItemClick={(item) => navigate(item.url || `/projects/${item.id}`)}
             />
-          </div>
         )}
 
         {/* Bottom Callout */}

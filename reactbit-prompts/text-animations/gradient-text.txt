@@ -39,7 +39,7 @@ import GradientText from './GradientText'
 ### Full Component Source
 ```jsx
 import { useState, useCallback, useEffect, useRef } from 'react';
-import { motion, useMotionValue, useAnimationFrame, useTransform } from 'motion/react';
+import { m, useMotionValue, useAnimationFrame, useTransform } from 'motion/react';
 import './GradientText.css';
 
 export default function GradientText({
@@ -125,16 +125,16 @@ export default function GradientText({
   };
 
   return (
-    <motion.div
+    <m.div
       className={`animated-gradient-text ${showBorder ? 'with-border' : ''} ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {showBorder && <motion.div className="gradient-overlay" style={{ ...gradientStyle, backgroundPosition }} />}
-      <motion.div className="text-content" style={{ ...gradientStyle, backgroundPosition }}>
+      {showBorder && <m.div className="gradient-overlay" style={{ ...gradientStyle, backgroundPosition }} />}
+      <m.div className="text-content" style={{ ...gradientStyle, backgroundPosition }}>
         {children}
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 }
 

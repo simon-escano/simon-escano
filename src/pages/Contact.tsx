@@ -11,7 +11,6 @@ import {
   Copy,
   Check,
   ShieldCheck,
-  Sparkles,
   MessageSquare,
 } from 'lucide-react';
 import dataService from '@/services/dataService';
@@ -20,7 +19,6 @@ import {
   SpotlightCard,
   SpecularButton,
   GradientText,
-  ShinyText,
 } from '@/components/reactbits';
 
 export const Contact: React.FC = () => {
@@ -35,6 +33,7 @@ export const Contact: React.FC = () => {
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
+  const [copiedMobile, setCopiedMobile] = useState(false);
 
   useEffect(() => {
     const prefillMessage = searchParams.get('message');
@@ -47,6 +46,12 @@ export const Contact: React.FC = () => {
     navigator.clipboard.writeText(profile.contact.email);
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2500);
+  };
+
+  const handleCopyMobile = () => {
+    navigator.clipboard.writeText(profile.mobile);
+    setCopiedMobile(true);
+    setTimeout(() => setCopiedMobile(false), 2500);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -62,12 +67,11 @@ export const Contact: React.FC = () => {
 
   return (
     <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 bg-background text-foreground">
-      <div className="max-w-6xl mx-auto space-y-16">
+      <div className="max-w-[1280px] mx-auto space-y-16">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-cobalt/10 border border-brand-cobalt/30 text-brand-cobalt dark:text-blue-400 text-xs font-mono">
-            <Sparkles className="w-3.5 h-3.5 text-brand-orange" />
-            <ShinyText text="Direct Inquiries • Fast Response Time" speed={3} />
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-semibold">
+            Open to work
           </div>
 
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight">
@@ -114,19 +118,28 @@ export const Contact: React.FC = () => {
                 </div>
 
                 {/* Mobile Phone */}
-                <div className="flex items-center gap-3 p-3.5 rounded-xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-white/5">
-                  <div className="p-2 rounded-lg bg-brand-cobalt/10 text-brand-cobalt dark:text-blue-400 flex-shrink-0">
-                    <Phone className="w-4 h-4" />
+                <div className="flex items-center justify-between p-3.5 rounded-xl bg-slate-100 dark:bg-slate-800/60 border border-slate-200 dark:border-white/5">
+                  <div className="flex items-center gap-3 overflow-hidden">
+                    <div className="p-2 rounded-lg bg-brand-cobalt/10 text-brand-cobalt dark:text-blue-400 flex-shrink-0">
+                      <Phone className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Mobile</div>
+                      <a
+                        href={`tel:${profile.mobile.replace(/\s+/g, '')}`}
+                        className="text-xs sm:text-sm font-mono text-slate-800 dark:text-slate-200 hover:text-brand-orange transition-colors"
+                      >
+                        {profile.mobile}
+                      </a>
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase">Mobile</div>
-                    <a
-                      href={`tel:${profile.mobile.replace(/\s+/g, '')}`}
-                      className="text-xs sm:text-sm font-mono text-slate-800 dark:text-slate-200 hover:text-brand-orange transition-colors"
-                    >
-                      {profile.mobile}
-                    </a>
-                  </div>
+                  <button
+                    onClick={handleCopyMobile}
+                    className="p-2 rounded-lg bg-slate-200 dark:bg-slate-700/60 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition-colors flex-shrink-0"
+                    title="Copy Mobile"
+                  >
+                    {copiedMobile ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                  </button>
                 </div>
 
                 {/* Location */}

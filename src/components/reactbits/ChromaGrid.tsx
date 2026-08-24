@@ -5,6 +5,7 @@ import './ChromaGrid.css';
 export interface ChromaItem {
   id?: string;
   image: string;
+  images?: string[];
   title: string;
   subtitle: string;
   handle?: string;
@@ -15,6 +16,35 @@ export interface ChromaItem {
   tags?: string[];
   onClick?: () => void;
 }
+
+const FALLBACK_IMAGE = '/images/Escano_Business-Profile-Image_Transparent.png';
+
+const ProjectCollage: React.FC<{ images: string[]; title: string }> = ({ images, title }) => {
+  const pics = images.filter(Boolean);
+  const extra = Math.max(0, pics.length - 3);
+  const shown = pics.slice(0, 3);
+
+  if (shown.length <= 1) {
+    return (
+      <div className="chroma-img-wrapper">
+        <img src={shown[0] || FALLBACK_IMAGE} alt={title} loading="lazy" />
+      </div>
+    );
+  }
+
+  return (
+    <div className={`chroma-collage chroma-collage--${shown.length}`}>
+      {shown.map((src, i) => (
+        <div key={`${src}-${i}`} className="chroma-collage__cell">
+          <img src={src} alt="" loading="lazy" />
+          {i === shown.length - 1 && extra > 0 && (
+            <span className="chroma-collage__more">+{extra}</span>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+};
 
 export interface ChromaGridProps {
   items: ChromaItem[];
@@ -126,9 +156,7 @@ export const ChromaGrid: React.FC<ChromaGridProps> = ({
             '--card-gradient': c.gradient || 'linear-gradient(180deg, rgba(30, 41, 59, 0.7) 0%, rgba(9, 13, 22, 0.95) 100%)',
           } as React.CSSProperties}
         >
-          <div className="chroma-img-wrapper">
-            <img src={c.image} alt={c.title} loading="lazy" />
-          </div>
+          <ProjectCollage images={c.images && c.images.length > 0 ? c.images : [c.image]} title={c.title} />
           <footer className="chroma-info">
             <div className="flex items-center justify-between gap-2">
               <h3 className="name group-hover:text-brand-orange transition-colors">{c.title}</h3>

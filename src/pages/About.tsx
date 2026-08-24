@@ -69,7 +69,7 @@ export const About: React.FC = () => {
 
   return (
     <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 bg-background text-foreground">
-      <div className="max-w-7xl mx-auto space-y-20">
+      <div className="max-w-[1280px] mx-auto space-y-20">
         {/* Hero Section */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 space-y-6">
@@ -87,23 +87,22 @@ export const About: React.FC = () => {
               I am Simon Escaño, a full-stack engineer, computer science researcher, and 9-time hackathon champion graduating Cum Laude with a 4.59 / 5.0 GWA from Cebu Institute of Technology - University. I bridge complex backend architectures and low-level game mechanics with intuitive, high-performance web systems — with work spanning Scopus-indexed medical informatics research, photogrammetry streaming engines, and automated enterprise workflows.
             </p>
 
-            {/* Quick Stats Pills */}
             <div className="grid grid-cols-3 gap-4 pt-2">
-              <div className="p-4 rounded-2xl bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 shadow-sm text-center">
+              <div className="text-left">
                 <div className="text-2xl sm:text-3xl font-display font-semibold text-brand-orange">
                   <CountUp to={10} duration={1.2} />+
                 </div>
                 <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Shipped Projects</div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 shadow-sm text-center">
+              <div className="text-left">
                 <div className="text-2xl sm:text-3xl font-display font-semibold text-brand-cobalt dark:text-blue-400">
                   <CountUp to={9} duration={1.2} />
                 </div>
                 <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Major Awards</div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 shadow-sm text-center">
+              <div className="text-left">
                 <div className="text-2xl sm:text-3xl font-display font-semibold text-emerald-500">
                   <CountUp to={100} duration={1.2} />%
                 </div>

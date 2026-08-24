@@ -14,7 +14,7 @@ export const Footer: React.FC = () => {
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-brand-cobalt/60 to-transparent" />
       <div className="absolute top-0 left-1/3 w-1/4 h-24 bg-brand-cobalt/5 blur-3xl pointer-events-none rounded-full" />
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-border/60">
           {/* Col 1: Bio */}
           <div className="md:col-span-2 space-y-4">

@@ -54,7 +54,7 @@ export const ProjectDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 bg-background text-foreground">
-      <div className="max-w-6xl mx-auto space-y-16">
+      <div className="max-w-[1280px] mx-auto space-y-16">
         {/* Top Breadcrumb & Actions */}
         <div className="flex items-center justify-between">
           <Link

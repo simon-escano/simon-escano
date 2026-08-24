@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { motion, useMotionValue, useSpring } from 'motion/react';
+import { m, useMotionValue, useSpring } from 'motion/react';
 
 const springValues = {
   damping: 30,
@@ -101,7 +101,7 @@ export const TiltedCard: React.FC<TiltedCardProps> = ({
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <motion.div
+      <m.div
         className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10"
         style={{
           width: imageWidth,
@@ -112,7 +112,7 @@ export const TiltedCard: React.FC<TiltedCardProps> = ({
           transformStyle: 'preserve-3d',
         }}
       >
-        <motion.img
+        <m.img
           src={imageSrc}
           alt={altText}
           className="w-full h-full object-cover rounded-2xl will-change-transform"
@@ -120,17 +120,17 @@ export const TiltedCard: React.FC<TiltedCardProps> = ({
         />
 
         {displayOverlayContent && overlayContent && (
-          <motion.div
+          <m.div
             className="absolute inset-0 z-10 flex flex-col justify-end p-4 bg-gradient-to-t from-black/80 via-black/20 to-transparent"
             style={{ transform: 'translateZ(30px)' }}
           >
             {overlayContent}
-          </motion.div>
+          </m.div>
         )}
-      </motion.div>
+      </m.div>
 
       {showTooltip && captionText && (
-        <motion.figcaption
+        <m.figcaption
           className="pointer-events-none absolute left-0 top-0 rounded-md bg-slate-900/90 border border-white/20 px-2.5 py-1 text-xs font-mono text-white shadow-xl z-20"
           style={{
             x,
@@ -140,7 +140,7 @@ export const TiltedCard: React.FC<TiltedCardProps> = ({
           }}
         >
           {captionText}
-        </motion.figcaption>
+        </m.figcaption>
       )}
     </figure>
   );

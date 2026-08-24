@@ -17,7 +17,6 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setIsOpen(false);
   }, [location.pathname]);
@@ -30,109 +29,104 @@ export const Navbar: React.FC = () => {
   ];
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'py-3 bg-background/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-border shadow-sm'
-          : 'py-5 bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between">
-          {/* Brand / Logo */}
-          <NavLink
-            to="/"
-            className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-lg"
-          >
-            <div className="transition-transform duration-300 group-hover:scale-105">
-              <Logo className="w-8 h-8 drop-shadow-sm" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-display font-semibold text-lg tracking-tight text-foreground group-hover:text-brand-orange transition-colors">
-                simon-escano
-              </span>
-              <span className="text-[10px] font-mono tracking-wider uppercase text-muted-foreground">
-                Full-Stack Architect
-              </span>
-            </div>
-          </NavLink>
-
-          {/* Desktop Nav Items */}
-          <nav className="hidden md:flex items-center gap-1 bg-slate-100/70 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200/60 dark:border-slate-800/80 p-1.5 rounded-full shadow-inner">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.path}
-                to={link.path}
-                className={({ isActive }) =>
-                  `relative px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-200 ${
-                    isActive
-                      ? 'bg-brand-cobalt text-white shadow-sm font-semibold'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-slate-200/50 dark:hover:bg-slate-800/50'
-                  }`
-                }
-              >
-                {link.name}
-              </NavLink>
-            ))}
-          </nav>
-
-          {/* Right Controls: Theme Toggle + Contact Magnet Button */}
-          <div className="hidden md:flex items-center gap-3">
-            <ThemeToggle />
+    <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
+      <div
+        className={`pointer-events-auto mx-auto transition-all duration-500 ease-out ${
+          scrolled
+            ? 'mt-3 w-[calc(100%-1.5rem)] max-w-[1280px] rounded-2xl bg-background/70 dark:bg-slate-950/70 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-lg shadow-slate-900/10 py-2 px-4 sm:px-5'
+            : 'mt-0 w-full max-w-none rounded-none bg-transparent border border-transparent shadow-none py-5 px-4 sm:px-6 lg:px-8'
+        }`}
+      >
+        <div className={scrolled ? '' : 'max-w-[1280px] mx-auto'}>
+          <div className="flex items-center justify-between">
             <NavLink
-              to="/contact"
-              className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-brand-orange to-brand-ember rounded-full shadow-md shadow-brand-orange/20 hover:shadow-lg hover:shadow-brand-orange/30 hover:scale-105 active:scale-95 transition-all duration-200"
+              to="/"
+              className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-lg"
             >
-              <span>Get in Touch</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
+              <div className="transition-transform duration-300 group-hover:scale-105">
+                <Logo className="w-8 h-8 drop-shadow-sm" />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-display font-semibold text-lg tracking-tight text-foreground group-hover:text-brand-orange transition-colors">
+                  simon-escano
+                </span>
+                <span className="text-[10px] font-mono tracking-wider uppercase text-muted-foreground">
+                  Full-Stack Architect
+                </span>
+              </div>
             </NavLink>
-          </div>
 
-          {/* Mobile Menu Button */}
-          <div className="flex items-center gap-2 md:hidden">
-            <ThemeToggle />
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none"
-              aria-label="Toggle menu"
-            >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-          </div>
-        </div>
-      </div>
+            <nav className="hidden md:flex items-center gap-1 bg-slate-100/70 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200/60 dark:border-slate-800/80 p-1.5 rounded-full shadow-inner">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.path}
+                  to={link.path}
+                  className={({ isActive }) =>
+                    `relative px-4 py-1.5 text-sm font-medium rounded-full transition-all duration-200 ${
+                      isActive
+                        ? 'bg-brand-cobalt text-white shadow-sm font-semibold'
+                        : 'text-muted-foreground hover:text-foreground hover:bg-slate-200/50 dark:hover:bg-slate-800/50'
+                    }`
+                  }
+                >
+                  {link.name}
+                </NavLink>
+              ))}
+            </nav>
 
-      {/* Mobile Drawer */}
-      {isOpen && (
-        <div className="md:hidden px-4 pt-3 pb-6 bg-background/95 dark:bg-slate-950/95 backdrop-blur-xl border-b border-border animate-in slide-in-from-top-2">
-          <div className="flex flex-col space-y-2 pt-2">
-            {navLinks.map((link) => (
-              <NavLink
-                key={link.path}
-                to={link.path}
-                className={({ isActive }) =>
-                  `px-4 py-2.5 rounded-lg text-base font-medium transition-colors ${
-                    isActive
-                      ? 'bg-brand-cobalt text-white font-semibold'
-                      : 'text-muted-foreground hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-900'
-                  }`
-                }
-              >
-                {link.name}
-              </NavLink>
-            ))}
-            <div className="pt-2">
+            <div className="hidden md:flex items-center gap-3">
+              <ThemeToggle />
               <NavLink
                 to="/contact"
-                className="flex items-center justify-center gap-2 w-full py-3 text-sm font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-brand-orange to-brand-ember rounded-xl shadow-md shadow-brand-orange/20"
+                className="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-brand-orange to-brand-ember rounded-full shadow-md shadow-brand-orange/20 hover:shadow-lg hover:shadow-brand-orange/30 hover:scale-105 active:scale-95 transition-all duration-200"
               >
-                <Sparkles className="w-4 h-4" />
                 <span>Get in Touch</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
               </NavLink>
             </div>
+
+            <div className="flex items-center gap-2 md:hidden">
+              <ThemeToggle />
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none"
+                aria-label="Toggle menu"
+              >
+                {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
           </div>
+
+          {isOpen && (
+            <div className="md:hidden pt-3 pb-2 animate-in slide-in-from-top-2">
+              <div className="flex flex-col space-y-2">
+                {navLinks.map((link) => (
+                  <NavLink
+                    key={link.path}
+                    to={link.path}
+                    className={({ isActive }) =>
+                      `px-4 py-2.5 rounded-lg text-base font-medium transition-colors ${
+                        isActive
+                          ? 'bg-brand-cobalt text-white font-semibold'
+                          : 'text-muted-foreground hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-900'
+                      }`
+                    }
+                  >
+                    {link.name}
+                  </NavLink>
+                ))}
+                <NavLink
+                  to="/contact"
+                  className="flex items-center justify-center gap-2 w-full py-3 text-sm font-semibold uppercase tracking-wider text-white bg-gradient-to-r from-brand-orange to-brand-ember rounded-xl shadow-md shadow-brand-orange/20"
+                >
+                  <Sparkles className="w-4 h-4" />
+                  <span>Get in Touch</span>
+                </NavLink>
+              </div>
+            </div>
+          )}
         </div>
-      )}
+      </div>
     </header>
   );
 };

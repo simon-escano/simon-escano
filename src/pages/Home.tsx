@@ -79,7 +79,7 @@ export const Home: React.FC = () => {
     hoveredAwardIndex !== null ? allAccordionAwards[hoveredAwardIndex] : allAccordionAwards[0];
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground overflow-hidden">
+    <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* ──────────────────────────────────────────────────────────
           1. HERO SECTION (DotField on top of ColorBends)
       ────────────────────────────────────────────────────────── */}
@@ -110,7 +110,7 @@ export const Home: React.FC = () => {
         {/* Smooth blur and gradient transition to the next section */}
         <div className="absolute inset-x-0 bottom-0 h-36 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none backdrop-blur-[1px] z-10" />
 
-        <div className="relative z-20 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+        <div className="relative z-20 max-w-[1280px] mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
           {/* Left Column: Responsive Text Alignment (Centered on small, Left-aligned on large) */}
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
             {/* Status Pill */}
@@ -228,7 +228,7 @@ export const Home: React.FC = () => {
           2. IMPACT METRICS BAR (CountUp + Spotlight)
       ────────────────────────────────────────────────────────── */}
       <section id="stats" className="py-12 border-y border-slate-200 dark:border-white/10 bg-slate-50/60 dark:bg-slate-900/40 backdrop-blur-md">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
               <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-semibold text-brand-orange">
@@ -276,7 +276,7 @@ export const Home: React.FC = () => {
       {/* ──────────────────────────────────────────────────────────
           3. TOP 5 FLAGSHIP SHOWCASE (CardSwap with Photos)
       ────────────────────────────────────────────────────────── */}
-      <section id="featured" className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section id="featured" className="py-20 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-6 mb-8">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-cobalt/10 border border-brand-cobalt/30 text-brand-cobalt dark:text-blue-400 text-xs font-mono mb-2">
@@ -297,8 +297,7 @@ export const Home: React.FC = () => {
           </Link>
         </div>
 
-        {/* CardSwap Deck with Images */}
-        <div className="bg-slate-100/60 dark:bg-slate-900/30 border border-slate-200 dark:border-white/10 rounded-3xl p-6 sm:p-10 backdrop-blur-md flex justify-center overflow-hidden">
+        <div className="flex justify-center overflow-visible min-h-[420px] py-8">
           <CardSwap width={480} height={370} cardDistance={45} verticalDistance={28}>
             {topProjects.map((p) => (
               <Card
@@ -354,7 +353,7 @@ export const Home: React.FC = () => {
           4. TECH PROFICIENCY (LogoLoop + 10-Bar Hover Rating)
       ────────────────────────────────────────────────────────── */}
       <section className="py-20 border-t border-slate-200 dark:border-white/10 bg-slate-50/50 dark:bg-slate-950/40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-12">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-cobalt/10 border border-brand-cobalt/30 text-brand-cobalt dark:text-blue-400 text-xs font-mono mb-2">
               <Terminal className="w-3.5 h-3.5 text-brand-orange" />
@@ -387,7 +386,7 @@ export const Home: React.FC = () => {
 
           <div className="space-y-5">
             {/* Frontend Row */}
-            <div className="p-3.5 rounded-2xl bg-white/70 dark:bg-slate-900/40 border border-slate-200/80 dark:border-white/5 backdrop-blur-sm">
+            <div>
               <div className="text-[11px] font-mono uppercase tracking-wider text-brand-cobalt dark:text-blue-400 mb-2 px-2 font-semibold">
                 Frontend & UI Architecture
               </div>
@@ -406,7 +405,7 @@ export const Home: React.FC = () => {
             </div>
 
             {/* Backend Row */}
-            <div className="p-3.5 rounded-2xl bg-white/70 dark:bg-slate-900/40 border border-slate-200/80 dark:border-white/5 backdrop-blur-sm">
+            <div>
               <div className="text-[11px] font-mono uppercase tracking-wider text-brand-orange mb-2 px-2 font-semibold">
                 Backend, Cloud & Microservices
               </div>
@@ -425,7 +424,7 @@ export const Home: React.FC = () => {
             </div>
 
             {/* Game Dev, AI & Database Row */}
-            <div className="p-3.5 rounded-2xl bg-white/70 dark:bg-slate-900/40 border border-slate-200/80 dark:border-white/5 backdrop-blur-sm">
+            <div>
               <div className="text-[11px] font-mono uppercase tracking-wider text-emerald-500 mb-2 px-2 font-semibold">
                 Game Physics, AI Diagnostics & Storage
               </div>
@@ -450,7 +449,7 @@ export const Home: React.FC = () => {
           5. ACHIEVEMENTS & AWARDS (Two Rows Accordion + Hover Card)
       ────────────────────────────────────────────────────────── */}
       <section className="py-20 border-t border-slate-200 dark:border-white/10 bg-slate-100/40 dark:bg-slate-950/70">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
           <div className="text-center max-w-3xl mx-auto space-y-2">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-brand-orange/10 border border-brand-orange/30 text-brand-orange text-xs font-mono">
               <Award className="w-3.5 h-3.5" />
@@ -465,8 +464,7 @@ export const Home: React.FC = () => {
           </div>
 
           {/* Row 1 Accordion Gallery */}
-          <div className="space-y-2">
-            <div className="text-xs font-mono text-slate-500 uppercase px-2">Premier National Championships (Batch 1)</div>
+          <div className="flex flex-col space-y-2">
             <AccordionGallery
               items={awardsRow1}
               height={260}
@@ -474,11 +472,6 @@ export const Home: React.FC = () => {
               expandRatio={0.45}
               onItemHover={(idx) => setHoveredAwardIndex(idx)}
             />
-          </div>
-
-          {/* Row 2 Accordion Gallery */}
-          <div className="space-y-2">
-            <div className="text-xs font-mono text-slate-500 uppercase px-2">APAC & Research Honors (Batch 2)</div>
             <AccordionGallery
               items={awardsRow2}
               height={260}

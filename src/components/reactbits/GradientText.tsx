@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useEffect, useRef } from 'react';
-import { motion, useMotionValue, useAnimationFrame, useTransform } from 'motion/react';
+import { m, useMotionValue, useAnimationFrame, useTransform } from 'motion/react';
 
 export interface GradientTextProps {
   children: React.ReactNode;
@@ -92,18 +92,18 @@ export const GradientText: React.FC<GradientTextProps> = ({
   };
 
   return (
-    <motion.span
+    <m.span
       className={`inline-flex items-center relative ${showBorder ? 'px-3 py-1 rounded-full border border-brand-cobalt/30 bg-slate-900/40 backdrop-blur-md' : ''} ${className}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      <motion.span
+      <m.span
         className="inline-block bg-clip-text text-transparent"
         style={{ ...gradientStyle, backgroundPosition }}
       >
         {children}
-      </motion.span>
-    </motion.span>
+      </m.span>
+    </m.span>
   );
 };
 
