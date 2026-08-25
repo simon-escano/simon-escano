@@ -10,6 +10,7 @@ import {
   CheckCircle2,
   Sparkles,
   Trophy,
+  Terminal,
 } from 'lucide-react';
 import dataService from '@/services/dataService';
 import { RatingBars } from '@/components/common/RatingBars';
@@ -106,8 +107,8 @@ export const About: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 flex flex-col items-center lg:items-start text-center lg:text-left space-y-6">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-cobalt/10 border border-brand-cobalt/30 text-brand-cobalt dark:text-blue-400 text-xs font-mono">
-              <Sparkles className="w-3.5 h-3.5 text-brand-orange" />
-              <ShinyText text="About • Architect & Innovator" speed={3} />
+              <Terminal className="w-3.5 h-3.5 text-brand-orange" />
+              <ShinyText text="About • Systems & Engineering" speed={3} />
             </div>
 
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-center lg:text-left min-h-[1.25em] flex items-center justify-center lg:justify-start">

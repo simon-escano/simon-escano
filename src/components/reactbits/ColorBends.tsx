@@ -220,6 +220,20 @@ export const ColorBends: React.FC<ColorBendsProps> = ({
 
     handleResize();
 
+    let isVisible = true;
+    let io: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver !== 'undefined') {
+      io = new IntersectionObserver(([entry]) => {
+        isVisible = entry.isIntersecting;
+      }, { threshold: 0.05 });
+      io.observe(container);
+    }
+
+    const handleVisibility = () => {
+      isVisible = !document.hidden && (io ? isVisible : true);
+    };
+    document.addEventListener('visibilitychange', handleVisibility);
+
     if (typeof ResizeObserver !== 'undefined') {
       const ro = new ResizeObserver(handleResize);
       ro.observe(container);
@@ -229,30 +243,34 @@ export const ColorBends: React.FC<ColorBendsProps> = ({
     }
 
     const loop = () => {
-      const dt = clock.getDelta();
-      const elapsed = clock.elapsedTime;
-      if (material) {
-        material.uniforms.uTime.value = elapsed;
+      if (isVisible && !document.hidden) {
+        const dt = clock.getDelta();
+        const elapsed = clock.elapsedTime;
+        if (material) {
+          material.uniforms.uTime.value = elapsed;
 
-        const deg = (rotationRef.current % 360) + autoRotateRef.current * elapsed;
-        const rad = (deg * Math.PI) / 180;
-        const c = Math.cos(rad);
-        const s = Math.sin(rad);
-        material.uniforms.uRot.value.set(c, s);
+          const deg = (rotationRef.current % 360) + autoRotateRef.current * elapsed;
+          const rad = (deg * Math.PI) / 180;
+          const c = Math.cos(rad);
+          const s = Math.sin(rad);
+          material.uniforms.uRot.value.set(c, s);
 
-        const cur = pointerCurrentRef.current;
-        const tgt = pointerTargetRef.current;
-        const amt = Math.min(1, dt * pointerSmoothRef.current);
-        cur.lerp(tgt, amt);
-        material.uniforms.uPointer.value.copy(cur);
+          const cur = pointerCurrentRef.current;
+          const tgt = pointerTargetRef.current;
+          const amt = Math.min(1, dt * pointerSmoothRef.current);
+          cur.lerp(tgt, amt);
+          material.uniforms.uPointer.value.copy(cur);
+        }
+        renderer.render(scene, camera);
       }
-      renderer.render(scene, camera);
       rafRef.current = requestAnimationFrame(loop);
     };
     rafRef.current = requestAnimationFrame(loop);
 
     return () => {
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+      if (io) io.disconnect();
+      document.removeEventListener('visibilitychange', handleVisibility);
       if (resizeObserverRef.current) resizeObserverRef.current.disconnect();
       else window.removeEventListener('resize', handleResize);
       geometry.dispose();
