@@ -146,7 +146,7 @@ export const ProjectDetail: React.FC = () => {
     if (isDragging) {
       try {
         e.currentTarget.releasePointerCapture(e.pointerId);
-      } catch {}
+      } catch { }
       setIsDragging(false);
     }
   };
@@ -456,10 +456,6 @@ export const ProjectDetail: React.FC = () => {
 
         {/* Results & Metrics */}
         <div className="p-8 rounded-3xl bg-white/80 dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 shadow-sm space-y-6">
-          <div className="flex items-center gap-2 text-xs font-mono text-brand-orange uppercase tracking-wider font-medium">
-            <Zap className="w-4 h-4" />
-            <span>Production Impact</span>
-          </div>
           <h2 className="font-display text-2xl sm:text-3xl font-medium text-slate-900 dark:text-white">
             Measured Results & Outcomes
           </h2>
@@ -571,13 +567,12 @@ export const ProjectDetail: React.FC = () => {
 
             {/* Interactive Image Viewport with Pointer Drag Capture & Double Tap Zoom */}
             <div
-              className={`relative flex-1 flex items-center justify-center overflow-hidden touch-none ${
-                zoomScale > 1
+              className={`relative flex-1 flex items-center justify-center overflow-hidden touch-none ${zoomScale > 1
                   ? isDragging
                     ? 'cursor-grabbing'
                     : 'cursor-grab'
                   : 'cursor-zoom-in'
-              }`}
+                }`}
               onPointerDown={handlePointerDown}
               onPointerMove={handlePointerMove}
               onPointerUp={handlePointerUp}
@@ -638,11 +633,10 @@ export const ProjectDetail: React.FC = () => {
                       setActiveImageIndex(idx);
                       resetZoomPan();
                     }}
-                    className={`w-14 sm:w-16 h-10 sm:h-11 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 ${
-                      activeImageIndex === idx
+                    className={`w-14 sm:w-16 h-10 sm:h-11 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 ${activeImageIndex === idx
                         ? 'border-brand-orange ring-2 ring-brand-orange/40 scale-105 shadow-md'
                         : 'border-white/20 opacity-50 hover:opacity-100'
-                    }`}
+                      }`}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />
                   </button>
