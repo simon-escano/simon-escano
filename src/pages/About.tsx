@@ -34,7 +34,6 @@ const ABOUT_TITLES = [
 
 export const About: React.FC = () => {
   const navigate = useNavigate();
-  const profile = dataService.getProfile();
   const experience = dataService.getExperience();
   const credentials = dataService.getCredentials();
   const languages = dataService.getLanguages();
@@ -156,7 +155,7 @@ export const About: React.FC = () => {
             <div className="flex w-full max-w-sm sm:max-w-md justify-center">
               <ProfileCard
                 name="Simon Escaño"
-                title={profile.role}
+                title={ABOUT_TITLES[titleIndex]}
                 handle="simon-escano"
                 status="Open to work"
                 iconUrl='/images/icon-pattern.png'
@@ -210,9 +209,9 @@ export const About: React.FC = () => {
         </div>
 
         {/* Education & Credentials */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        <div className="flex flex-col lg:flex-row gap-8 items-start">
           {/* Education - max 380px, TiltedCard with Gold/Cum Laude theme */}
-          <div className="lg:col-span-5 w-full max-w-[380px] mx-auto lg:mx-0 space-y-6">
+          <div className="w-full lg:w-[380px] lg:max-w-[380px] flex-shrink-0 space-y-6">
             <div className="flex items-center gap-4 text-xs font-mono text-amber-500 dark:text-amber-400 tracking-wider font-medium">
               <GraduationCap className="size-10 text-amber-500 dark:text-amber-400" />
               <h2 className="font-display text-3xl sm:text-4xl font-medium text-slate-900 dark:text-white">
@@ -224,7 +223,7 @@ export const About: React.FC = () => {
               containerHeight="auto"
               containerWidth="100%"
               scaleOnHover={1.03}
-              rotateAmplitude={10}
+              rotateAmplitude={8}
               className="w-full"
               innerClassName="w-full"
             >
@@ -267,7 +266,7 @@ export const About: React.FC = () => {
           </div>
 
           {/* Certifications & Industry Badges */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="w-full lg:flex-1 space-y-6">
             <div className="flex items-center gap-4 text-xs font-mono text-emerald-500 tracking-wider font-medium">
               <ShieldCheck className="size-10 text-emerald-500" />
               <h2 className="font-display text-3xl sm:text-4xl font-medium text-slate-900 dark:text-white">
@@ -275,7 +274,7 @@ export const About: React.FC = () => {
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {credentials
                 .filter((c) => c.type !== 'education')
                 .map((cred) => (

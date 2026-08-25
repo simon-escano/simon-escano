@@ -368,12 +368,19 @@ export const DecryptedText: React.FC<DecryptedTextProps> = ({
     <span className={parentClassName} ref={containerRef} style={styles.wrapper} {...animateProps} {...props}>
       <span style={styles.srOnly}>{displayText}</span>
 
-      <span aria-hidden="true">
+      <span aria-hidden="true" className={className}>
         {displayText.split('').map((char, index) => {
           const isRevealedOrDone = revealedIndices.has(index) || (!isAnimating && isDecrypted);
 
           return (
-            <span key={index} className={isRevealedOrDone ? className : encryptedClassName}>
+            <span
+              key={index}
+              className={
+                isRevealedOrDone
+                  ? undefined
+                  : `inline-block font-mono text-brand-orange [-webkit-text-fill-color:#f97316] ${encryptedClassName}`
+              }
+            >
               {char}
             </span>
           );

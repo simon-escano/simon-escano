@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useCallback, useMemo } from 'react';
 import './ProfileCard.css';
+import { DecryptedText } from './DecryptedText';
 
 const DEFAULT_INNER_GRADIENT = 'linear-gradient(145deg, rgba(56, 69, 201, 0.4) 0%, rgba(249, 115, 22, 0.25) 100%)';
 
@@ -368,7 +369,16 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
             <div className="pc-content">
               <div className="pc-details">
                 <h3>{name}</h3>
-                <p>{title}</p>
+                <p>
+                  <DecryptedText
+                    text={title}
+                    speed={25}
+                    maxIterations={8}
+                    animateOn="change"
+                    className="font-medium"
+                    encryptedClassName="font-mono text-brand-orange [-webkit-text-fill-color:#f97316]"
+                  />
+                </p>
               </div>
             </div>
           </div>

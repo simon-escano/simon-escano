@@ -43,14 +43,18 @@ export const TiltedCard: React.FC<TiltedCardProps> = ({
   children,
 }) => {
   const ref = useRef<HTMLElement>(null);
-
   const x = useMotionValue(0);
   const y = useMotionValue(0);
-  const rotateX = useSpring(useMotionValue(0), springValues);
-  const rotateY = useSpring(useMotionValue(0), springValues);
-  const scale = useSpring(1, springValues);
+  const rawRotateX = useMotionValue(0);
+  const rawRotateY = useMotionValue(0);
+  const rawScale = useMotionValue(1);
+
+  const rotateX = useSpring(rawRotateX, springValues);
+  const rotateY = useSpring(rawRotateY, springValues);
+  const scale = useSpring(rawScale, springValues);
   const opacity = useSpring(0);
-  const rotateFigcaption = useSpring(0, {
+  const rawRotateFigcaption = useMotionValue(0);
+  const rotateFigcaption = useSpring(rawRotateFigcaption, {
     stiffness: 350,
     damping: 30,
     mass: 1,
@@ -62,34 +66,40 @@ export const TiltedCard: React.FC<TiltedCardProps> = ({
     if (!ref.current) return;
 
     const rect = ref.current.getBoundingClientRect();
-    const offsetX = e.clientX - rect.left - rect.width / 2;
-    const offsetY = e.clientY - rect.top - rect.height / 2;
+    const halfWidth = rect.width / 2 || 1;
+    const halfHeight = rect.height / 2 || 1;
 
-    const rotationX = (offsetY / (rect.height / 2)) * -rotateAmplitude;
-    const rotationY = (offsetX / (rect.width / 2)) * rotateAmplitude;
+    const offsetX = e.clientX - rect.left - halfWidth;
+    const offsetY = e.clientY - rect.top - halfHeight;
 
-    rotateX.set(rotationX);
-    rotateY.set(rotationY);
+    const normX = Math.max(-1, Math.min(1, offsetX / halfWidth));
+    const normY = Math.max(-1, Math.min(1, offsetY / halfHeight));
+
+    const rotationX = normY * -rotateAmplitude;
+    const rotationY = normX * rotateAmplitude;
+
+    rawRotateX.set(rotationX);
+    rawRotateY.set(rotationY);
 
     x.set(e.clientX - rect.left);
     y.set(e.clientY - rect.top);
 
     const velocityY = offsetY - lastY;
-    rotateFigcaption.set(-velocityY * 0.6);
+    rawRotateFigcaption.set(-velocityY * 0.6);
     setLastY(offsetY);
   }
 
   function handleMouseEnter() {
-    scale.set(scaleOnHover);
+    rawScale.set(scaleOnHover);
     opacity.set(1);
   }
 
   function handleMouseLeave() {
     opacity.set(0);
-    scale.set(1);
-    rotateX.set(0);
-    rotateY.set(0);
-    rotateFigcaption.set(0);
+    rawScale.set(1);
+    rawRotateX.set(0);
+    rawRotateY.set(0);
+    rawRotateFigcaption.set(0);
   }
 
   return (

@@ -3,6 +3,8 @@ import './LogoLoop.css';
 
 const ANIMATION_CONFIG = { SMOOTH_TAU: 0.25, MIN_COPIES: 2, COPY_HEADROOM: 2 };
 
+const toCssLength = (value?: number | string) => (typeof value === 'number' ? `${value}px` : (value ?? undefined));
+
 export interface LogoItem {
   node?: React.ReactNode;
   src?: string;
@@ -40,7 +42,133 @@ export interface LogoLoopProps {
   style?: React.CSSProperties;
 }
 
-const toCssLength = (value?: number | string) => (typeof value === 'number' ? `${value}px` : (value ?? undefined));
+const useResizeObserver = (
+  callback: () => void,
+  elements: React.RefObject<HTMLElement | null>[],
+  dependencies: React.DependencyList
+) => {
+  useEffect(() => {
+    if (!window.ResizeObserver) {
+      const handleResize = () => callback();
+      window.addEventListener('resize', handleResize);
+      callback();
+      return () => window.removeEventListener('resize', handleResize);
+    }
+    const observers = elements.map((ref) => {
+      if (!ref.current) return null;
+      const observer = new ResizeObserver(callback);
+      observer.observe(ref.current);
+      return observer;
+    });
+    callback();
+    return () => {
+      observers.forEach((observer) => observer?.disconnect());
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [callback, ...dependencies]);
+};
+
+const useImageLoader = (
+  seqRef: React.RefObject<HTMLElement | null>,
+  onLoad: () => void,
+  dependencies: React.DependencyList
+) => {
+  useEffect(() => {
+    const images = seqRef.current?.querySelectorAll('img') ?? [];
+    if (images.length === 0) {
+      onLoad();
+      return;
+    }
+    let remainingImages = images.length;
+    const handleImageLoad = () => {
+      remainingImages -= 1;
+      if (remainingImages === 0) onLoad();
+    };
+    images.forEach((img) => {
+      const htmlImg = img as HTMLImageElement;
+      if (htmlImg.complete) {
+        handleImageLoad();
+      } else {
+        htmlImg.addEventListener('load', handleImageLoad, { once: true });
+        htmlImg.addEventListener('error', handleImageLoad, { once: true });
+      }
+    });
+    return () => {
+      images.forEach((img) => {
+        img.removeEventListener('load', handleImageLoad);
+        img.removeEventListener('error', handleImageLoad);
+      });
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [onLoad, seqRef, ...dependencies]);
+};
+
+const useAnimationLoop = (
+  trackRef: React.RefObject<HTMLDivElement | null>,
+  targetVelocity: number,
+  seqWidth: number,
+  seqHeight: number,
+  isHovered: boolean,
+  hoverSpeed: number | undefined,
+  isVertical: boolean
+) => {
+  const rafRef = useRef<number | null>(null);
+  const lastTimestampRef = useRef<number | null>(null);
+  const offsetRef = useRef(0);
+  const velocityRef = useRef(0);
+
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+
+    const seqSize = isVertical ? seqHeight : seqWidth;
+
+    if (seqSize > 0) {
+      offsetRef.current = ((offsetRef.current % seqSize) + seqSize) % seqSize;
+      const transformValue = isVertical
+        ? `translate3d(0, ${-offsetRef.current}px, 0)`
+        : `translate3d(${-offsetRef.current}px, 0, 0)`;
+      track.style.transform = transformValue;
+    }
+
+    const animate = (timestamp: number) => {
+      if (lastTimestampRef.current === null) {
+        lastTimestampRef.current = timestamp;
+      }
+
+      const deltaTime = Math.max(0, timestamp - lastTimestampRef.current) / 1000;
+      lastTimestampRef.current = timestamp;
+
+      const target = isHovered && hoverSpeed !== undefined ? hoverSpeed : targetVelocity;
+
+      const easingFactor = 1 - Math.exp(-deltaTime / ANIMATION_CONFIG.SMOOTH_TAU);
+      velocityRef.current += (target - velocityRef.current) * easingFactor;
+
+      if (seqSize > 0) {
+        let nextOffset = offsetRef.current + velocityRef.current * deltaTime;
+        nextOffset = ((nextOffset % seqSize) + seqSize) % seqSize;
+        offsetRef.current = nextOffset;
+
+        const transformValue = isVertical
+          ? `translate3d(0, ${-offsetRef.current}px, 0)`
+          : `translate3d(${-offsetRef.current}px, 0, 0)`;
+        track.style.transform = transformValue;
+      }
+
+      rafRef.current = requestAnimationFrame(animate);
+    };
+
+    rafRef.current = requestAnimationFrame(animate);
+
+    return () => {
+      if (rafRef.current !== null) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+      lastTimestampRef.current = null;
+    };
+  }, [targetVelocity, seqWidth, seqHeight, isHovered, hoverSpeed, isVertical, trackRef]);
+};
 
 export const LogoLoop = memo(
   ({
@@ -82,78 +210,46 @@ export const LogoLoop = memo(
 
     const targetVelocity = useMemo(() => {
       const magnitude = Math.abs(speed);
-      const directionMultiplier = isVertical
-        ? direction === 'up'
-          ? 1
-          : -1
-        : direction === 'left'
-          ? 1
-          : -1;
+      let directionMultiplier: number;
+      if (isVertical) {
+        directionMultiplier = direction === 'up' ? 1 : -1;
+      } else {
+        directionMultiplier = direction === 'left' ? 1 : -1;
+      }
       const speedMultiplier = speed < 0 ? -1 : 1;
       return magnitude * directionMultiplier * speedMultiplier;
     }, [speed, direction, isVertical]);
 
     const updateDimensions = useCallback(() => {
       const containerWidth = containerRef.current?.clientWidth ?? 0;
-      const sequenceRect = seqRef.current?.getBoundingClientRect();
+      const sequenceRect = seqRef.current?.getBoundingClientRect?.();
       const sequenceWidth = sequenceRect?.width ?? 0;
       const sequenceHeight = sequenceRect?.height ?? 0;
 
       if (isVertical) {
-        setSeqHeight(sequenceHeight);
+        const parentHeight = containerRef.current?.parentElement?.clientHeight ?? 0;
+        if (containerRef.current && parentHeight > 0) {
+          const targetHeight = Math.ceil(parentHeight);
+          if (containerRef.current.style.height !== `${targetHeight}px`) {
+            containerRef.current.style.height = `${targetHeight}px`;
+          }
+        }
         if (sequenceHeight > 0) {
-          const containerHeight = containerRef.current?.clientHeight ?? 0;
-          setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, Math.ceil(containerHeight / sequenceHeight) + ANIMATION_CONFIG.COPY_HEADROOM));
+          setSeqHeight(Math.ceil(sequenceHeight));
+          const viewport = containerRef.current?.clientHeight ?? parentHeight ?? sequenceHeight;
+          const copiesNeeded = Math.ceil(viewport / sequenceHeight) + ANIMATION_CONFIG.COPY_HEADROOM;
+          setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded));
         }
-      } else {
-        setSeqWidth(sequenceWidth);
-        if (sequenceWidth > 0) {
-          setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, Math.ceil(containerWidth / sequenceWidth) + ANIMATION_CONFIG.COPY_HEADROOM));
-        }
+      } else if (sequenceWidth > 0) {
+        setSeqWidth(Math.ceil(sequenceWidth));
+        const copiesNeeded = Math.ceil(containerWidth / sequenceWidth) + ANIMATION_CONFIG.COPY_HEADROOM;
+        setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded));
       }
     }, [isVertical]);
 
-    useEffect(() => {
-      updateDimensions();
-      window.addEventListener('resize', updateDimensions);
-      return () => window.removeEventListener('resize', updateDimensions);
-    }, [updateDimensions, logos]);
-
-    useEffect(() => {
-      const track = trackRef.current;
-      if (!track) return;
-
-      const seqSize = isVertical ? seqHeight : seqWidth;
-      let offset = 0;
-      let velocity = 0;
-      let lastTimestamp: number | null = null;
-      let rafId: number | null = null;
-
-      const animate = (timestamp: number) => {
-        if (lastTimestamp === null) lastTimestamp = timestamp;
-        const deltaTime = Math.max(0, timestamp - lastTimestamp) / 1000;
-        lastTimestamp = timestamp;
-
-        const target = isHovered && effectiveHoverSpeed !== undefined ? effectiveHoverSpeed : targetVelocity;
-        const easingFactor = 1 - Math.exp(-deltaTime / ANIMATION_CONFIG.SMOOTH_TAU);
-        velocity += (target - velocity) * easingFactor;
-
-        if (seqSize > 0) {
-          offset = (offset + velocity * deltaTime) % seqSize;
-          if (offset < 0) offset += seqSize;
-          track.style.transform = isVertical
-            ? `translate3d(0, ${-offset}px, 0)`
-            : `translate3d(${-offset}px, 0, 0)`;
-        }
-
-        rafId = requestAnimationFrame(animate);
-      };
-
-      rafId = requestAnimationFrame(animate);
-      return () => {
-        if (rafId) cancelAnimationFrame(rafId);
-      };
-    }, [targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical]);
+    useResizeObserver(updateDimensions, [containerRef, seqRef], [logos, gap, logoHeight, isVertical]);
+    useImageLoader(seqRef, updateDimensions, [logos, gap, logoHeight, isVertical]);
+    useAnimationLoop(trackRef, targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical);
 
     const cssVariables = useMemo(
       () => ({
@@ -171,21 +267,21 @@ export const LogoLoop = memo(
           isVertical ? 'logoloop--vertical' : 'logoloop--horizontal',
           fadeOut && 'logoloop--fade',
           scaleOnHover && 'logoloop--scale-hover',
-          isHovered && 'logoloop--is-hovered',
           className,
         ]
           .filter(Boolean)
           .join(' '),
-      [isVertical, fadeOut, scaleOnHover, isHovered, className]
+      [isVertical, fadeOut, scaleOnHover, className]
     );
 
     const handleMouseEnter = useCallback(() => {
-      setIsHovered(true);
-    }, []);
+      if (effectiveHoverSpeed !== undefined) setIsHovered(true);
+    }, [effectiveHoverSpeed]);
 
     const handleMouseLeave = useCallback(() => {
-      setIsHovered(false);
-    }, []);
+      if (effectiveHoverSpeed !== undefined) setIsHovered(false);
+      onLogoLeave?.();
+    }, [effectiveHoverSpeed, onLogoLeave]);
 
     const renderLogoItem = useCallback(
       (item: LogoItem, key: React.Key) => {

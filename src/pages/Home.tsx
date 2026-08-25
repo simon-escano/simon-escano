@@ -267,7 +267,7 @@ export const Home: React.FC = () => {
             <div className="flex justify-center w-full max-w-sm sm:max-w-md">
               <ProfileCard
                 name="simon-escano"
-                title={profile.role}
+                title={HERO_TITLES[titleIndex]}
                 handle="simon-escano"
                 status="Open to work"
                 iconUrl="/images/icon-pattern.png"
