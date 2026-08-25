@@ -22,6 +22,7 @@ import {
   SpecularButton,
   GradientText,
   DotField,
+  ShinyText,
 } from '@/components/reactbits';
 
 const SCOPE_OPTIONS = [
@@ -150,8 +151,16 @@ export const Contact: React.FC = () => {
       <div className="relative z-10 max-w-[1280px] mx-auto space-y-16">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-medium">
-            Open to work
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/80 dark:bg-slate-900/90 border border-slate-200 dark:border-brand-cobalt/40 shadow-md backdrop-blur-md">
+            <span className="relative flex h-2.5 w-2.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500 dark:bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500 dark:bg-emerald-400"></span>
+            </span>
+            <ShinyText
+              text="Open to work"
+              speed={3}
+              className="text-xs font-mono font-medium"
+            />
           </div>
 
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight pb-2 leading-tight">
