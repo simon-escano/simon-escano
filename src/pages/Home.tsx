@@ -45,7 +45,6 @@ export const Home: React.FC = () => {
   const navigate = useNavigate();
   const profile = dataService.getProfile();
   const allProjects = dataService.getProjects();
-  const topProjects = dataService.getTopProjects(5);
   const techStack = dataService.getTechStack();
   const achievements = dataService.getAchievements();
 
@@ -321,131 +320,101 @@ export const Home: React.FC = () => {
       </section>
 
       {/* ──────────────────────────────────────────────────────────
-          3. FLAGSHIP SHOWCASE (Max 750px CardSwap with Photo Collage)
+          3. PROJECTS DRIFT WALL (All Projects as Compact Card Tiles)
       ────────────────────────────────────────────────────────── */}
-      <section id="featured" className="py-20 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between gap-6 mb-8">
-          <div>
-            <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-tight">
-              Top <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Projects</GradientText>
-            </h2>
-          </div>
+      <section id="featured" className="py-20 relative overflow-hidden">
+        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+          <div className="flex items-center justify-between gap-6">
+            <div>
+              <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-tight">
+                All <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Projects</GradientText>
+              </h2>
+            </div>
 
-          <Link
-            to="/projects"
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-mono font-medium text-white transition-all group"
-          >
-            <span>View All Projects</span>
-            <ChevronRight className="w-4 h-4 text-brand-orange group-hover:translate-x-1 transition-transform" />
-          </Link>
+            <Link
+              to="/projects"
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-mono font-medium text-white transition-all group"
+            >
+              <span>View All Projects</span>
+              <ChevronRight className="w-4 h-4 text-brand-orange group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </div>
         </div>
 
-        {/* Max 750px CardSwap container with soft vertical blur masks */}
-        <div className="max-w-[750px] mx-auto w-full relative overflow-y-clip min-h-[460px] py-4 flex justify-center">
-          {/* Top and Bottom soft blur gradient overlays */}
-          <div className="absolute inset-x-0 -top-4 h-10 bg-gradient-to-b from-background to-transparent pointer-events-none z-20 backdrop-blur-[1px]" />
-          <div className="absolute inset-x-0 -bottom-4 h-12 bg-gradient-to-t from-background to-transparent pointer-events-none z-20 backdrop-blur-[1px]" />
-
-          <CardSwap width="100%" height={400} cardDistance={28} verticalDistance={18}>
-            {topProjects.map((p) => {
-              const pics = p.gallery.filter(Boolean);
-              const extra = Math.max(0, pics.length - 3);
-              const shown = pics.slice(0, 3);
-
+        {/* DriftWall Container */}
+        <div className="w-full h-[520px] sm:h-[600px]">
+          <DriftWall
+            items={allProjects.map((p) => ({
+              image: p.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png',
+              title: p.title,
+              internalPath: `/projects/${p.id}`,
+              _projectData: p,
+            } as DriftTileItem & { _projectData: typeof p }))}
+            columns={5}
+            tileWidth={260}
+            tileHeight={200}
+            gap={14}
+            radius={16}
+            tilt={14}
+            turn={-12}
+            perspective={1400}
+            depth={100}
+            speed={30}
+            direction="up"
+            variance={0.4}
+            parallax={0.5}
+            lift={50}
+            fade={0.55}
+            dim={0.5}
+            overlayColor="#090d16"
+            renderTile={(item, _isActive) => {
+              const p = (item as DriftTileItem & { _projectData: typeof allProjects[0] })._projectData;
+              if (!p) {
+                return (
+                  <img src={item.image} alt={item.title ?? ''} loading="lazy" decoding="async" draggable={false} className="w-full h-full object-cover" />
+                );
+              }
               return (
-                <Card
-                  key={p.id}
-                  className="p-5 sm:p-6 flex flex-col justify-between cursor-pointer group select-none overflow-hidden h-full box-border"
-                  onClick={() => navigate(`/projects/${p.id}`)}
-                >
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 items-stretch h-full">
-                    {/* Left Column: Photo Collage Preview (Takes Half the Space) */}
-                    <div className="relative w-full h-[180px] sm:h-full flex items-center justify-center flex-shrink-0">
-                      {shown.length <= 1 ? (
-                        <div className="relative w-full h-full rounded-xl overflow-hidden bg-slate-950/80 border border-slate-200 dark:border-white/10">
-                          <img
-                            src={shown[0] || '/images/Escano_Business-Profile-Image_Transparent.png'}
-                            alt={p.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                            loading="lazy"
-                          />
-                        </div>
-                      ) : shown.length === 2 ? (
-                        <div className="grid grid-rows-2 gap-1.5 w-full h-full rounded-xl overflow-hidden border border-slate-200 dark:border-white/10 bg-slate-950/60 p-1">
-                          {shown.map((src, i) => (
-                            <div key={i} className="relative rounded-lg overflow-hidden h-full">
-                              <img src={src} alt="" className="w-full h-full object-cover" loading="lazy" />
-                            </div>
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="grid grid-cols-12 gap-1.5 w-full h-full rounded-xl overflow-hidden border border-slate-200 dark:border-white/10 bg-slate-950/60 p-1">
-                          <div className="col-span-7 relative rounded-lg overflow-hidden h-full">
-                            <img src={shown[0]} alt="" className="w-full h-full object-cover" loading="lazy" />
-                          </div>
-                          <div className="col-span-5 grid grid-rows-2 gap-1.5 h-full">
-                            <div className="relative rounded-lg overflow-hidden h-full">
-                              <img src={shown[1]} alt="" className="w-full h-full object-cover" loading="lazy" />
-                            </div>
-                            <div className="relative rounded-lg overflow-hidden h-full">
-                              <img src={shown[2]} alt="" className="w-full h-full object-cover" loading="lazy" />
-                              {extra > 0 && (
-                                <span className="absolute inset-0 flex items-center justify-center bg-slate-950/75 text-white font-mono font-medium text-xs backdrop-blur-[2px]">
-                                  +{extra}
-                                </span>
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      <span className="absolute top-2 right-2 px-2 py-0.5 rounded text-[10px] font-mono bg-slate-900/90 text-brand-orange border border-white/10 font-medium backdrop-blur-md shadow-md">
-                        {p.contributions.split('&')[0]?.trim() || 'Architecture'}
-                      </span>
+                <div className="flex flex-col w-full h-full bg-slate-950">
+                  {/* Thumbnail */}
+                  <div className="relative w-full h-[60%] overflow-hidden flex-shrink-0">
+                    <img
+                      src={p.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png'}
+                      alt={p.title}
+                      loading="lazy"
+                      decoding="async"
+                      draggable={false}
+                      className="w-full h-full object-cover"
+                    />
+                    <span className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded text-[8px] font-mono bg-slate-900/90 text-brand-orange border border-white/10 font-medium backdrop-blur-md">
+                      {p.contributions.split('&')[0]?.trim() || 'Architecture'}
+                    </span>
+                  </div>
+                  {/* Info */}
+                  <div className="flex flex-col justify-between flex-1 p-2.5 min-h-0">
+                    <div className="space-y-1 min-h-0">
+                      <h3 className="text-[11px] font-display font-medium text-white leading-tight line-clamp-1">
+                        {p.title}
+                      </h3>
+                      <p className="text-[9px] text-slate-400 leading-snug line-clamp-2">
+                        {p.one_liner}
+                      </p>
                     </div>
-
-                    {/* Right Column: Information & Stack Tags (Takes More Vertical Space) */}
-                    <div className="flex flex-col justify-between h-full py-1 space-y-3">
-                      <div className="space-y-2">
-                        <div className="inline-flex items-center gap-1.5 text-[10px] font-mono text-brand-cobalt dark:text-blue-400 font-medium uppercase tracking-wider">
-                          <span>Featured Solution</span>
-                        </div>
-                        <h3 className="text-lg sm:text-xl font-display font-medium text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors leading-tight line-clamp-2">
-                          {p.title}
-                        </h3>
-                        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed line-clamp-3 sm:line-clamp-4">
-                          {p.one_liner}
-                        </p>
-                      </div>
-
-                      <div className="space-y-2.5 pt-2 border-t border-slate-200 dark:border-white/10">
-                        <div className="flex flex-wrap gap-1.5">
-                          {p.tech_stack.slice(0, 3).map((t, idx) => (
-                            <span
-                              key={idx}
-                              className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-medium"
-                            >
-                              {t.name}
-                            </span>
-                          ))}
-                        </div>
-
-                        <div className="flex items-center justify-between pt-1">
-                          <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400">
-                            Architecture
-                          </span>
-                          <span className="inline-flex items-center gap-1 text-[11px] font-mono font-medium text-brand-cobalt dark:text-blue-400 group-hover:text-brand-orange group-hover:translate-x-1 transition-all">
-                            <span>Inspect</span>
-                            <ArrowRight className="w-3.5 h-3.5" />
-                          </span>
-                        </div>
-                      </div>
+                    <div className="flex flex-wrap gap-1 pt-1.5">
+                      {p.tech_stack.slice(0, 3).map((t, idx) => (
+                        <span
+                          key={idx}
+                          className="px-1.5 py-0.5 rounded text-[7px] font-mono bg-white/5 border border-white/10 text-slate-400 font-medium"
+                        >
+                          {t.name}
+                        </span>
+                      ))}
                     </div>
                   </div>
-                </Card>
+                </div>
               );
-            })}
-          </CardSwap>
+            }}
+          />
         </div>
       </section>
 
