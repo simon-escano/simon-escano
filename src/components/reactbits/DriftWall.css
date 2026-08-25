@@ -133,13 +133,21 @@
 .drift-wall--custom .drift-wall__inner {
   display: flex;
   flex-direction: column;
-  background: #0f1219;
+  background: rgba(255, 255, 255, 0.95);
   box-sizing: border-box;
 }
 
+.dark .drift-wall--custom .drift-wall__inner {
+  background: #0f1219;
+}
+
 .drift-wall--custom .drift-wall__overlay {
-  opacity: 0.25;
+  opacity: 0;
   z-index: 5;
+}
+
+.dark .drift-wall--custom .drift-wall__overlay {
+  opacity: 0.15;
 }
 
 .drift-wall--custom .drift-wall__tile.is-active .drift-wall__overlay,

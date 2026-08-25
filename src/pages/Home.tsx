@@ -377,8 +377,8 @@ export const Home: React.FC = () => {
             parallax={0.6}
             lift={56}
             fade={0.55}
-            dim={0.65}
-            overlayColor="#060010"
+            dim={0.8}
+            overlayColor="transparent"
             renderTile={(item, _isActive) => {
               const p = (item as DriftTileItem & { _projectData?: typeof allProjects[0] })._projectData;
               if (!p) {
@@ -387,9 +387,9 @@ export const Home: React.FC = () => {
                 );
               }
               return (
-                <div className="flex flex-col w-full h-full bg-slate-900/95 text-left select-none border border-white/10 rounded-[inherit] overflow-hidden shadow-lg">
+                <div className="flex flex-col w-full h-full bg-white/95 dark:bg-slate-900/95 text-left select-none border border-slate-200/90 dark:border-white/10 rounded-[inherit] overflow-hidden shadow-sm hover:shadow-xl dark:shadow-2xl transition-all duration-300 backdrop-blur-md">
                   {/* Thumbnail Preview */}
-                  <div className="relative w-full h-[46%] overflow-hidden bg-slate-950 flex-shrink-0">
+                  <div className="relative w-full h-[46%] overflow-hidden bg-slate-100 dark:bg-slate-950 border-b border-slate-100 dark:border-white/5 flex-shrink-0">
                     <img
                       src={p.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png'}
                       alt={p.title}
@@ -398,7 +398,7 @@ export const Home: React.FC = () => {
                       draggable={false}
                       className="w-full h-full object-cover"
                     />
-                    <span className="absolute top-2 right-2 px-2 py-0.5 rounded text-[9px] font-mono bg-slate-900/90 text-brand-orange border border-white/15 font-medium backdrop-blur-md shadow-sm">
+                    <span className="absolute top-2 right-2 px-2 py-0.5 rounded text-[9px] font-mono bg-white/90 dark:bg-slate-900/90 text-brand-orange border border-slate-200/80 dark:border-white/15 font-medium backdrop-blur-md shadow-sm">
                       {p.contributions.split('&')[0]?.trim() || 'Architecture'}
                     </span>
                   </div>
@@ -406,32 +406,32 @@ export const Home: React.FC = () => {
                   {/* Info Details with Ample Vertical Spacing */}
                   <div className="flex flex-col justify-between flex-1 p-3 min-h-0">
                     <div className="space-y-1">
-                      <h3 className="text-xs font-display font-medium text-white group-hover:text-brand-orange transition-colors leading-tight line-clamp-1">
+                      <h3 className="text-xs font-display font-medium text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors leading-tight line-clamp-1">
                         {p.title}
                       </h3>
-                      <p className="text-[10px] text-slate-400 leading-relaxed line-clamp-2">
+                      <p className="text-[10px] text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-2">
                         {p.one_liner}
                       </p>
                     </div>
 
                     {/* Tech Badges & Action Button - clean non-overlapping row */}
-                    <div className="flex items-center justify-between gap-1.5 pt-2 border-t border-white/10 flex-shrink-0">
+                    <div className="flex items-center justify-between gap-1.5 pt-2 border-t border-slate-100 dark:border-white/10 flex-shrink-0">
                       <div className="flex items-center gap-1 overflow-hidden flex-wrap flex-1 min-w-0">
                         {p.tech_stack.slice(0, 2).map((t, idx) => (
                           <span
                             key={idx}
-                            className="px-1.5 py-0.5 rounded text-[8px] font-mono bg-white/5 border border-white/10 text-slate-300 font-medium whitespace-nowrap"
+                            className="px-1.5 py-0.5 rounded text-[8px] font-mono bg-slate-100/90 dark:bg-white/5 border border-slate-200/80 dark:border-white/10 text-slate-700 dark:text-slate-300 font-medium whitespace-nowrap"
                           >
                             {t.name}
                           </span>
                         ))}
                         {p.tech_stack.length > 2 && (
-                          <span className="text-[8px] font-mono text-slate-500 flex-shrink-0">
+                          <span className="text-[8px] font-mono text-slate-400 dark:text-slate-500 flex-shrink-0">
                             +{p.tech_stack.length - 2}
                           </span>
                         )}
                       </div>
-                      <span className="inline-flex items-center gap-0.5 text-[9px] font-mono font-medium text-brand-orange group-hover:translate-x-0.5 transition-transform flex-shrink-0">
+                      <span className="inline-flex items-center gap-0.5 text-[9px] font-mono font-medium text-brand-cobalt dark:text-brand-orange group-hover:translate-x-0.5 transition-transform flex-shrink-0">
                         View →
                       </span>
                     </div>
