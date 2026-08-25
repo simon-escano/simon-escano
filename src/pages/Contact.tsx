@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import {
   Mail,
@@ -13,6 +13,7 @@ import {
   ShieldCheck,
   MessageSquare,
   RotateCw,
+  ChevronDown,
 } from 'lucide-react';
 import dataService from '@/services/dataService';
 import {
@@ -23,6 +24,15 @@ import {
   DotField,
 } from '@/components/reactbits';
 
+const SCOPE_OPTIONS = [
+  { value: 'Full-Stack Web Development', label: 'Full-Stack Web Development', desc: 'React, TypeScript, Node.js & Scalable Architecture' },
+  { value: 'Game Architecture & Development', label: 'Game Architecture & Development', desc: 'Java, LibGDX, Retro Mechanics & Physics' },
+  { value: 'AI Diagnostics & Computer Vision', label: 'AI Diagnostics & Computer Vision', desc: 'YOLOv8, TensorFlow.js & LLM Pipelines' },
+  { value: 'Technical Consulting / Advisory', label: 'Technical Consulting / Advisory', desc: 'System Design, Cloud & Database Engineering' },
+  { value: 'Hackathon Team / Collaboration', label: 'Hackathon Team / Collaboration', desc: 'Rapid prototyping & innovative builds' },
+  { value: 'General Inquiry', label: 'General Inquiry', desc: 'General questions, partnerships, or chats' },
+];
+
 export const Contact: React.FC = () => {
   const [searchParams] = useSearchParams();
   const profile = dataService.getProfile();
@@ -31,6 +41,10 @@ export const Contact: React.FC = () => {
   const [email, setEmail] = useState('');
   const [subject, setSubject] = useState('Full-Stack Web Development');
   const [message, setMessage] = useState('');
+
+  // Custom Dropdown State
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Interactive Captcha states
   const [turnstileVerified, setTurnstileVerified] = useState(false);
@@ -47,6 +61,17 @@ export const Contact: React.FC = () => {
       setMessage(prefillMessage);
     }
   }, [searchParams]);
+
+  // Outside click listener for custom dropdown
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText(profile.contact.email);
@@ -76,17 +101,24 @@ export const Contact: React.FC = () => {
 
     setSubmitting(true);
     try {
-      const res = await fetch('/api/contact', {
+      // Send directly to escanosimonlyster@gmail.com via FormSubmit AJAX service
+      const res = await fetch('https://formsubmit.co/ajax/escanosimonlyster@gmail.com', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
         body: JSON.stringify({
           name,
           email,
-          subject,
+          _subject: `[Portfolio Inquiry] ${subject} - from ${name}`,
+          scope: subject,
           message,
-          turnstileToken: turnstileVerified ? 'client-verified-token' : undefined,
+          _template: 'table',
+          _captcha: 'false',
         }),
       });
+
       if (res.ok) {
         setSubmitted(true);
       } else {
@@ -322,21 +354,61 @@ export const Contact: React.FC = () => {
                       </div>
                     </div>
 
-                    {/* Subject / Scope */}
-                    <div className="space-y-2">
-                      <label className="block text-xs font-mono text-slate-700 dark:text-slate-300">Inquiry Scope</label>
-                      <select
-                        value={subject}
-                        onChange={(e) => setSubject(e.target.value)}
-                        className="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 focus:border-brand-cobalt focus:outline-none text-sm text-slate-900 dark:text-white transition-colors"
-                      >
-                        <option value="Full-Stack Web Development">Full-Stack Web Development</option>
-                        <option value="Game Architecture & Development">Game Architecture & Development</option>
-                        <option value="AI Diagnostics & Computer Vision">AI Diagnostics & Computer Vision</option>
-                        <option value="Technical Consulting / Advisory">Technical Consulting / Advisory</option>
-                        <option value="Hackathon Team / Collaboration">Hackathon Team / Collaboration</option>
-                        <option value="General Inquiry">General Inquiry</option>
-                      </select>
+                    {/* Subject / Scope (Clean Shadcn-styled Custom Dropdown) */}
+                    <div className="space-y-2 relative" ref={dropdownRef}>
+                      <label className="block text-xs font-mono text-slate-700 dark:text-slate-300">
+                        Inquiry Scope
+                      </label>
+                      <div className="relative">
+                        <button
+                          type="button"
+                          onClick={() => setIsDropdownOpen((prev) => !prev)}
+                          className="flex h-11 w-full items-center justify-between rounded-xl bg-slate-100 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 px-4 py-2.5 text-sm text-slate-900 dark:text-white hover:border-brand-cobalt dark:hover:border-blue-400 focus:outline-none focus:ring-2 focus:ring-brand-cobalt/30 transition-all cursor-pointer text-left shadow-sm"
+                        >
+                          <span className="truncate font-mono text-xs sm:text-sm font-medium">
+                            {subject}
+                          </span>
+                          <ChevronDown
+                            className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${
+                              isDropdownOpen ? 'rotate-180 text-brand-orange' : ''
+                            }`}
+                          />
+                        </button>
+
+                        {isDropdownOpen && (
+                          <div className="absolute left-0 top-full mt-1.5 w-full rounded-xl bg-white/95 dark:bg-slate-900/95 border border-slate-200 dark:border-white/10 shadow-2xl backdrop-blur-2xl z-50 p-1.5 space-y-1 animate-in fade-in zoom-in-95 duration-150">
+                            {SCOPE_OPTIONS.map((opt) => {
+                              const isSelected = subject === opt.value;
+                              return (
+                                <div
+                                  key={opt.value}
+                                  onClick={() => {
+                                    setSubject(opt.value);
+                                    setIsDropdownOpen(false);
+                                  }}
+                                  className={`flex items-center justify-between px-3 py-2.5 rounded-lg cursor-pointer transition-all ${
+                                    isSelected
+                                      ? 'bg-brand-cobalt/15 text-brand-cobalt dark:text-blue-400 font-medium'
+                                      : 'text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                                  }`}
+                                >
+                                  <div className="space-y-0.5 min-w-0 pr-2">
+                                    <div className="text-xs sm:text-sm font-mono font-medium leading-none truncate">
+                                      {opt.label}
+                                    </div>
+                                    <div className="text-[11px] text-slate-400 dark:text-slate-500 font-mono truncate">
+                                      {opt.desc}
+                                    </div>
+                                  </div>
+                                  {isSelected && (
+                                    <Check className="w-4 h-4 text-brand-cobalt dark:text-blue-400 flex-shrink-0" />
+                                  )}
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
                     </div>
 
                     {/* Message */}

@@ -82,11 +82,11 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repository",
+                    "label": "Repo",
                     "url": "https://github.com/simon-escano/Night-Shift-at-Freddy-s"
                 },
                 {
-                    "icon": "github",
+                    "icon": "gamepad",
                     "label": "itch.io",
                     "url": "https://simonescano.itch.io/night-shift-at-freddys"
                 }
@@ -160,11 +160,11 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repository",
+                    "label": "Repo",
                     "url": "https://github.com/simon-escano/Seizuki"
                 },
                 {
-                    "icon": "github",
+                    "icon": "external-link",
                     "label": "Live",
                     "url": "https://simon-escano.github.io/Seizuki/"
                 }
@@ -242,11 +242,11 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repository",
+                    "label": "Repo",
                     "url": "https://github.com/simon-escano/Dittobase"
                 },
                 {
-                    "icon": "github",
+                    "icon": "play",
                     "label": "Demo",
                     "url": "https://youtu.be/E1VfazO4wmw"
                 }
@@ -316,11 +316,11 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repository",
+                    "label": "Repo",
                     "url": "https://github.com/simon-escano/Pawductive_2"
                 },
                 {
-                    "icon": "link",
+                    "icon": "figma",
                     "label": "Prototype",
                     "url": "https://www.figma.com/proto/iDZ31CC4AitkJcSyshW4h4/Pawductive?node-id=0-1&t=0e42vp4uMioFgO9t-1"
                 }
@@ -394,7 +394,7 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repository",
+                    "label": "Repo",
                     "url": "https://github.com/simon-escano/Fasaar"
                 }
             ],
@@ -471,7 +471,7 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repository",
+                    "label": "Repo",
                     "url": "https://github.com/Wetooa/TekNotes"
                 }
             ],
@@ -556,12 +556,12 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repository",
+                    "label": "Repo",
                     "url": "https://github.com/simon-escano/Fashion-MNIST-Classifier"
                 },
                 {
-                    "icon": "github",
-                    "label": "Live Demo",
+                    "icon": "external-link",
+                    "label": "Live",
                     "url": "https://simon-escano.github.io/Fashion-MNIST-Classifier/"
                 }
             ],
@@ -630,12 +630,12 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repository",
+                    "label": "Repo",
                     "url": "https://github.com/simon-escano/AutoPBI"
                 },
                 {
-                    "icon": "github",
-                    "label": "Documentation",
+                    "icon": "file-text",
+                    "label": "Docs",
                     "url": "https://docs-autopbi.vercel.app/introduction/home"
                 }
             ],
@@ -713,7 +713,7 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repository",
+                    "label": "Repo",
                     "url": "https://github.com/Wetooa/sprout"
                 }
             ],
@@ -790,7 +790,7 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "PixCell GitHub Repository",
+                    "label": "Repo",
                     "url": "https://github.com/simon-escano/pixcell"
                 }
             ],

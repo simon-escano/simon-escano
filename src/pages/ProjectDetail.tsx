@@ -18,6 +18,10 @@ import {
   ChevronLeft,
   ChevronRight,
   GitPullRequest,
+  Play,
+  Gamepad2,
+  Figma,
+  FileText,
 } from 'lucide-react';
 import dataService from '@/services/dataService';
 import { ArchitectureDiagram } from '@/components/common/ArchitectureDiagram';
@@ -193,22 +197,33 @@ export const ProjectDetail: React.FC = () => {
           </Link>
 
           <div className="flex items-center gap-2">
-            {project.links.map((link, idx) => (
-              <a
-                key={idx}
-                href={link.url}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-brand-orange text-slate-800 dark:text-slate-200 transition-colors shadow-sm"
-              >
-                {link.icon === 'github' ? (
-                  <Github className="w-3.5 h-3.5" />
-                ) : (
-                  <ExternalLink className="w-3.5 h-3.5 text-brand-orange" />
-                )}
-                <span>{link.label}</span>
-              </a>
-            ))}
+            {project.links.map((link, idx) => {
+              const iconKey = (link.icon || '').toLowerCase();
+              return (
+                <a
+                  key={idx}
+                  href={link.url}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-brand-orange text-slate-800 dark:text-slate-200 transition-all hover:scale-105 shadow-sm"
+                >
+                  {iconKey === 'github' || iconKey === 'repo' ? (
+                    <Github className="w-3.5 h-3.5" />
+                  ) : iconKey === 'gamepad' || iconKey === 'itch' ? (
+                    <Gamepad2 className="w-3.5 h-3.5 text-pink-500" />
+                  ) : iconKey === 'play' || iconKey === 'video' || iconKey === 'demo' || iconKey === 'youtube' ? (
+                    <Play className="w-3.5 h-3.5 text-red-500 fill-current" />
+                  ) : iconKey === 'figma' || iconKey === 'prototype' ? (
+                    <Figma className="w-3.5 h-3.5 text-purple-500" />
+                  ) : iconKey === 'file-text' || iconKey === 'docs' ? (
+                    <FileText className="w-3.5 h-3.5 text-emerald-500" />
+                  ) : (
+                    <ExternalLink className="w-3.5 h-3.5 text-brand-orange" />
+                  )}
+                  <span>{link.label}</span>
+                </a>
+              );
+            })}
           </div>
         </div>
 
