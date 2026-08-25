@@ -49,25 +49,25 @@ const columnFactor = (index: number, variance: number) => {
 export const DriftWall: React.FC<DriftWallProps> = ({
   items,
   columns = 5,
-  tileWidth = 200,
-  tileHeight = 132,
-  gap = 18,
+  tileWidth = 240,
+  tileHeight = 180,
+  gap = 16,
   radius = 14,
-  tilt = 16,
-  turn = -14,
+  tilt = 14,
+  turn = -12,
   roll = 0,
   perspective = 1200,
-  depth = 120,
-  speed = 42,
+  depth = 100,
+  speed = 36,
   direction = 'up',
   variance = 0.45,
   parallax = 0.6,
   pauseOnHover = false,
-  lift = 64,
+  lift = 54,
   fade = 0.6,
   dim = 0.55,
   grayscale = false,
-  overlayColor = '#090d16',
+  overlayColor = '#060010',
   className = '',
   style,
   renderTile: customRenderTile,
@@ -85,7 +85,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
   const pointerDampedRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const lastTsRef = useRef<number | null>(null);
 
-  const [containerHeight, setContainerHeight] = useState(600);
+  const [containerDimensions, setContainerDimensions] = useState({ width: 1200, height: 600 });
   const [activeId, setActiveId] = useState<string | null>(null);
   const activeIdRef = useRef<string | null>(null);
   const [reduced, setReduced] = useState(false);
@@ -98,29 +98,55 @@ export const DriftWall: React.FC<DriftWallProps> = ({
     return () => mq.removeEventListener('change', onChange);
   }, []);
 
-  const columnItems = useMemo(() => {
-    const cols: DriftTileItem[][] = Array.from({ length: columns }, () => []);
-    items.forEach((item, i) => cols[i % columns].push(item));
-    return cols.map((col) => (col.length ? col : items.slice(0, 1)));
-  }, [items, columns]);
-
-  const columnMeta = useMemo(() => {
-    const unit = tileHeight + gap;
-    return columnItems.map((col) => {
-      const copyHeight = Math.max(unit, col.length * unit);
-      const copies = Math.max(2, Math.ceil((containerHeight * 1.6) / copyHeight) + 1);
-      return { copyHeight, copies };
-    });
-  }, [columnItems, tileHeight, gap, containerHeight]);
-
   useLayoutEffect(() => {
     if (!containerRef.current) return;
     const ro = new ResizeObserver(([entry]) => {
-      setContainerHeight(entry.contentRect.height || 600);
+      const { width, height } = entry.contentRect;
+      if (width > 0 && height > 0) {
+        setContainerDimensions({ width, height });
+      }
     });
     ro.observe(containerRef.current);
     return () => ro.disconnect();
   }, []);
+
+  // Compute responsive columns and tile size
+  const effectiveColumns = useMemo(() => {
+    if (containerDimensions.width < 540) return Math.min(columns, 2);
+    if (containerDimensions.width < 800) return Math.min(columns, 3);
+    if (containerDimensions.width < 1100) return Math.min(columns, 4);
+    return columns;
+  }, [columns, containerDimensions.width]);
+
+  const effectiveTileWidth = useMemo(() => {
+    if (containerDimensions.width < 540) {
+      return Math.max(160, Math.min(tileWidth, Math.floor((containerDimensions.width * 0.95) / effectiveColumns - gap)));
+    }
+    if (containerDimensions.width < 800) {
+      return Math.max(190, Math.min(tileWidth, Math.floor((containerDimensions.width * 0.95) / effectiveColumns - gap)));
+    }
+    return tileWidth;
+  }, [tileWidth, containerDimensions.width, effectiveColumns, gap]);
+
+  const effectiveTileHeight = useMemo(() => {
+    const ratio = tileHeight / tileWidth;
+    return Math.max(185, Math.round(effectiveTileWidth * ratio));
+  }, [effectiveTileWidth, tileHeight, tileWidth]);
+
+  const columnItems = useMemo(() => {
+    const cols: DriftTileItem[][] = Array.from({ length: effectiveColumns }, () => []);
+    items.forEach((item, i) => cols[i % effectiveColumns].push(item));
+    return cols.map((col) => (col.length ? col : items.slice(0, 1)));
+  }, [items, effectiveColumns]);
+
+  const columnMeta = useMemo(() => {
+    const unit = effectiveTileHeight + gap;
+    return columnItems.map((col) => {
+      const copyHeight = Math.max(unit, col.length * unit);
+      const copies = Math.max(2, Math.ceil((containerDimensions.height * 1.8) / copyHeight) + 1);
+      return { copyHeight, copies };
+    });
+  }, [columnItems, effectiveTileHeight, gap, containerDimensions.height]);
 
   const baseVelocities = useMemo(() => {
     const dirSign = direction === 'up' ? 1 : -1;
@@ -130,30 +156,70 @@ export const DriftWall: React.FC<DriftWallProps> = ({
     });
   }, [columnItems, speed, direction, variance]);
 
+  // Keep references for animation loop so RAF never stutters on prop updates
+  const baseVelocitiesRef = useRef(baseVelocities);
+  baseVelocitiesRef.current = baseVelocities;
+
+  const columnMetaRef = useRef(columnMeta);
+  columnMetaRef.current = columnMeta;
+
+  const configRef = useRef({
+    pauseOnHover,
+    parallax,
+    reduced,
+    tilt,
+    turn,
+    roll,
+    depth,
+  });
+  configRef.current = {
+    pauseOnHover,
+    parallax,
+    reduced,
+    tilt,
+    turn,
+    roll,
+    depth,
+  };
+
+  // Initialize or preserve offsets without jumping
   useEffect(() => {
-    offsetsRef.current = columnMeta.map((meta, c) => meta.copyHeight * ((c * 0.37) % 1));
-    velocitiesRef.current = columnItems.map(() => 0);
+    const currentOffsets = offsetsRef.current;
+    offsetsRef.current = columnMeta.map((meta, c) => {
+      if (currentOffsets[c] !== undefined) {
+        return ((currentOffsets[c] % meta.copyHeight) + meta.copyHeight) % meta.copyHeight;
+      }
+      return meta.copyHeight * ((c * 0.37) % 1);
+    });
+
+    const currentVels = velocitiesRef.current;
+    velocitiesRef.current = columnItems.map((_, c) => currentVels[c] || 0);
   }, [columnMeta, columnItems]);
 
   const applyPlaneTransform = useCallback(
     (px: number, py: number) => {
       const plane = planeRef.current;
       if (!plane) return;
+      const cfg = configRef.current;
       plane.style.transform =
-        `translate(-50%, -50%) scale(1.18) ` +
-        `rotateX(${tilt + py}deg) rotateY(${turn + px}deg) rotateZ(${roll}deg) ` +
-        `translateZ(${-depth}px)`;
+        `translate(-50%, -50%) scale(1.15) ` +
+        `rotateX(${cfg.tilt + py}deg) rotateY(${cfg.turn + px}deg) rotateZ(${cfg.roll}deg) ` +
+        `translateZ(${-cfg.depth}px)`;
     },
-    [tilt, turn, roll, depth]
+    []
   );
 
   useEffect(() => {
+    let active = true;
+
     const animate = (ts: number) => {
+      if (!active) return;
       if (lastTsRef.current === null) lastTsRef.current = ts;
-      const dt = Math.min(0.05, Math.max(0, ts - lastTsRef.current) / 1000);
+      const dt = Math.min(0.05, Math.max(0.001, (ts - lastTsRef.current) / 1000));
       lastTsRef.current = ts;
 
-      const maxTilt = parallax * 8;
+      const cfg = configRef.current;
+      const maxTilt = cfg.parallax * 8;
       const targetX = pointerRef.current.x * maxTilt;
       const targetY = -pointerRef.current.y * maxTilt;
       const damp = 1 - Math.exp(-dt / 0.12);
@@ -161,16 +227,20 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       pointerDampedRef.current.y += (targetY - pointerDampedRef.current.y) * damp;
       applyPlaneTransform(pointerDampedRef.current.x, pointerDampedRef.current.y);
 
-      if (!reduced) {
+      const metas = columnMetaRef.current;
+      const vels = baseVelocitiesRef.current;
+
+      if (!cfg.reduced) {
         for (let c = 0; c < trackRefs.current.length; c++) {
-          const meta = columnMeta[c];
+          const meta = metas[c];
           if (!meta) continue;
-          const paused = wallHoveredRef.current && pauseOnHover;
+          const paused = wallHoveredRef.current && cfg.pauseOnHover;
           const factor = paused || hoveredColRef.current === c ? 0 : 1;
-          const target = baseVelocities[c] * factor;
+          const target = (vels[c] || 0) * factor;
 
           const ease = 1 - Math.exp(-dt / (target === 0 ? 0.16 : 0.28));
-          velocitiesRef.current[c] += (target - velocitiesRef.current[c]) * ease;
+          velocitiesRef.current[c] = (velocitiesRef.current[c] || 0) + (target - (velocitiesRef.current[c] || 0)) * ease;
+
           let next = (offsetsRef.current[c] ?? 0) + velocitiesRef.current[c] * dt;
           next = ((next % meta.copyHeight) + meta.copyHeight) % meta.copyHeight;
           offsetsRef.current[c] = next;
@@ -181,7 +251,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       } else {
         for (let c = 0; c < trackRefs.current.length; c++) {
           const el = trackRefs.current[c];
-          const meta = columnMeta[c];
+          const meta = metas[c];
           if (el && meta) el.style.transform = `translate3d(0, ${-(offsetsRef.current[c] ?? 0)}px, 0)`;
         }
       }
@@ -191,11 +261,12 @@ export const DriftWall: React.FC<DriftWallProps> = ({
 
     rafRef.current = requestAnimationFrame(animate);
     return () => {
+      active = false;
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
       lastTsRef.current = null;
     };
-  }, [baseVelocities, columnMeta, pauseOnHover, parallax, reduced, applyPlaneTransform]);
+  }, [applyPlaneTransform]);
 
   const activate = useCallback((id: string, index: number) => {
     activeIdRef.current = id;
@@ -213,7 +284,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
     (e: React.PointerEvent<HTMLDivElement>) => {
       const rect = containerRef.current?.getBoundingClientRect();
       if (!rect) return;
-      if (parallax > 0 && !reduced) {
+      if (configRef.current.parallax > 0 && !configRef.current.reduced) {
         pointerRef.current = {
           x: (e.clientX - rect.left) / rect.width - 0.5,
           y: (e.clientY - rect.top) / rect.height - 0.5,
@@ -228,7 +299,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       hoveredColRef.current = Number(tile.dataset.col);
       setActiveId(id);
     },
-    [parallax, reduced]
+    []
   );
 
   const handlePointerLeaveWall = useCallback(() => {
@@ -240,8 +311,8 @@ export const DriftWall: React.FC<DriftWallProps> = ({
   const cssVars = useMemo(
     () =>
       ({
-        '--dw-tile-w': `${tileWidth}px`,
-        '--dw-tile-h': `${tileHeight}px`,
+        '--dw-tile-w': `${effectiveTileWidth}px`,
+        '--dw-tile-h': `${effectiveTileHeight}px`,
         '--dw-gap': `${gap}px`,
         '--dw-radius': `${radius}px`,
         '--dw-perspective': `${perspective}px`,
@@ -252,7 +323,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
         '--dw-edge': `${Math.max(0, (1 - fade) * 100)}%`,
         ...style,
       }) as React.CSSProperties,
-    [tileWidth, tileHeight, gap, radius, perspective, lift, dim, grayscale, overlayColor, fade, style]
+    [effectiveTileWidth, effectiveTileHeight, gap, radius, perspective, lift, dim, grayscale, overlayColor, fade, style]
   );
 
   const renderTileDefault = (item: DriftTileItem, id: string, colIndex: number) => {
@@ -266,7 +337,6 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       onBlur: release,
     };
 
-    // Custom tile renderer: wrap in the tile container but let the consumer handle inner content
     if (customRenderTile) {
       const customContent = customRenderTile(item, isActive);
       if (item.internalPath) {
@@ -289,7 +359,6 @@ export const DriftWall: React.FC<DriftWallProps> = ({
       );
     }
 
-    // Default image tile
     const inner = (
       <span className="drift-wall__inner">
         <img src={item.image} alt={item.title ?? ''} loading="lazy" decoding="async" draggable={false} />

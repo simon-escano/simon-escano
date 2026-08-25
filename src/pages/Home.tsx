@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { createPortal } from 'react-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import {
@@ -47,6 +47,20 @@ export const Home: React.FC = () => {
   const allProjects = dataService.getProjects();
   const techStack = dataService.getTechStack();
   const achievements = dataService.getAchievements();
+
+  const driftItems = useMemo(
+    () =>
+      allProjects.map(
+        (p) =>
+        ({
+          image: p.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png',
+          title: p.title,
+          internalPath: `/projects/${p.id}`,
+          _projectData: p,
+        } as DriftTileItem & { _projectData: typeof p })
+      ),
+    [allProjects]
+  );
 
   const [titleIndex, setTitleIndex] = useState(0);
 
@@ -322,62 +336,60 @@ export const Home: React.FC = () => {
       {/* ──────────────────────────────────────────────────────────
           3. PROJECTS DRIFT WALL (All Projects as Compact Card Tiles)
       ────────────────────────────────────────────────────────── */}
-      <section id="featured" className="py-20 relative overflow-hidden">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-          <div className="flex items-center justify-between gap-6">
-            <div>
-              <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-tight">
-                All <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Projects</GradientText>
-              </h2>
-            </div>
-
-            <Link
-              to="/projects"
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-mono font-medium text-white transition-all group"
-            >
-              <span>View All Projects</span>
-              <ChevronRight className="w-4 h-4 text-brand-orange group-hover:translate-x-1 transition-transform" />
-            </Link>
+      <section id="featured" className="pt-16 sm:pt-24 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between gap-6 mb-8 sm:mb-12">
+          <div>
+            <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-tight">
+              All <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Projects</GradientText>
+            </h2>
           </div>
+
+          <Link
+            to="/projects"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-900 hover:bg-slate-800 dark:bg-slate-800 dark:hover:bg-slate-700 text-xs font-mono font-medium text-white transition-all group"
+          >
+            <span>View All Projects</span>
+            <ChevronRight className="w-4 h-4 text-brand-orange group-hover:translate-x-1 transition-transform" />
+          </Link>
         </div>
 
-        {/* DriftWall Container */}
-        <div className="w-full h-[520px] sm:h-[600px]">
+        {/* DriftWall Container - standalone without card wrapper, natural vignette edge fade */}
+        <div className="relative w-full h-[580px] sm:h-[660px] md:h-[720px] overflow-hidden">
+          {/* Subtle edge fade overlays for top/sides */}
+          <div className="absolute inset-y-0 right-0 w-20 sm:w-36 bg-gradient-to-l from-background via-background/60 to-transparent pointer-events-none z-20" />
+          <div className="absolute inset-y-0 left-0 w-12 sm:w-20 bg-gradient-to-r from-background to-transparent pointer-events-none z-20" />
+          <div className="absolute inset-x-0 top-0 h-10 bg-gradient-to-b from-background to-transparent pointer-events-none z-20" />
+
           <DriftWall
-            items={allProjects.map((p) => ({
-              image: p.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png',
-              title: p.title,
-              internalPath: `/projects/${p.id}`,
-              _projectData: p,
-            } as DriftTileItem & { _projectData: typeof p }))}
+            items={driftItems}
             columns={5}
-            tileWidth={260}
-            tileHeight={200}
-            gap={14}
+            tileWidth={240}
+            tileHeight={230}
+            gap={18}
             radius={16}
             tilt={14}
             turn={-12}
-            perspective={1400}
-            depth={100}
+            perspective={1200}
+            depth={90}
             speed={30}
             direction="up"
-            variance={0.4}
-            parallax={0.5}
-            lift={50}
+            variance={0.45}
+            parallax={0.6}
+            lift={56}
             fade={0.55}
-            dim={0.5}
-            overlayColor="#090d16"
+            dim={0.65}
+            overlayColor="#060010"
             renderTile={(item, _isActive) => {
-              const p = (item as DriftTileItem & { _projectData: typeof allProjects[0] })._projectData;
+              const p = (item as DriftTileItem & { _projectData?: typeof allProjects[0] })._projectData;
               if (!p) {
                 return (
                   <img src={item.image} alt={item.title ?? ''} loading="lazy" decoding="async" draggable={false} className="w-full h-full object-cover" />
                 );
               }
               return (
-                <div className="flex flex-col w-full h-full bg-slate-950">
-                  {/* Thumbnail */}
-                  <div className="relative w-full h-[60%] overflow-hidden flex-shrink-0">
+                <div className="flex flex-col w-full h-full bg-slate-900/95 text-left select-none border border-white/10 rounded-[inherit] overflow-hidden shadow-lg">
+                  {/* Thumbnail Preview */}
+                  <div className="relative w-full h-[46%] overflow-hidden bg-slate-950 flex-shrink-0">
                     <img
                       src={p.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png'}
                       alt={p.title}
@@ -386,29 +398,42 @@ export const Home: React.FC = () => {
                       draggable={false}
                       className="w-full h-full object-cover"
                     />
-                    <span className="absolute top-1.5 right-1.5 px-1.5 py-0.5 rounded text-[8px] font-mono bg-slate-900/90 text-brand-orange border border-white/10 font-medium backdrop-blur-md">
+                    <span className="absolute top-2 right-2 px-2 py-0.5 rounded text-[9px] font-mono bg-slate-900/90 text-brand-orange border border-white/15 font-medium backdrop-blur-md shadow-sm">
                       {p.contributions.split('&')[0]?.trim() || 'Architecture'}
                     </span>
                   </div>
-                  {/* Info */}
-                  <div className="flex flex-col justify-between flex-1 p-2.5 min-h-0">
-                    <div className="space-y-1 min-h-0">
-                      <h3 className="text-[11px] font-display font-medium text-white leading-tight line-clamp-1">
+
+                  {/* Info Details with Ample Vertical Spacing */}
+                  <div className="flex flex-col justify-between flex-1 p-3 min-h-0">
+                    <div className="space-y-1">
+                      <h3 className="text-xs font-display font-medium text-white group-hover:text-brand-orange transition-colors leading-tight line-clamp-1">
                         {p.title}
                       </h3>
-                      <p className="text-[9px] text-slate-400 leading-snug line-clamp-2">
+                      <p className="text-[10px] text-slate-400 leading-relaxed line-clamp-2">
                         {p.one_liner}
                       </p>
                     </div>
-                    <div className="flex flex-wrap gap-1 pt-1.5">
-                      {p.tech_stack.slice(0, 3).map((t, idx) => (
-                        <span
-                          key={idx}
-                          className="px-1.5 py-0.5 rounded text-[7px] font-mono bg-white/5 border border-white/10 text-slate-400 font-medium"
-                        >
-                          {t.name}
-                        </span>
-                      ))}
+
+                    {/* Tech Badges & Action Button - clean non-overlapping row */}
+                    <div className="flex items-center justify-between gap-1.5 pt-2 border-t border-white/10 flex-shrink-0">
+                      <div className="flex items-center gap-1 overflow-hidden flex-wrap flex-1 min-w-0">
+                        {p.tech_stack.slice(0, 2).map((t, idx) => (
+                          <span
+                            key={idx}
+                            className="px-1.5 py-0.5 rounded text-[8px] font-mono bg-white/5 border border-white/10 text-slate-300 font-medium whitespace-nowrap"
+                          >
+                            {t.name}
+                          </span>
+                        ))}
+                        {p.tech_stack.length > 2 && (
+                          <span className="text-[8px] font-mono text-slate-500 flex-shrink-0">
+                            +{p.tech_stack.length - 2}
+                          </span>
+                        )}
+                      </div>
+                      <span className="inline-flex items-center gap-0.5 text-[9px] font-mono font-medium text-brand-orange group-hover:translate-x-0.5 transition-transform flex-shrink-0">
+                        View →
+                      </span>
                     </div>
                   </div>
                 </div>
