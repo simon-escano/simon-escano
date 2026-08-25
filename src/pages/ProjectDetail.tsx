@@ -22,6 +22,10 @@ import {
   Gamepad2,
   Figma,
   FileText,
+  Layers,
+  ShieldCheck,
+  TrendingUp,
+  RotateCw,
 } from 'lucide-react';
 import dataService from '@/services/dataService';
 import { ArchitectureDiagram } from '@/components/common/ArchitectureDiagram';
@@ -461,14 +465,32 @@ export const ProjectDetail: React.FC = () => {
           </h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-2">
-            {[project.results.performance, project.results.scale, project.results.utility].map((r, idx) => (
-              <div key={idx} className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/5 space-y-1">
-                <div className="text-xs font-mono uppercase text-brand-orange font-medium">
-                  {r.icon}
+            {[project.results.performance, project.results.scale, project.results.utility].map((r, idx) => {
+              const iconKey = (r.icon || '').toLowerCase();
+              return (
+                <div
+                  key={idx}
+                  className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-white/5 space-y-3 transition-all hover:border-slate-300 dark:hover:border-white/15 hover:shadow-xs"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-white/10 flex items-center justify-center shadow-xs">
+                    {iconKey === 'zap' || iconKey === 'bolt' ? (
+                      <Zap className="w-5 h-5 text-amber-500 fill-amber-500/20" />
+                    ) : iconKey === 'layers' ? (
+                      <Layers className="w-5 h-5 text-blue-500 dark:text-blue-400" />
+                    ) : iconKey === 'shield' ? (
+                      <ShieldCheck className="w-5 h-5 text-emerald-500 dark:text-emerald-400" />
+                    ) : iconKey === 'refresh' ? (
+                      <RotateCw className="w-5 h-5 text-purple-500 dark:text-purple-400" />
+                    ) : (
+                      <TrendingUp className="w-5 h-5 text-brand-orange" />
+                    )}
+                  </div>
+                  <div className="font-medium text-sm text-slate-900 dark:text-white leading-relaxed">
+                    {r.text}
+                  </div>
                 </div>
-                <div className="font-medium text-sm text-slate-900 dark:text-white">{r.text}</div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
