@@ -58,7 +58,7 @@ export const Navbar: React.FC = () => {
     <header className="fixed top-0 left-0 right-0 z-50 pointer-events-none">
       <div
         className={`pointer-events-auto mx-auto transition-all duration-500 ease-out ${scrolled
-          ? 'mt-3 w-[calc(100%-1.5rem)] max-w-[1280px] rounded-full bg-background/80 dark:bg-slate-950/80 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-lg shadow-slate-900/10 p-2 pl-4 sm:pl-6 md:pr-4 sm:pr-2'
+          ? 'mt-3 w-[calc(100%-1.5rem)] max-w-[1280px] rounded-full bg-background/80 dark:bg-slate-950/80 backdrop-blur-xl border border-slate-200/80 dark:border-white/10 shadow-lg shadow-slate-900/10 p-2 pl-4 sm:pl-6 min-[925px]:pr-4'
           : 'mt-0 w-full max-w-none rounded-none bg-transparent border border-transparent shadow-none py-5 px-4 sm:px-6 lg:px-8'
           }`}
       >
