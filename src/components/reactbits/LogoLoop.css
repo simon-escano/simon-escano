@@ -3,7 +3,7 @@
 }
 
 .dark {
-  --logoloop-fadeColorAuto: rgba(9, 13, 22, 0.95);
+  --logoloop-fadeColorAuto: rgba(2, 6, 23, 0.95);
 }
 
 .logoloop {
@@ -86,29 +86,39 @@
   transition: transform 0.2s ease;
 }
 
-.logoloop--fade::before,
-.logoloop--fade::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: clamp(24px, 8%, 100px);
-  pointer-events: none;
-  z-index: 10;
+/* Use true alpha mask for seamless gradient fade into any background */
+.logoloop--fade {
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 clamp(28px, 9%, 110px),
+    #000 calc(100% - clamp(28px, 9%, 110px)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    #000 clamp(28px, 9%, 110px),
+    #000 calc(100% - clamp(28px, 9%, 110px)),
+    transparent 100%
+  );
 }
 
-.logoloop--fade::before {
-  left: 0;
-  background: linear-gradient(to right,
-      var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
-      rgba(0, 0, 0, 0) 100%);
-}
-
-.logoloop--fade::after {
-  right: 0;
-  background: linear-gradient(to left,
-      var(--logoloop-fadeColor, var(--logoloop-fadeColorAuto)) 0%,
-      rgba(0, 0, 0, 0) 100%);
+.logoloop--vertical.logoloop--fade {
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 clamp(28px, 9%, 110px),
+    #000 calc(100% - clamp(28px, 9%, 110px)),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    #000 clamp(28px, 9%, 110px),
+    #000 calc(100% - clamp(28px, 9%, 110px)),
+    transparent 100%
+  );
 }
 
 @media (prefers-reduced-motion: reduce) {
