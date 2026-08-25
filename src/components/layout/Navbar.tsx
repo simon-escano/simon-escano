@@ -90,7 +90,7 @@ export const Navbar: React.FC = () => {
 
             {/* Desktop Navigation */}
             <nav
-              className={`hidden md:flex items-center transition-all duration-300 ${scrolled
+              className={`hidden min-[925px]:flex items-center transition-all duration-300 ${scrolled
                 ? 'gap-5 bg-transparent border-none p-0 shadow-none'
                 : 'gap-1 bg-slate-100/70 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200/60 dark:border-slate-800/80 p-1.5 rounded-full shadow-inner'
                 }`}
@@ -116,7 +116,7 @@ export const Navbar: React.FC = () => {
               ))}
             </nav>
 
-            <div className="hidden md:flex items-center gap-3">
+            <div className="hidden min-[925px]:flex items-center gap-3">
               <ThemeToggle />
               <NavLink
                 to="/contact"
@@ -128,7 +128,7 @@ export const Navbar: React.FC = () => {
             </div>
 
             {/* Mobile Navigation with StaggeredMenu */}
-            <div className="flex items-center gap-2 md:hidden mr-1 sm:mr-2">
+            <div className="flex items-center gap-2 min-[925px]:hidden mr-1 sm:mr-2">
               <ThemeToggle />
               <StaggeredMenu
                 position="right"
