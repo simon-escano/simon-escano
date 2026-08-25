@@ -123,7 +123,7 @@ export const About: React.FC = () => {
 
             {/* Single Merged Cohesive Bio Paragraph */}
             <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed text-center lg:text-left max-w-2xl">
-              I am Simon Escaño, a Cum Laude CS graduate from CIT-U. I build fast, reliable applications from the ground up across any stack—ranging from complex research systems in medical informatics and 3D graphics to modern full-stack web products.
+              I am Simon Escaño, a Cum Laude CS graduate from CIT-U. I build fast, reliable applications from the ground up across any stack, ranging from complex research systems in medical informatics and 3D graphics to modern full-stack web products.
             </p>
 
             <div className="grid grid-cols-3 gap-4 pt-2 w-full max-w-lg">
