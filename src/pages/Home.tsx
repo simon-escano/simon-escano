@@ -16,8 +16,7 @@ import {
   ColorBends,
   DotField,
   ProfileCard,
-  CardSwap,
-  Card,
+  DriftWall,
   AccordionGallery,
   SpotlightCard,
   BorderGlow,
@@ -33,6 +32,7 @@ import {
   StrokeText,
   DecryptedText,
 } from '@/components/reactbits';
+import type { DriftTileItem } from '@/components/reactbits';
 
 const HERO_TITLES = [
   'Full-Stack Dev & Software Engineer',

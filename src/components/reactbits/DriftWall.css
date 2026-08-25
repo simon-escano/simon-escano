@@ -124,3 +124,20 @@
     will-change: auto;
   }
 }
+
+/* Custom card tiles: the .drift-wall__inner uses flexbox for card content */
+.drift-wall--custom .drift-wall__inner {
+  display: flex;
+  flex-direction: column;
+  background: #0f1219;
+}
+
+.drift-wall--custom .drift-wall__overlay {
+  opacity: 0.3;
+  z-index: 5;
+}
+
+.drift-wall--custom .drift-wall__tile.is-active .drift-wall__overlay,
+.drift-wall--custom .drift-wall__tile:focus-visible .drift-wall__overlay {
+  opacity: 0;
+}

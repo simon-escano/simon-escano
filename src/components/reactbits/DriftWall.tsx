@@ -34,6 +34,8 @@ export interface DriftWallProps {
   overlayColor?: string;
   className?: string;
   style?: React.CSSProperties;
+  /** Optional custom tile renderer. Receives item, isActive flag, and tile ID. */
+  renderTile?: (item: DriftTileItem, isActive: boolean) => React.ReactNode;
 }
 
 const prefersReducedMotion = () =>
@@ -68,6 +70,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
   overlayColor = '#090d16',
   className = '',
   style,
+  renderTile: customRenderTile,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const planeRef = useRef<HTMLDivElement>(null);
@@ -252,7 +255,41 @@ export const DriftWall: React.FC<DriftWallProps> = ({
     [tileWidth, tileHeight, gap, radius, perspective, lift, dim, grayscale, overlayColor, fade, style]
   );
 
-  const renderTile = (item: DriftTileItem, id: string, colIndex: number) => {
+  const renderTileDefault = (item: DriftTileItem, id: string, colIndex: number) => {
+    const isActive = activeId === id;
+
+    const commonProps = {
+      className: `drift-wall__tile group${isActive ? ' is-active' : ''}`,
+      'data-tile-id': id,
+      'data-col': colIndex,
+      onFocus: () => activate(id, colIndex),
+      onBlur: release,
+    };
+
+    // Custom tile renderer: wrap in the tile container but let the consumer handle inner content
+    if (customRenderTile) {
+      const customContent = customRenderTile(item, isActive);
+      if (item.internalPath) {
+        return (
+          <Link key={id} to={item.internalPath} {...commonProps}>
+            <span className="drift-wall__inner">
+              {customContent}
+              <span className="drift-wall__overlay" aria-hidden="true" />
+            </span>
+          </Link>
+        );
+      }
+      return (
+        <div key={id} tabIndex={0} role="button" aria-label={item.title ?? 'tile'} {...commonProps}>
+          <span className="drift-wall__inner">
+            {customContent}
+            <span className="drift-wall__overlay" aria-hidden="true" />
+          </span>
+        </div>
+      );
+    }
+
+    // Default image tile
     const inner = (
       <span className="drift-wall__inner">
         <img src={item.image} alt={item.title ?? ''} loading="lazy" decoding="async" draggable={false} />
@@ -264,14 +301,6 @@ export const DriftWall: React.FC<DriftWallProps> = ({
         )}
       </span>
     );
-
-    const commonProps = {
-      className: `drift-wall__tile group${activeId === id ? ' is-active' : ''}`,
-      'data-tile-id': id,
-      'data-col': colIndex,
-      onFocus: () => activate(id, colIndex),
-      onBlur: release,
-    };
 
     if (item.internalPath) {
       return (
@@ -296,7 +325,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
     );
   };
 
-  const rootClass = ['drift-wall', reduced ? 'drift-wall--reduced' : '', className].filter(Boolean).join(' ');
+  const rootClass = ['drift-wall', reduced ? 'drift-wall--reduced' : '', customRenderTile ? 'drift-wall--custom' : '', className].filter(Boolean).join(' ');
 
   return (
     <div
@@ -319,7 +348,7 @@ export const DriftWall: React.FC<DriftWallProps> = ({
             <div className="drift-wall__col" key={`col-${c}`}>
               <div className="drift-wall__track" ref={(el) => (trackRefs.current[c] = el)}>
                 {copies.map((_, copyIndex) =>
-                  col.map((item, itemIndex) => renderTile(item, `${c}-${copyIndex}-${itemIndex}`, c))
+                  col.map((item, itemIndex) => renderTileDefault(item, `${c}-${copyIndex}-${itemIndex}`, c))
                 )}
               </div>
             </div>
