@@ -8,7 +8,6 @@ import {
   Code,
   ShieldCheck,
   CheckCircle2,
-  Sparkles,
   Trophy,
   Terminal,
 } from 'lucide-react';

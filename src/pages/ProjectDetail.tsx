@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { useParams, Link } from 'react-router-dom';
 import {
   ArrowLeft,
@@ -8,7 +9,6 @@ import {
   Zap,
   CheckCircle2,
   Code2,
-  Sparkles,
   GitBranch,
   ZoomIn,
   ZoomOut,
@@ -17,6 +17,7 @@ import {
   Maximize2,
   ChevronLeft,
   ChevronRight,
+  GitPullRequest,
 } from 'lucide-react';
 import dataService from '@/services/dataService';
 import { ArchitectureDiagram } from '@/components/common/ArchitectureDiagram';
@@ -50,6 +51,18 @@ export const ProjectDetail: React.FC = () => {
     setPanPosition({ x: 0, y: 0 });
   }, [id]);
 
+  // Lock body scroll when Lightbox is open to prevent page interference
+  useEffect(() => {
+    if (isLightboxOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isLightboxOpen]);
+
   // Handle keyboard shortcuts in Lightbox
   useEffect(() => {
     if (!isLightboxOpen || !project) return;
@@ -59,15 +72,20 @@ export const ProjectDetail: React.FC = () => {
         setIsLightboxOpen(false);
       } else if (e.key === 'ArrowLeft') {
         setActiveImageIndex((prev) => (prev > 0 ? prev - 1 : project.gallery.length - 1));
+        resetZoomPan();
       } else if (e.key === 'ArrowRight') {
         setActiveImageIndex((prev) => (prev < project.gallery.length - 1 ? prev + 1 : 0));
+        resetZoomPan();
       } else if (e.key === '+' || e.key === '=') {
-        setZoomScale((prev) => Math.min(prev + 0.25, 4));
+        setZoomScale((prev) => Math.min(prev + 0.3, 4));
       } else if (e.key === '-') {
-        setZoomScale((prev) => Math.max(prev - 0.25, 0.5));
+        setZoomScale((prev) => {
+          const next = Math.max(prev - 0.3, 1);
+          if (next === 1) setPanPosition({ x: 0, y: 0 });
+          return next;
+        });
       } else if (e.key === '0') {
-        setZoomScale(1);
-        setPanPosition({ x: 0, y: 0 });
+        resetZoomPan();
       }
     };
 
@@ -97,14 +115,21 @@ export const ProjectDetail: React.FC = () => {
     project.gallery[0] ||
     '/images/Escano_Business-Profile-Image_Transparent.png';
 
-  const handleMouseDown = (e: React.MouseEvent) => {
+  const resetZoomPan = () => {
+    setZoomScale(1);
+    setPanPosition({ x: 0, y: 0 });
+    setIsDragging(false);
+  };
+
+  const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
     if (zoomScale > 1) {
+      e.currentTarget.setPointerCapture(e.pointerId);
       setIsDragging(true);
       dragStartRef.current = { x: e.clientX - panPosition.x, y: e.clientY - panPosition.y };
     }
   };
 
-  const handleMouseMove = (e: React.MouseEvent) => {
+  const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (isDragging && zoomScale > 1) {
       setPanPosition({
         x: e.clientX - dragStartRef.current.x,
@@ -113,22 +138,31 @@ export const ProjectDetail: React.FC = () => {
     }
   };
 
-  const handleMouseUp = () => {
-    setIsDragging(false);
+  const handlePointerUp = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (isDragging) {
+      try {
+        e.currentTarget.releasePointerCapture(e.pointerId);
+      } catch {}
+      setIsDragging(false);
+    }
   };
 
   const handleWheel = (e: React.WheelEvent) => {
     e.preventDefault();
-    if (e.deltaY < 0) {
-      setZoomScale((prev) => Math.min(prev + 0.15, 4));
-    } else {
-      setZoomScale((prev) => Math.max(prev - 0.15, 0.5));
-    }
+    setZoomScale((prev) => {
+      const delta = e.deltaY < 0 ? 0.25 : -0.25;
+      const next = Math.min(Math.max(prev + delta, 1), 4);
+      if (next === 1) setPanPosition({ x: 0, y: 0 });
+      return next;
+    });
   };
 
-  const resetZoomPan = () => {
-    setZoomScale(1);
-    setPanPosition({ x: 0, y: 0 });
+  const handleDoubleClick = () => {
+    if (zoomScale > 1) {
+      resetZoomPan();
+    } else {
+      setZoomScale(2.5);
+    }
   };
 
   return (
@@ -181,7 +215,7 @@ export const ProjectDetail: React.FC = () => {
         {/* Hero Header */}
         <div className="space-y-4">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-cobalt/10 border border-brand-cobalt/30 text-brand-cobalt dark:text-blue-400 text-xs font-mono">
-            <Sparkles className="w-3.5 h-3.5 text-brand-orange" />
+            <GitPullRequest className="w-3.5 h-3.5 text-brand-orange" />
             <span>Role: {project.contributions}</span>
           </div>
 
@@ -458,124 +492,151 @@ export const ProjectDetail: React.FC = () => {
       </div>
 
       {/* ──────────────────────────────────────────────────────────
-          Interactive Fullscreen Lightbox Modal (Zoom + Pan)
+          Interactive Fullscreen Lightbox Modal (Portal to body, Zoom + Pan)
       ────────────────────────────────────────────────────────── */}
-      {isLightboxOpen && (
-        <div
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex flex-col justify-between p-4 sm:p-6 select-none animate-in fade-in duration-200"
-          onWheel={handleWheel}
-        >
-          {/* Top Control Bar */}
-          <div className="flex items-center justify-between text-white z-20 pb-4 border-b border-white/10">
-            <div className="flex items-center gap-3">
-              <span className="font-display text-lg font-medium">{project.title}</span>
-              <span className="text-xs font-mono text-white/60">
-                ({activeImageIndex + 1} / {project.gallery.length})
-              </span>
-            </div>
-
-            {/* Toolbar Buttons */}
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => setZoomScale((prev) => Math.min(prev + 0.25, 4))}
-                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
-                title="Zoom In (+)"
-              >
-                <ZoomIn className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setZoomScale((prev) => Math.max(prev - 0.25, 0.5))}
-                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
-                title="Zoom Out (-)"
-              >
-                <ZoomOut className="w-4 h-4" />
-              </button>
-              <button
-                onClick={resetZoomPan}
-                className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
-                title="Reset View"
-              >
-                <RotateCcw className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => setIsLightboxOpen(false)}
-                className="p-2 rounded-lg bg-red-500/20 hover:bg-red-500/40 text-red-300 transition-colors ml-2"
-                title="Close (Esc)"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
-
-          {/* Interactive Image Viewport */}
+      {isLightboxOpen &&
+        typeof document !== 'undefined' &&
+        createPortal(
           <div
-            className={`relative flex-1 flex items-center justify-center overflow-hidden ${zoomScale > 1 ? 'cursor-grab active:cursor-grabbing' : 'cursor-default'
-              }`}
-            onMouseDown={handleMouseDown}
-            onMouseMove={handleMouseMove}
-            onMouseUp={handleMouseUp}
-            onMouseLeave={handleMouseUp}
+            className="fixed inset-0 z-[99999] bg-black/95 backdrop-blur-2xl flex flex-col justify-between select-none animate-in fade-in duration-200"
+            onWheel={handleWheel}
           >
-            <img
-              src={activeImageSrc}
-              alt={project.title}
-              style={{
-                transform: `translate(${panPosition.x}px, ${panPosition.y}px) scale(${zoomScale})`,
-                transition: isDragging ? 'none' : 'transform 0.15s ease-out',
-              }}
-              className="max-h-[82vh] max-w-[92vw] object-contain pointer-events-none select-none rounded-lg"
-              draggable={false}
-            />
+            {/* Top Control Bar */}
+            <div className="flex items-center justify-between text-white z-30 px-4 sm:px-6 py-3.5 border-b border-white/10 bg-black/60 backdrop-blur-md gap-3">
+              <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+                <span className="font-display text-sm sm:text-base font-medium truncate max-w-[180px] sm:max-w-md">
+                  {project.title}
+                </span>
+                <span className="text-xs font-mono text-white/50 flex-shrink-0">
+                  [{activeImageIndex + 1}/{project.gallery.length}]
+                </span>
+                <span className="hidden sm:inline-flex px-2 py-0.5 rounded bg-white/10 text-[11px] font-mono text-brand-orange">
+                  {Math.round(zoomScale * 100)}%
+                </span>
+              </div>
 
-            {/* Left/Right Carousel Nav Arrows */}
-            {project.gallery.length > 1 && (
-              <>
+              {/* Toolbar Buttons */}
+              <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0">
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setActiveImageIndex((prev) => (prev > 0 ? prev - 1 : project.gallery.length - 1));
-                    resetZoomPan();
-                  }}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white backdrop-blur-md transition-all shadow-lg"
+                  onClick={() => setZoomScale((prev) => Math.min(prev + 0.3, 4))}
+                  className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
+                  title="Zoom In (+)"
                 >
-                  <ChevronLeft className="w-6 h-6" />
+                  <ZoomIn className="w-4 h-4" />
                 </button>
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setActiveImageIndex((prev) => (prev < project.gallery.length - 1 ? prev + 1 : 0));
-                    resetZoomPan();
-                  }}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full bg-white/10 hover:bg-white/25 text-white backdrop-blur-md transition-all shadow-lg"
+                  onClick={() =>
+                    setZoomScale((prev) => {
+                      const next = Math.max(prev - 0.3, 1);
+                      if (next === 1) setPanPosition({ x: 0, y: 0 });
+                      return next;
+                    })
+                  }
+                  className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
+                  title="Zoom Out (-)"
                 >
-                  <ChevronRight className="w-6 h-6" />
+                  <ZoomOut className="w-4 h-4" />
                 </button>
-              </>
-            )}
-          </div>
-
-          {/* Bottom Thumbnails Carousel */}
-          {project.gallery.length > 1 && (
-            <div className="flex items-center justify-center gap-2 pt-4 border-t border-white/10 z-20 overflow-x-auto">
-              {project.gallery.map((img, idx) => (
                 <button
-                  key={idx}
-                  onClick={() => {
-                    setActiveImageIndex(idx);
-                    resetZoomPan();
-                  }}
-                  className={`w-16 h-11 rounded-lg overflow-hidden border transition-all flex-shrink-0 ${activeImageIndex === idx
-                    ? 'border-brand-orange ring-2 ring-brand-orange/40 scale-105'
-                    : 'border-white/20 opacity-50 hover:opacity-100'
-                    }`}
+                  onClick={resetZoomPan}
+                  className="p-2 rounded-lg bg-white/10 hover:bg-white/20 text-white transition-colors"
+                  title="Reset View (0)"
                 >
-                  <img src={img} alt="" className="w-full h-full object-cover" />
+                  <RotateCcw className="w-4 h-4" />
                 </button>
-              ))}
+                <button
+                  onClick={() => setIsLightboxOpen(false)}
+                  className="p-2 rounded-lg bg-red-500/20 hover:bg-red-500/40 text-red-300 transition-colors ml-1 sm:ml-2"
+                  title="Close (Esc)"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              </div>
             </div>
-          )}
-        </div>
-      )}
+
+            {/* Interactive Image Viewport with Pointer Drag Capture & Double Tap Zoom */}
+            <div
+              className={`relative flex-1 flex items-center justify-center overflow-hidden touch-none ${
+                zoomScale > 1
+                  ? isDragging
+                    ? 'cursor-grabbing'
+                    : 'cursor-grab'
+                  : 'cursor-zoom-in'
+              }`}
+              onPointerDown={handlePointerDown}
+              onPointerMove={handlePointerMove}
+              onPointerUp={handlePointerUp}
+              onPointerCancel={handlePointerUp}
+              onDoubleClick={handleDoubleClick}
+            >
+              <img
+                src={activeImageSrc}
+                alt={project.title}
+                style={{
+                  transform: `translate(${panPosition.x}px, ${panPosition.y}px) scale(${zoomScale})`,
+                  transition: isDragging ? 'none' : 'transform 0.15s ease-out',
+                }}
+                className="max-h-[72vh] sm:max-h-[80vh] max-w-[92vw] object-contain pointer-events-none select-none rounded-xl shadow-2xl"
+                draggable={false}
+              />
+
+              {/* Left/Right Floating Carousel Navigation */}
+              {project.gallery.length > 1 && (
+                <>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveImageIndex((prev) =>
+                        prev > 0 ? prev - 1 : project.gallery.length - 1
+                      );
+                      resetZoomPan();
+                    }}
+                    className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3.5 rounded-full bg-white/15 hover:bg-white/30 text-white backdrop-blur-lg transition-all shadow-xl hover:scale-105 z-30"
+                    title="Previous Image"
+                  >
+                    <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setActiveImageIndex((prev) =>
+                        prev < project.gallery.length - 1 ? prev + 1 : 0
+                      );
+                      resetZoomPan();
+                    }}
+                    className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 p-2.5 sm:p-3.5 rounded-full bg-white/15 hover:bg-white/30 text-white backdrop-blur-lg transition-all shadow-xl hover:scale-105 z-30"
+                    title="Next Image"
+                  >
+                    <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />
+                  </button>
+                </>
+              )}
+            </div>
+
+            {/* Bottom Thumbnails Carousel Strip */}
+            {project.gallery.length > 1 && (
+              <div className="flex items-center justify-center gap-2 px-4 py-3 border-t border-white/10 bg-black/60 backdrop-blur-md z-30 overflow-x-auto max-w-full flex-shrink-0">
+                {project.gallery.map((img, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      setActiveImageIndex(idx);
+                      resetZoomPan();
+                    }}
+                    className={`w-14 sm:w-16 h-10 sm:h-11 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 ${
+                      activeImageIndex === idx
+                        ? 'border-brand-orange ring-2 ring-brand-orange/40 scale-105 shadow-md'
+                        : 'border-white/20 opacity-50 hover:opacity-100'
+                    }`}
+                  >
+                    <img src={img} alt="" className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>,
+          document.body
+        )}
     </div>
   );
 };
