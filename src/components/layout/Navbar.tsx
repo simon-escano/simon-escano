@@ -63,26 +63,27 @@ export const Navbar: React.FC = () => {
           }`}
       >
         <div className={scrolled ? '' : 'max-w-[1280px] mx-auto'}>
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between gap-2 sm:gap-4">
             <NavLink
               to="/"
-              className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-lg z-20"
+              className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-lg z-20 min-w-0 max-w-[calc(100%-80px)] min-[925px]:max-w-[420px]"
             >
-              <div className="transition-transform duration-300 group-hover:scale-105">
+              <div className="transition-transform duration-300 group-hover:scale-105 shrink-0">
                 <Logo className="w-8 h-8 drop-shadow-sm" />
               </div>
-              <div className="flex flex-col">
-                <span className="font-display font-medium text-lg tracking-tight text-foreground group-hover:text-brand-orange transition-colors">
+              <div className="flex flex-col min-w-0">
+                <span className="font-display font-medium text-lg tracking-tight text-foreground group-hover:text-brand-orange transition-colors truncate">
                   simon-escano
                 </span>
-                <span className="text-[10px] font-mono tracking-wider text-muted-foreground min-h-[14px]">
+                <span className="text-[10px] font-mono tracking-wider text-muted-foreground min-h-[14px] truncate block w-full">
                   <DecryptedText
                     text={NAV_TITLES[titleIndex]}
                     speed={55}
                     maxIterations={12}
-                    className="text-muted-foreground"
+                    className="text-muted-foreground truncate"
                     encryptedClassName="text-brand-orange font-mono"
                     animateOn="change"
+                    parentClassName="truncate block w-full"
                   />
                 </span>
               </div>
@@ -90,7 +91,7 @@ export const Navbar: React.FC = () => {
 
             {/* Desktop Navigation */}
             <nav
-              className={`hidden min-[925px]:flex items-center transition-all duration-300 ${scrolled
+              className={`hidden min-[925px]:flex items-center shrink-0 transition-all duration-300 ${scrolled
                 ? 'gap-5 bg-transparent border-none p-0 shadow-none'
                 : 'gap-1 bg-slate-100/70 dark:bg-slate-900/70 backdrop-blur-md border border-slate-200/60 dark:border-slate-800/80 p-1.5 rounded-full shadow-inner'
                 }`}
@@ -116,7 +117,7 @@ export const Navbar: React.FC = () => {
               ))}
             </nav>
 
-            <div className="hidden min-[925px]:flex items-center gap-3">
+            <div className="hidden min-[925px]:flex items-center gap-3 shrink-0">
               <ThemeToggle />
               <NavLink
                 to="/contact"
@@ -128,7 +129,7 @@ export const Navbar: React.FC = () => {
             </div>
 
             {/* Mobile Navigation with StaggeredMenu */}
-            <div className="flex items-center gap-2 min-[925px]:hidden mr-1 sm:mr-2">
+            <div className="flex items-center gap-2 min-[925px]:hidden mr-1 sm:mr-2 shrink-0">
               <ThemeToggle />
               <StaggeredMenu
                 position="right"

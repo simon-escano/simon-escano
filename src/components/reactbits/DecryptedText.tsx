@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef, useMemo, useCallback } from 'react'
 const styles = {
   wrapper: {
     display: 'inline-block',
-    whiteSpace: 'pre-wrap',
   },
   srOnly: {
     position: 'absolute',
@@ -365,7 +364,13 @@ export const DecryptedText: React.FC<DecryptedTextProps> = ({
       : {};
 
   return (
-    <span className={parentClassName} ref={containerRef} style={styles.wrapper} {...animateProps} {...props}>
+    <span
+      className={parentClassName}
+      ref={containerRef}
+      style={{ ...styles.wrapper, ...(props.style || {}) }}
+      {...animateProps}
+      {...props}
+    >
       <span style={styles.srOnly}>{displayText}</span>
 
       <span aria-hidden="true" className={className}>
