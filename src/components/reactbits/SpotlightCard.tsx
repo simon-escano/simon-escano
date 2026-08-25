@@ -3,12 +3,14 @@ import React, { useRef } from 'react';
 export interface SpotlightCardProps extends React.HTMLAttributes<HTMLDivElement> {
   spotlightColor?: string;
   className?: string;
+  innerClassName?: string;
   children: React.ReactNode;
 }
 
 export const SpotlightCard: React.FC<SpotlightCardProps> = ({
   children,
   className = '',
+  innerClassName = '',
   spotlightColor = 'rgba(56, 69, 201, 0.25)',
   ...props
 }) => {
@@ -38,7 +40,7 @@ export const SpotlightCard: React.FC<SpotlightCardProps> = ({
           background: `radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--spotlight-color, ${spotlightColor}), transparent 80%)`,
         }}
       />
-      <div className="relative z-10">{children}</div>
+      <div className={`relative z-10 ${innerClassName}`.trim()}>{children}</div>
     </div>
   );
 };

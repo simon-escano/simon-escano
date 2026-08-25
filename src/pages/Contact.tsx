@@ -170,7 +170,10 @@ export const Contact: React.FC = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           {/* Left Column: Direct Info & Social Channels */}
           <div className="lg:col-span-5 flex flex-col">
-            <SpotlightCard className="p-6 sm:p-8 bg-white/80 dark:bg-slate-900/50 border-slate-200 dark:border-white/10 shadow-sm flex flex-col justify-between flex-1">
+            <SpotlightCard
+              className="p-6 sm:p-8 bg-white/80 dark:bg-slate-900/50 border-slate-200 dark:border-white/10 shadow-sm flex flex-col flex-1"
+              innerClassName="h-full flex flex-col justify-between flex-1"
+            >
               <div className="space-y-6">
                 {/* Header with Title & Subtitle */}
                 <div className="space-y-1">
@@ -256,8 +259,8 @@ export const Contact: React.FC = () => {
                 </div>
               </div>
 
-              {/* Social Channels with Generous Top Margin & Padding */}
-              <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/10 space-y-3">
+              {/* Social Channels with Generous Top Margin & Padding (pinned at bottom) */}
+              <div className="mt-auto pt-6 border-t border-slate-200 dark:border-white/10 space-y-3">
                 <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider">
                   Verified Profiles
                 </div>
@@ -355,7 +358,7 @@ export const Contact: React.FC = () => {
                     </div>
 
                     {/* Subject / Scope (Clean Shadcn-styled Custom Dropdown) */}
-                    <div className="space-y-2 relative" ref={dropdownRef}>
+                    <div className="space-y-2 relative z-30" ref={dropdownRef}>
                       <label className="block text-xs font-mono text-slate-700 dark:text-slate-300">
                         Inquiry Scope
                       </label>
