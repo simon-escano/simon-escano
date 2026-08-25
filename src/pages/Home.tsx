@@ -12,6 +12,7 @@ import {
 } from 'lucide-react';
 import dataService from '@/services/dataService';
 import { RatingBars } from '@/components/common/RatingBars';
+import { useTheme } from '@/context/ThemeContext';
 import {
   ColorBends,
   DotField,
@@ -43,10 +44,23 @@ const HERO_TITLES = [
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
+  const { actualTheme } = useTheme();
   const profile = dataService.getProfile();
   const allProjects = dataService.getProjects();
   const techStack = dataService.getTechStack();
   const achievements = dataService.getAchievements();
+
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== 'undefined' ? window.innerWidth < 640 : false
+  );
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const driftItems = useMemo(
     () =>
@@ -619,72 +633,86 @@ export const Home: React.FC = () => {
       {/* ──────────────────────────────────────────────────────────
           6. CURVED MARQUEE & CONTACT CTA
       ────────────────────────────────────────────────────────── */}
-      <section className="pb-20 pt-4 relative overflow-hidden bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-white/10">
-        <div className="w-full mb-8">
+      <section className="pb-16 sm:pb-20 pt-4 relative overflow-hidden bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-white/10 w-full box-border">
+        {/* Marquee Header: Scaled curve & text for mobile */}
+        <div className="w-full mb-6 sm:mb-8 overflow-hidden">
           <CurvedLoop
             marqueeText="LET'S BUILD SOMETHING EXTRAORDINARY TOGETHER ✦ FULL-STACK DEV & SOFTWARE ENGINEER ✦ BACKEND DEV & INTEGRATION ENGINEER ✦ AI ENGINEER & ML APP DEVELOPER ✦ WEB ARCHITECT & TECHNICAL SEO DEV ✦ SIMON-ESCANO ✦ "
             speed={1.4}
-            curveAmount={130}
-            className="fill-slate-800 dark:fill-white font-display text-3xl sm:text-4xl font-medium uppercase tracking-widest"
+            curveAmount={60} // Reduced on mobile base; let CSS handle scaling
+            className="fill-slate-800 dark:fill-white font-display text-xl sm:text-3xl md:text-4xl font-medium uppercase tracking-widest"
           />
         </div>
 
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <BorderGlow
-            edgeSensitivity={35}
-            glowColor="24 95 53"
-            borderRadius={28}
-            glowRadius={35}
-          >
-            <div className="p-8 sm:p-12 text-center space-y-6">
-              <h3 className="font-display text-2xl sm:text-3xl font-medium text-slate-900 dark:text-white">
-                Have a project or opportunity in mind?
-              </h3>
-              <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
-                Type your inquiry or email below to jump directly into a connected discussion with simon-escano.
-              </p>
+        {/* Main Card Container */}
+        <div className="w-full max-w-3xl mx-auto px-3 sm:px-6 lg:px-8 box-border">
+          <div className="w-full max-w-full overflow-hidden rounded-[20px] sm:rounded-[28px] border border-slate-200/80 dark:border-white/10 shadow-sm">
+            <BorderGlow
+              edgeSensitivity={35}
+              glowColor="24 95 53"
+              borderRadius={24}
+              glowRadius={30}
+              className="w-full max-w-full"
+            >
+              <div className="p-5 sm:p-8 md:p-12 text-center space-y-5 sm:space-y-6 w-full max-w-full box-border min-w-0">
 
-              {/* Curved Input Inquiry Box */}
-              <div className="pt-2 flex justify-center">
-                <CurvedInput
-                  width="100%"
-                  height={56}
-                  bend={12}
-                  placeholder="Your message or email..."
-                  buttonText="Send Inquiry"
-                  onSubmit={handleCurvedSubmit}
-                />
-              </div>
+                <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-medium text-slate-900 dark:text-white leading-tight break-words px-1">
+                  Have a project or opportunity in mind?
+                </h3>
 
-              <div className="flex items-center justify-center gap-6 pt-4 text-xs font-mono text-slate-500 dark:text-slate-400">
-                <a
-                  href={`mailto:${profile.contact.email}`}
-                  className="hover:text-brand-orange transition-colors flex items-center gap-1"
-                >
-                  <ExternalLink className="w-3.5 h-3.5" />
-                  <span>{profile.contact.email}</span>
-                </a>
-                <span>•</span>
-                <a
-                  href={profile.contact.github}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="hover:text-brand-orange transition-colors"
-                >
-                  GitHub
-                </a>
-                <span>•</span>
-                <a
-                  href={profile.contact.linkedin}
-                  target="_blank"
-                  rel="noreferrer noopener"
-                  className="hover:text-brand-orange transition-colors"
-                >
-                  LinkedIn
-                </a>
+                <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm md:text-base max-w-lg mx-auto leading-relaxed break-words px-2">
+                  Drop your inquiry or email below to start a direct discussion.
+                </p>
+
+                {/* Curved Input Wrapper */}
+                <div className="w-full max-w-full sm:max-w-md mx-auto pt-1 sm:pt-2 flex justify-center min-w-0 [&_svg]:drop-shadow-none [&_svg]:overflow-visible [&_filter]:hidden [&_path]:[filter:none]">
+                  <div className="w-full bg-transparent">
+                    <CurvedInput
+                      width="100%"
+                      height={50}
+                      bend={8}
+                      placeholder="Your message or email..."
+                      buttonText="Send"
+                      onSubmit={handleCurvedSubmit}
+                    />
+                  </div>
+                </div>
+
+                {/* Responsive Footer Links */}
+                <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 text-xs font-mono text-slate-500 dark:text-slate-400 w-full max-w-full overflow-hidden">
+                  <a
+                    href={`mailto:${profile.contact.email}`}
+                    className="hover:text-brand-orange transition-colors flex items-center gap-1.5 max-w-full min-w-0 px-2"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5 flex-shrink-0" />
+                    <span className="truncate block max-w-[260px] sm:max-w-none">{profile.contact.email}</span>
+                  </a>
+
+                  <div className="flex items-center gap-3">
+                    <span className="hidden sm:inline text-slate-400/40">•</span>
+                    <a
+                      href={profile.contact.github}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="hover:text-brand-orange transition-colors"
+                    >
+                      GitHub
+                    </a>
+                    <span className="text-slate-400/40">•</span>
+                    <a
+                      href={profile.contact.linkedin}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="hover:text-brand-orange transition-colors"
+                    >
+                      LinkedIn
+                    </a>
+                  </div>
+                </div>
+
               </div>
-            </div>
-          </BorderGlow>
+            </BorderGlow>
+          </div>
         </div>
       </section>
     </div>
