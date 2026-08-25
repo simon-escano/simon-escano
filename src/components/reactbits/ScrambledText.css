@@ -1,0 +1,29 @@
+.scrambled-text-block {
+  font-family: "JetBrains Mono", monospace;
+  font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+  color: inherit;
+  line-height: 1.6;
+  width: 100%;
+  max-width: 100%;
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.scrambled-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.scrambled-char {
+  display: inline-block;
+  will-change: transform;
+  transition: color 0.15s ease;
+}
+
+.scrambled-char--space {
+  display: inline;
+}
+
+.scrambled-char--active {
+  color: #f97316;
+}

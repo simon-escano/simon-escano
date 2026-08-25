@@ -1,0 +1,167 @@
+:root {
+  --chroma-card-bg: rgba(255, 255, 255, 0.95);
+  --chroma-card-border: rgba(0, 0, 0, 0.08);
+  --chroma-card-title: #0f172a;
+  --chroma-card-text: #475569;
+  --chroma-card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+}
+
+.dark {
+  --chroma-card-bg: rgba(19, 27, 46, 0.8);
+  --chroma-card-border: rgba(255, 255, 255, 0.1);
+  --chroma-card-title: #ffffff;
+  --chroma-card-text: rgba(255, 255, 255, 0.7);
+  --chroma-card-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.3);
+}
+
+.chroma-grid {
+  position: relative;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  justify-content: center;
+  gap: 1.25rem;
+  max-width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+
+  --x: 50%;
+  --y: 50%;
+  --r: 280px;
+}
+
+.chroma-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 20px;
+  overflow: hidden;
+  border: 1px solid var(--chroma-card-border);
+  transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+  background: var(--card-gradient, var(--chroma-card-bg));
+  box-shadow: var(--chroma-card-shadow);
+  backdrop-filter: blur(12px);
+
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+  --spotlight-color: rgba(56, 69, 201, 0.25);
+}
+
+.chroma-card:hover {
+  border-color: var(--card-border, #3845c9);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 30px -4px rgba(56, 69, 201, 0.15);
+}
+
+.chroma-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), var(--spotlight-color), transparent 70%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: 2;
+}
+
+.chroma-card:hover::before {
+  opacity: 1;
+}
+
+.chroma-img-wrapper,
+.chroma-collage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 200px;
+  padding: 8px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.chroma-collage {
+  display: grid;
+  gap: 4px;
+}
+
+.chroma-collage--2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.chroma-collage--3 {
+  grid-template-columns: 1.45fr 1fr;
+  grid-template-rows: 1fr 1fr;
+}
+
+.chroma-collage--3 .chroma-collage__cell:first-child {
+  grid-row: 1 / span 2;
+}
+
+.chroma-collage__cell {
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+  min-height: 0;
+}
+
+.chroma-collage__cell img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.chroma-collage__more {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(15, 23, 42, 0.62);
+  color: #fff;
+  font-family: "Funnel Display", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+.chroma-img-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.chroma-card:hover .chroma-img-wrapper img {
+  transform: scale(1.03);
+}
+
+.chroma-info {
+  position: relative;
+  z-index: 1;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.chroma-info .name {
+  font-family: "Funnel Display", sans-serif;
+  font-size: 1.15rem;
+  font-weight: 600;
+  color: var(--chroma-card-title);
+  line-height: 1.2;
+}
+
+.chroma-info .role {
+  font-size: 0.85rem;
+  color: var(--chroma-card-text);
+  line-height: 1.4;
+}
+
+.chroma-overlay,
+.chroma-fade {
+  display: none;
+}

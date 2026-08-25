@@ -1,14 +1,14 @@
-use motion.dev + reactbits.dev + shadcn ui
-- Use blue and orange for the colors 
+use m.dev + reactbits.dev + shadcn ui
+- Use blue and orange for the ACCENT colors, otherwise use neutral dark/light colors
 - use "Funnel Display" for the primary font
 - have light and dark mode (system by default)
-- Use Motion.dev for 80% of your site. It handles enter/exit transitions, layout animations (layoutId), hover physics, and scroll visibility naturally within React’s lifecycle without leaking event listeners.
+- Use m.dev for 80% of your site. It handles enter/exit transitions, layout animations (layoutId), hover physics, and scroll visibility naturally within React’s lifecycle without leaking event listeners.
 - have "home" (where everything is previewed like the projects, tech stack, work experience, achievements, etc.), "about" where everything about me except projects are shown, "projects" page where a list of all my projects are shown, "contact" where it has an input and where recruiters can send me an email.
 - use "molten metal" from reactbits backgrounds for the background
 - use "card swap" component from reactbits for my top 5 projects
 - use "border glow" component from reactbits for appropriate cards to use
 - use "spotlight card" component from reactbits for appropriate cards to use
-- use "lanyard" component from reactbits for my profile
+- use "profile-card" component from reactbits for my profile
 - use "glass surface" component where appropriate
 - use "tilted card" component where appropriate
 - use "curved input" component for contact form
@@ -29,4 +29,5 @@ use motion.dev + reactbits.dev + shadcn ui
 - use "stroke text" animation for the hero, or introduction of me
 - Limit GPU Canvas/Shader Effects: Use at most one heavy canvas or WebGL background effect (from React Bits) and restrict it to the hero section.
 - Disconnect Off-Screen Animations: Use an IntersectionObserver to pause canvas render loops and heavy CSS/JS animations as soon as the user scrolls past the hero section.
-- Leverage LazyMotion: In Motion.dev, wrap your app in <LazyMotion features="{domAnimation}"> to dynamically load animation features and keep your initial bundle footprint tiny.
+- Leverage LazyMotion: In m.dev, wrap your app in <LazyMotion features="{domAnimation}"> to dynamically load animation features and keep your initial bundle footprint tiny.
+- placeholder images for now for each achievement
