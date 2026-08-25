@@ -625,7 +625,7 @@ export const Home: React.FC = () => {
       {/* ──────────────────────────────────────────────────────────
           6. CURVED MARQUEE & CONTACT CTA
       ────────────────────────────────────────────────────────── */}
-      <section className="py-20 relative overflow-hidden bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-white/10">
+      <section className="pb-20 pt-4 relative overflow-hidden bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-white/10">
         <div className="w-full mb-8">
           <CurvedLoop
             marqueeText="LET'S BUILD SOMETHING EXTRAORDINARY TOGETHER ✦ FULL-STACK DEV & SOFTWARE ENGINEER ✦ BACKEND DEV & INTEGRATION ENGINEER ✦ AI ENGINEER & ML APP DEVELOPER ✦ WEB ARCHITECT & TECHNICAL SEO DEV ✦ SIMON-ESCANO ✦ "
