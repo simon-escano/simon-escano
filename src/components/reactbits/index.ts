@@ -22,3 +22,4 @@ export * from './StrokeText';
 export * from './DotField';
 export * from './ColorBends';
 export * from './DecryptedText';
+export * from './StaggeredMenu';

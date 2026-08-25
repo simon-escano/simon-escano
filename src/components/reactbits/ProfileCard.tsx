@@ -375,7 +375,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
                     speed={25}
                     maxIterations={8}
                     animateOn="change"
-                    className="font-medium"
+                    className="font-medium bg-gradient-to-r from-slate-800 via-brand-cobalt to-brand-orange dark:from-white dark:via-blue-300 dark:to-brand-orange bg-clip-text text-transparent"
                     encryptedClassName="font-mono text-brand-orange [-webkit-text-fill-color:#f97316]"
                   />
                 </p>

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { Menu, X, ArrowUpRight, Sparkles } from 'lucide-react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { ArrowUpRight } from 'lucide-react';
 import Logo from '@/components/Logo';
 import ThemeToggle from './ThemeToggle';
-import { DecryptedText } from '@/components/reactbits';
+import { DecryptedText, StaggeredMenu } from '@/components/reactbits';
+import dataService from '@/services/dataService';
 
 const NAV_TITLES = [
   'Full-Stack Dev & Software Engineer',
@@ -13,10 +14,10 @@ const NAV_TITLES = [
 ];
 
 export const Navbar: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const profile = dataService.getProfile();
   const [scrolled, setScrolled] = useState(false);
   const [titleIndex, setTitleIndex] = useState(0);
-  const location = useLocation();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -33,15 +34,24 @@ export const Navbar: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  useEffect(() => {
-    setIsOpen(false);
-  }, [location.pathname]);
-
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Projects', path: '/projects' },
     { name: 'About', path: '/about' },
     { name: 'Contact', path: '/contact' },
+  ];
+
+  const menuItems = [
+    { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
+    { label: 'Projects', ariaLabel: 'Explore verified engineering work', link: '/projects' },
+    { label: 'About', ariaLabel: 'Learn about Simon Escaño', link: '/about' },
+    { label: 'Contact', ariaLabel: 'Get in touch directly', link: '/contact' },
+  ];
+
+  const socialItems = [
+    { label: 'GitHub', link: profile.contact.github },
+    { label: 'LinkedIn', link: profile.contact.linkedin },
+    { label: 'Email', link: `mailto:${profile.contact.email}` },
   ];
 
   return (
@@ -56,7 +66,7 @@ export const Navbar: React.FC = () => {
           <div className="flex items-center justify-between">
             <NavLink
               to="/"
-              className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-lg"
+              className="flex items-center gap-3 group focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange rounded-lg z-20"
             >
               <div className="transition-transform duration-300 group-hover:scale-105">
                 <Logo className="w-8 h-8 drop-shadow-sm" />
@@ -78,6 +88,7 @@ export const Navbar: React.FC = () => {
               </div>
             </NavLink>
 
+            {/* Desktop Navigation */}
             <nav
               className={`hidden md:flex items-center transition-all duration-300 ${scrolled
                 ? 'gap-5 bg-transparent border-none p-0 shadow-none'
@@ -116,45 +127,28 @@ export const Navbar: React.FC = () => {
               </NavLink>
             </div>
 
+            {/* Mobile Navigation with StaggeredMenu */}
             <div className="flex items-center gap-2 md:hidden">
               <ThemeToggle />
-              <button
-                onClick={() => setIsOpen(!isOpen)}
-                className="p-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-800 focus:outline-none"
-                aria-label="Toggle menu"
-              >
-                {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-              </button>
+              <StaggeredMenu
+                position="right"
+                items={menuItems}
+                socialItems={socialItems}
+                displaySocials={true}
+                displayItemNumbering={true}
+                colors={['#3845C9', '#60a5fa', '#f97316']}
+                accentColor="#f97316"
+                isFixed={true}
+                onItemClick={(item) => {
+                  if (item.link.startsWith('/')) {
+                    navigate(item.link);
+                  } else {
+                    window.open(item.link, '_blank');
+                  }
+                }}
+              />
             </div>
           </div>
-
-          {isOpen && (
-            <div className="md:hidden pt-3 pb-2 animate-in slide-in-from-top-2">
-              <div className="flex flex-col space-y-2">
-                {navLinks.map((link) => (
-                  <NavLink
-                    key={link.path}
-                    to={link.path}
-                    className={({ isActive }) =>
-                      `px-4 py-2.5 rounded-lg text-base font-medium transition-colors ${isActive
-                        ? 'bg-brand-cobalt text-white font-medium'
-                        : 'text-muted-foreground hover:text-foreground hover:bg-slate-100 dark:hover:bg-slate-900'
-                      }`
-                    }
-                  >
-                    {link.name}
-                  </NavLink>
-                ))}
-                <NavLink
-                  to="/contact"
-                  className="flex items-center justify-center gap-2 w-full py-3 text-sm font-medium uppercase tracking-wider text-white bg-gradient-to-r from-brand-orange to-brand-ember rounded-xl shadow-md shadow-brand-orange/20"
-                >
-                  <Sparkles className="w-4 h-4" />
-                  <span>Get in Touch</span>
-                </NavLink>
-              </div>
-            </div>
-          )}
         </div>
       </div>
     </header>

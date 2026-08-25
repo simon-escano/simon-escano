@@ -211,7 +211,7 @@ export const Home: React.FC = () => {
             </h2>
 
             {/* Philosophy / Intro Scramble */}
-            <div className="max-w-xl text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed text-center lg:text-left">
+            <div className="w-full max-w-xl text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed text-center lg:text-left">
               <ScrambledText radius={70} duration={500}>
                 {profile.philosophy}
               </ScrambledText>

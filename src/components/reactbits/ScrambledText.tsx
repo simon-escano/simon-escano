@@ -127,7 +127,7 @@ export const ScrambledText: React.FC<ScrambledTextProps> = ({
           if (group.isSpace) {
             return (
               <span key={`space-${group.chars[0].idx}`} className="scrambled-char--space">
-                {'\u00A0'}
+                {' '}
               </span>
             );
           }
