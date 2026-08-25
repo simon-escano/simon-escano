@@ -20,6 +20,7 @@ import {
   SpotlightCard,
   SpecularButton,
   GradientText,
+  DotField,
 } from '@/components/reactbits';
 
 export const Contact: React.FC = () => {
@@ -99,8 +100,22 @@ export const Contact: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 bg-background text-foreground">
-      <div className="max-w-[1280px] mx-auto space-y-16">
+    <div className="relative min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 bg-background text-foreground overflow-hidden">
+      {/* Background Interactive DotField Shader */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 opacity-75 dark:opacity-85">
+          <DotField
+            dotRadius={1.5}
+            dotSpacing={16}
+            bulgeStrength={65}
+            glowRadius={160}
+            gradientFrom="rgba(56, 69, 201, 0.45)"
+            gradientTo="rgba(249, 115, 22, 0.35)"
+          />
+        </div>
+      </div>
+
+      <div className="relative z-10 max-w-[1280px] mx-auto space-y-16">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 text-xs font-mono font-medium">

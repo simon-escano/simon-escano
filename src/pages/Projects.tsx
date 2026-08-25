@@ -11,6 +11,7 @@ import {
   ChromaGrid,
   GradientText,
   SpecularButton,
+  DotField,
 } from '@/components/reactbits';
 
 const CATEGORIES = [
@@ -96,8 +97,22 @@ export const Projects: React.FC = () => {
   }));
 
   return (
-    <div className="min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 bg-background text-foreground">
-      <div className="max-w-[1280px] mx-auto space-y-12">
+    <div className="relative min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 bg-background text-foreground overflow-hidden">
+      {/* Background Interactive DotField Shader */}
+      <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div className="absolute inset-0 opacity-75 dark:opacity-85">
+          <DotField
+            dotRadius={1.5}
+            dotSpacing={16}
+            bulgeStrength={65}
+            glowRadius={160}
+            gradientFrom="rgba(56, 69, 201, 0.45)"
+            gradientTo="rgba(249, 115, 22, 0.35)"
+          />
+        </div>
+      </div>
+
+      <div className="relative z-10 max-w-[1280px] mx-auto space-y-12">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight">
