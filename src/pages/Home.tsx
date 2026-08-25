@@ -44,13 +44,13 @@ const HERO_TITLES = [
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
-  const { actualTheme } = useTheme();
+  useTheme();
   const profile = dataService.getProfile();
   const allProjects = dataService.getProjects();
   const techStack = dataService.getTechStack();
   const achievements = dataService.getAchievements();
 
-  const [isMobile, setIsMobile] = useState(
+  const [, setIsMobile] = useState(
     typeof window !== 'undefined' ? window.innerWidth < 640 : false
   );
 
