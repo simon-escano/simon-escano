@@ -1,6 +1,23 @@
+:root {
+  --ag-bg: #f8fafc;
+  --ag-border: rgba(0, 0, 0, 0.08);
+  --ag-border-hover: rgba(0, 0, 0, 0.18);
+  --ag-overlay-base: rgba(15, 23, 42, 0.12);
+  --ag-overlay-gradient: linear-gradient(180deg, transparent 45%, rgba(15, 23, 42, 0.75) 100%);
+  --ag-shadow: 0 10px 25px -10px rgba(15, 23, 42, 0.12), 0 2px 6px -1px rgba(15, 23, 42, 0.06);
+}
+
+.dark {
+  --ag-bg: #090d16;
+  --ag-border: rgba(255, 255, 255, 0.08);
+  --ag-border-hover: rgba(255, 255, 255, 0.22);
+  --ag-overlay-base: rgba(9, 13, 22, 0.35);
+  --ag-overlay-gradient: linear-gradient(180deg, transparent 40%, rgba(9, 13, 22, 0.9) 100%);
+  --ag-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+}
+
 .accordion-gallery {
   --ag-accent: #f97316;
-  --ag-overlay: #090d16;
   --ag-text: #ffffff;
   --ag-gap: 12px;
   --ag-radius: 20px;
@@ -32,17 +49,23 @@
   outline: none;
   transform-style: preserve-3d;
   transform-origin: center center;
-  background: #090d16;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 30px -18px rgba(0, 0, 0, 0.8);
+  background: var(--ag-bg);
+  border: 1px solid var(--ag-border);
+  box-shadow: var(--ag-shadow);
   will-change: flex-grow, transform;
   -webkit-tap-highlight-color: transparent;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.ag-panel:hover,
+.ag-panel--active {
+  border-color: var(--ag-border-hover);
 }
 
 .ag-panel:focus-visible {
   box-shadow:
     0 0 0 2px var(--ag-accent),
-    0 10px 30px -18px rgba(0, 0, 0, 0.8);
+    var(--ag-shadow);
 }
 
 .ag-panel__frame {
@@ -54,7 +77,7 @@
 
 .ag-panel__media {
   --ag-gray: 1;
-  --ag-dim: 0.35;
+  --ag-dim: 0.2;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -83,8 +106,13 @@
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(180deg, transparent 40%, rgba(9, 13, 22, 0.9) 100%),
-    rgba(9, 13, 22, 0.4);
+    var(--ag-overlay-gradient),
+    var(--ag-overlay, var(--ag-overlay-base));
+  transition: opacity 0.3s ease;
+}
+
+.ag-panel--active .ag-panel__overlay {
+  background: var(--ag-overlay-gradient);
 }
 
 .ag-panel__label {

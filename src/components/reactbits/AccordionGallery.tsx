@@ -40,7 +40,7 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
   items,
   defaultIndex = 0,
   accentColor = '#f97316',
-  overlayColor = '#090d16',
+  overlayColor,
   textColor = '#ffffff',
   height = 420,
   gap = 12,
@@ -223,7 +223,7 @@ export const AccordionGallery: React.FC<AccordionGalleryProps> = ({
       }}
       style={{
         '--ag-accent': accentColor,
-        '--ag-overlay': overlayColor,
+        ...(overlayColor ? { '--ag-overlay': overlayColor } : {}),
         '--ag-text': textColor,
         '--ag-gap': `${gap}px`,
         '--ag-radius': `${radius}px`,
