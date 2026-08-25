@@ -340,7 +340,7 @@ export const Home: React.FC = () => {
         <div className="flex items-center justify-between gap-6 mb-8 sm:mb-12">
           <div>
             <h2 className="font-display text-3xl sm:text-4xl font-medium tracking-tight">
-              All <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Projects</GradientText>
+              Featured <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>Projects</GradientText>
             </h2>
           </div>
 
