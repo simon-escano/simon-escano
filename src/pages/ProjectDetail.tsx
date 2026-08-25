@@ -234,8 +234,8 @@ export const ProjectDetail: React.FC = () => {
                 key={idx}
                 onClick={() => setActiveImageIndex(idx)}
                 className={`group relative rounded-xl overflow-hidden border-2 text-left transition-all flex-shrink-0 w-24 sm:w-32 lg:w-full aspect-[16/10] bg-slate-950/40 ${activeImageIndex === idx
-                    ? 'border-brand-orange shadow-lg scale-[1.01] z-10'
-                    : 'border-slate-200/90 dark:border-white/10 opacity-70 hover:opacity-100 hover:border-slate-400 dark:hover:border-white/30'
+                  ? 'border-brand-orange shadow-lg scale-[1.01] z-10'
+                  : 'border-slate-200/90 dark:border-white/10 opacity-70 hover:opacity-100 hover:border-slate-400 dark:hover:border-white/30'
                   }`}
               >
                 <ImageWithSkeleton
@@ -268,8 +268,8 @@ export const ProjectDetail: React.FC = () => {
           </div>
 
           {/* Achieving Flow Arrow Indicator */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-9 h-9 rounded-full bg-brand-cobalt text-white border-2 border-background shadow-lg z-20">
-            <ArrowRight className="w-4 h-4 text-brand-orange" />
+          <div className="border border-slate-200 dark:border-white/10 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-9 h-9 rounded-full bg-background dark:bg-background/white text-white shadow-lg z-20">
+            <ArrowRight className="w-4 h-4 text-brand-cobalt" />
           </div>
 
           {/* The Goal */}
@@ -328,7 +328,7 @@ export const ProjectDetail: React.FC = () => {
           </div>
         )}
 
-        {/* Tech Stack Matrix */}
+        {/* Tech Stack Grouped by Category (Primary in Blue, Supporting in Green, etc.) */}
         <div className="space-y-6">
           <div className="flex items-center gap-2 text-xs font-mono text-emerald-500 uppercase tracking-wider font-medium">
             <Code2 className="w-4 h-4" />
@@ -338,22 +338,70 @@ export const ProjectDetail: React.FC = () => {
             Tech Stack
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {project.tech_stack.map((t, idx) => (
-              <div
-                key={idx}
-                className="p-4 rounded-xl bg-white/80 dark:bg-slate-900/40 border border-slate-200 dark:border-white/10 shadow-sm space-y-1.5"
-              >
-                <div className="flex items-center justify-between">
-                  <span className="font-mono text-sm font-medium text-slate-900 dark:text-white">
-                    {t.name}
-                  </span>
+          <div className="space-y-6 pt-1">
+            {Object.entries(
+              project.tech_stack.reduce((acc, tech) => {
+                const role = tech.role || 'Other';
+                if (!acc[role]) acc[role] = [];
+                acc[role].push(tech);
+                return acc;
+              }, {} as Record<string, typeof project.tech_stack>)
+            ).map(([role, items]) => {
+              const normalized = role.toLowerCase().trim();
+              let headerColor = 'text-brand-cobalt dark:text-blue-400';
+              let badgeBorder = 'hover:border-brand-cobalt dark:hover:border-blue-400';
+              let fillColor = 'rgba(56, 69, 201, 0.15)';
+              let dotColor = 'bg-brand-cobalt dark:bg-blue-400';
+
+              if (normalized.includes('support') || normalized.includes('second')) {
+                headerColor = 'text-emerald-600 dark:text-emerald-400';
+                badgeBorder = 'hover:border-emerald-500';
+                fillColor = 'rgba(16, 185, 129, 0.15)';
+                dotColor = 'bg-emerald-500';
+              } else if (normalized.includes('infra') || normalized.includes('devops') || normalized.includes('cloud') || normalized.includes('platform')) {
+                headerColor = 'text-brand-orange dark:text-orange-400';
+                badgeBorder = 'hover:border-brand-orange';
+                fillColor = 'rgba(249, 115, 22, 0.15)';
+                dotColor = 'bg-brand-orange';
+              } else if (normalized.includes('database') || normalized.includes('storage') || normalized.includes('data')) {
+                headerColor = 'text-purple-600 dark:text-purple-400';
+                badgeBorder = 'hover:border-purple-500';
+                fillColor = 'rgba(168, 85, 247, 0.15)';
+                dotColor = 'bg-purple-500';
+              }
+
+              return (
+                <div key={role} className="space-y-3">
+                  <div className="flex items-center gap-2">
+                    <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />
+                    <span className={`text-xs font-mono uppercase tracking-wider font-semibold ${headerColor}`}>
+                      {role}
+                    </span>
+                    <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500">
+                      ({items.length})
+                    </span>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2.5">
+                    {items.map((tech, idx) => (
+                      <span
+                        key={idx}
+                        className={`relative overflow-hidden inline-flex items-center justify-center font-mono text-xs font-medium px-4 py-2 rounded-xl bg-white/90 dark:bg-slate-900/90 border border-slate-200 dark:border-white/10 text-slate-800 dark:text-slate-200 shadow-sm transition-all duration-200 hover:scale-105 hover:shadow-md backdrop-blur-md cursor-default ${badgeBorder}`}
+                      >
+                        <span
+                          className="absolute inset-x-0 bottom-0 pointer-events-none transition-all"
+                          style={{
+                            height: '100%',
+                            backgroundColor: fillColor,
+                          }}
+                        />
+                        <span className="relative z-10">{tech.name}</span>
+                      </span>
+                    ))}
+                  </div>
                 </div>
-                <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                  {t.role}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
@@ -517,8 +565,8 @@ export const ProjectDetail: React.FC = () => {
                     resetZoomPan();
                   }}
                   className={`w-16 h-11 rounded-lg overflow-hidden border transition-all flex-shrink-0 ${activeImageIndex === idx
-                      ? 'border-brand-orange ring-2 ring-brand-orange/40 scale-105'
-                      : 'border-white/20 opacity-50 hover:opacity-100'
+                    ? 'border-brand-orange ring-2 ring-brand-orange/40 scale-105'
+                    : 'border-white/20 opacity-50 hover:opacity-100'
                     }`}
                 >
                   <img src={img} alt="" className="w-full h-full object-cover" />
