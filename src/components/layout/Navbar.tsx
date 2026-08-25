@@ -128,7 +128,7 @@ export const Navbar: React.FC = () => {
             </div>
 
             {/* Mobile Navigation with StaggeredMenu */}
-            <div className="flex items-center gap-2 md:hidden">
+            <div className="flex items-center gap-2 md:hidden mr-1 sm:mr-2">
               <ThemeToggle />
               <StaggeredMenu
                 position="right"

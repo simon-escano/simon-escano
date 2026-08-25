@@ -181,35 +181,11 @@ export const ProjectDetail: React.FC = () => {
         </div>
 
         {/* ──────────────────────────────────────────────────────────
-            Gallery Showcase (Left: Other Images, Right: Main Image)
-            No bulky card wrapper; natural aspect ratio with max sizing
+            Gallery Showcase (Main Image Top on Mobile, Thumbnails Bottom)
         ────────────────────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-          {/* Left Column: Other Images / Thumbnails */}
-          <div className="lg:col-span-3 flex flex-row lg:flex-col gap-3 overflow-x-auto lg:overflow-y-auto max-h-[580px] pb-2 lg:pb-0 scrollbar-thin">
-            {project.gallery.map((img, idx) => (
-              <button
-                key={idx}
-                onClick={() => setActiveImageIndex(idx)}
-                className={`group relative rounded-xl overflow-hidden border text-left transition-all flex-shrink-0 lg:w-full aspect-[16/10] bg-slate-950/40 ${activeImageIndex === idx
-                    ? 'border-brand-orange ring-2 ring-brand-orange/40 shadow-md scale-[1.02]'
-                    : 'border-slate-200 dark:border-white/10 opacity-70 hover:opacity-100 hover:border-slate-400 dark:hover:border-white/30'
-                  }`}
-              >
-                <ImageWithSkeleton
-                  src={img}
-                  alt={`${project.title} view ${idx + 1}`}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-                <span className="absolute bottom-1.5 left-1.5 px-2 py-0.5 rounded text-[10px] font-mono bg-black/75 text-white backdrop-blur-sm z-20">
-                  View {idx + 1}
-                </span>
-              </button>
-            ))}
-          </div>
-
-          {/* Right Column: Main Image with Click-to-Zoom */}
-          <div className="lg:col-span-9 relative rounded-2xl overflow-hidden bg-slate-950/40 border border-slate-200 dark:border-white/10 group shadow-md flex items-center justify-center min-h-[340px] max-h-[580px]">
+        <div className="flex flex-col lg:grid lg:grid-cols-12 gap-4 sm:gap-6 items-start">
+          {/* Main Image with Click-to-Zoom (Top on Mobile, Col-9 on Desktop) */}
+          <div className="w-full order-1 lg:order-2 lg:col-span-9 relative rounded-2xl overflow-hidden bg-slate-950/40 border border-slate-200 dark:border-white/10 group shadow-md flex items-center justify-center min-h-[240px] sm:min-h-[340px] max-h-[580px]">
             <div
               onClick={() => {
                 resetZoomPan();
@@ -230,11 +206,34 @@ export const ProjectDetail: React.FC = () => {
                 resetZoomPan();
                 setIsLightboxOpen(true);
               }}
-              className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-mono bg-slate-900/90 hover:bg-slate-900 text-white border border-white/15 backdrop-blur-md transition-all shadow-lg hover:scale-105 z-20"
+              className="absolute bottom-3 right-3 inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] sm:text-xs font-mono bg-slate-900/90 hover:bg-slate-900 text-white border border-white/15 backdrop-blur-md transition-all shadow-lg hover:scale-105 z-20"
             >
               <Maximize2 className="w-3.5 h-3.5 text-brand-orange" />
               <span>Full Screen Pan & Zoom</span>
             </button>
+          </div>
+
+          {/* Thumbnails Row on Mobile (Horizontal Scroll), Column on Desktop */}
+          <div className="w-full order-2 lg:order-1 lg:col-span-3 flex flex-row lg:flex-col gap-2.5 sm:gap-3 overflow-x-auto lg:overflow-y-auto max-h-[580px] pb-2 lg:pb-0 scrollbar-thin">
+            {project.gallery.map((img, idx) => (
+              <button
+                key={idx}
+                onClick={() => setActiveImageIndex(idx)}
+                className={`group relative rounded-xl overflow-hidden border text-left transition-all flex-shrink-0 w-24 sm:w-32 lg:w-full aspect-[16/10] bg-slate-950/40 ${activeImageIndex === idx
+                    ? 'border-brand-orange ring-2 ring-brand-orange/40 shadow-md scale-[1.02]'
+                    : 'border-slate-200 dark:border-white/10 opacity-70 hover:opacity-100 hover:border-slate-400 dark:hover:border-white/30'
+                  }`}
+              >
+                <ImageWithSkeleton
+                  src={img}
+                  alt={`${project.title} view ${idx + 1}`}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <span className="absolute bottom-1 left-1 sm:bottom-1.5 sm:left-1.5 px-1.5 sm:px-2 py-0.5 rounded text-[9px] sm:text-[10px] font-mono bg-black/75 text-white backdrop-blur-sm z-20">
+                  View {idx + 1}
+                </span>
+              </button>
+            ))}
           </div>
         </div>
 

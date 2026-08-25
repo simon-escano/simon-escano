@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useCallback, useMemo } from 'react';
 import './ProfileCard.css';
 import { DecryptedText } from './DecryptedText';
+import { GradientWaves } from './GradientWaves';
 
 const DEFAULT_INNER_GRADIENT = 'linear-gradient(145deg, rgba(56, 69, 201, 0.4) 0%, rgba(249, 115, 22, 0.25) 100%)';
 
@@ -321,6 +322,21 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
       <div ref={shellRef} className="pc-card-shell">
         <section className="pc-card">
           <div className="pc-inside">
+            <div className="absolute inset-0 overflow-hidden pointer-events-none rounded-[inherit]">
+              <GradientWaves
+                horizonColor="#1e1b4b"
+                waveColor="#3845c9"
+                crestColor="#60a5fa"
+                speed={0.3}
+                amplitude={2.0}
+                waveScale={0.7}
+                swell={25}
+                turbulence={15}
+                opacity={0.85}
+                grain={true}
+                grainIntensity={0.04}
+              />
+            </div>
             <div className="pc-shine" />
             <div className="pc-glare" />
             <div className="pc-content pc-avatar-content">
@@ -375,7 +391,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
                     speed={25}
                     maxIterations={8}
                     animateOn="change"
-                    className="font-medium bg-gradient-to-r from-slate-800 via-brand-cobalt to-brand-orange dark:from-white dark:via-blue-300 dark:to-brand-orange bg-clip-text text-transparent"
+                    className="font-medium bg-gradient-to-b from-slate-800 to-slate-500 dark:from-white dark:to-[#94a3b8] bg-clip-text text-transparent"
                     encryptedClassName="font-mono text-brand-orange [-webkit-text-fill-color:#f97316]"
                   />
                 </p>

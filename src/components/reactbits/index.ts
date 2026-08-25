@@ -23,3 +23,4 @@ export * from './DotField';
 export * from './ColorBends';
 export * from './DecryptedText';
 export * from './StaggeredMenu';
+export * from './GradientWaves';
