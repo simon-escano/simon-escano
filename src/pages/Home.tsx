@@ -67,7 +67,7 @@ export const Home: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setTitleIndex((prev) => (prev + 1) % HERO_TITLES.length);
-    }, 3500);
+    }, 4500);
     return () => clearInterval(interval);
   }, []);
 
@@ -215,8 +215,8 @@ export const Home: React.FC = () => {
             <h2 className="text-2xl sm:text-3xl font-display font-medium tracking-tight text-center lg:text-left w-full min-h-[1.5em] flex items-center justify-center lg:justify-start">
               <DecryptedText
                 text={HERO_TITLES[titleIndex]}
-                speed={30}
-                maxIterations={10}
+                speed={60}
+                maxIterations={16}
                 className="font-medium bg-gradient-to-r from-[#3845C9] via-[#60a5fa] to-[#f97316] bg-clip-text text-transparent"
                 encryptedClassName="font-mono text-brand-orange font-medium"
                 animateOn="change"

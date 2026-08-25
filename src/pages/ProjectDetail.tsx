@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 import dataService from '@/services/dataService';
 import { ArchitectureDiagram } from '@/components/common/ArchitectureDiagram';
-import { SpotlightCard, DotField } from '@/components/reactbits';
+import { DotField } from '@/components/reactbits';
 import { ImageWithSkeleton } from '@/components/common/ImageWithSkeleton';
 
 export const ProjectDetail: React.FC = () => {
@@ -228,14 +228,14 @@ export const ProjectDetail: React.FC = () => {
           </div>
 
           {/* Thumbnails Row on Mobile (Horizontal Scroll), Column on Desktop */}
-          <div className="w-full order-2 lg:order-1 lg:col-span-3 flex flex-row lg:flex-col gap-2.5 sm:gap-3 overflow-x-auto lg:overflow-y-auto max-h-[580px] pb-2 lg:pb-0 scrollbar-thin">
+          <div className="w-full order-2 lg:order-1 lg:col-span-3 flex flex-row lg:flex-col gap-2.5 sm:gap-3 overflow-x-auto lg:overflow-y-auto max-h-[580px] p-1.5 scrollbar-thin">
             {project.gallery.map((img, idx) => (
               <button
                 key={idx}
                 onClick={() => setActiveImageIndex(idx)}
-                className={`group relative rounded-xl overflow-hidden border text-left transition-all flex-shrink-0 w-24 sm:w-32 lg:w-full aspect-[16/10] bg-slate-950/40 ${activeImageIndex === idx
-                    ? 'border-brand-orange ring-2 ring-brand-orange/40 shadow-md scale-[1.02]'
-                    : 'border-slate-200 dark:border-white/10 opacity-70 hover:opacity-100 hover:border-slate-400 dark:hover:border-white/30'
+                className={`group relative rounded-xl overflow-hidden border-2 text-left transition-all flex-shrink-0 w-24 sm:w-32 lg:w-full aspect-[16/10] bg-slate-950/40 ${activeImageIndex === idx
+                    ? 'border-brand-orange shadow-lg scale-[1.01] z-10'
+                    : 'border-slate-200/90 dark:border-white/10 opacity-70 hover:opacity-100 hover:border-slate-400 dark:hover:border-white/30'
                   }`}
               >
                 <ImageWithSkeleton
@@ -252,26 +252,37 @@ export const ProjectDetail: React.FC = () => {
         </div>
 
         {/* ──────────────────────────────────────────────────────────
-            Problem vs Goal Split
+            Problem vs Goal Split (Connected Achieved Flow with ->)
         ────────────────────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <SpotlightCard className="p-6 sm:p-8 bg-white/80 dark:bg-slate-900/50 border-red-500/30 dark:border-red-500/20 shadow-sm">
-            <h3 className="text-xl font-display font-medium text-red-600 dark:text-red-400 mb-2">
-              The Challenge
-            </h3>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
-              {project.problem}
-            </p>
-          </SpotlightCard>
+        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-0 rounded-3xl overflow-hidden border border-slate-200 dark:border-white/10 shadow-sm bg-white/80 dark:bg-slate-900/50 backdrop-blur-md">
+          {/* The Challenge */}
+          <div className="p-6 sm:p-8 md:border-r border-b md:border-b-0 border-slate-200 dark:border-white/10 flex flex-col justify-between">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-red-500/10 border border-red-500/20 text-red-600 dark:text-red-400 text-xs font-mono font-medium mb-3">
+                The Challenge
+              </div>
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                {project.problem}
+              </p>
+            </div>
+          </div>
 
-          <SpotlightCard className="p-6 sm:p-8 bg-white/80 dark:bg-slate-900/50 border-brand-cobalt/30 shadow-sm">
-            <h3 className="text-xl font-display font-medium text-brand-cobalt dark:text-blue-400 mb-2">
-              The Goal
-            </h3>
-            <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
-              {project.goal}
-            </p>
-          </SpotlightCard>
+          {/* Achieving Flow Arrow Indicator */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center justify-center w-9 h-9 rounded-full bg-brand-cobalt text-white border-2 border-background shadow-lg z-20">
+            <ArrowRight className="w-4 h-4 text-brand-orange" />
+          </div>
+
+          {/* The Goal */}
+          <div className="p-6 sm:p-8 flex flex-col justify-between">
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-brand-cobalt/10 border border-brand-cobalt/20 text-brand-cobalt dark:text-blue-400 text-xs font-mono font-medium mb-3">
+                The Goal & Solution
+              </div>
+              <p className="text-sm sm:text-base text-slate-600 dark:text-slate-300 leading-relaxed">
+                {project.goal}
+              </p>
+            </div>
+          </div>
         </div>
 
         {/* Key Features */}
@@ -368,30 +379,30 @@ export const ProjectDetail: React.FC = () => {
           </div>
         </div>
 
-        {/* Next / Previous Project Navigation */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-8 border-t border-slate-200 dark:border-white/10">
+        {/* Next / Previous Project Navigation (Clean text/arrow links without bg/stroke/padding) */}
+        <div className="flex items-center justify-between pt-8 border-t border-slate-200 dark:border-white/10 gap-4">
           <Link
             to={`/projects/${prevProject.id}`}
-            className="p-5 rounded-2xl bg-white/80 dark:bg-slate-900/40 border border-slate-200 dark:border-white/10 hover:border-brand-cobalt transition-all group flex flex-col justify-between"
+            className="group flex flex-col items-start transition-all"
           >
-            <div className="text-[10px] font-mono text-slate-500 uppercase flex items-center gap-1">
-              <ArrowLeft className="w-3 h-3 group-hover:-translate-x-1 transition-transform" />
+            <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 group-hover:text-brand-orange transition-colors uppercase flex items-center gap-1.5 font-medium">
+              <ArrowLeft className="w-3.5 h-3.5 group-hover:-translate-x-1 transition-transform" />
               <span>Previous Project</span>
             </div>
-            <div className="font-display text-lg font-medium text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors mt-2">
+            <div className="font-display text-base sm:text-lg font-medium text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors mt-1">
               {prevProject.title}
             </div>
           </Link>
 
           <Link
             to={`/projects/${nextProject.id}`}
-            className="p-5 rounded-2xl bg-white/80 dark:bg-slate-900/40 border border-slate-200 dark:border-white/10 hover:border-brand-cobalt transition-all group flex flex-col justify-between text-right"
+            className="group flex flex-col items-end text-right transition-all"
           >
-            <div className="text-[10px] font-mono text-slate-500 uppercase flex items-center justify-end gap-1">
+            <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 group-hover:text-brand-orange transition-colors uppercase flex items-center justify-end gap-1.5 font-medium">
               <span>Next Project</span>
-              <ArrowRight className="w-3 h-3 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
             </div>
-            <div className="font-display text-lg font-medium text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors mt-2">
+            <div className="font-display text-base sm:text-lg font-medium text-slate-900 dark:text-white group-hover:text-brand-orange transition-colors mt-1">
               {nextProject.title}
             </div>
           </Link>

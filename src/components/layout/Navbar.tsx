@@ -22,7 +22,7 @@ export const Navbar: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setTitleIndex((prev) => (prev + 1) % NAV_TITLES.length);
-    }, 3500);
+    }, 4500);
     return () => clearInterval(interval);
   }, []);
 
@@ -78,8 +78,8 @@ export const Navbar: React.FC = () => {
                 <span className="text-[10px] font-mono tracking-wider text-muted-foreground min-h-[14px]">
                   <DecryptedText
                     text={NAV_TITLES[titleIndex]}
-                    speed={25}
-                    maxIterations={6}
+                    speed={55}
+                    maxIterations={12}
                     className="text-muted-foreground"
                     encryptedClassName="text-brand-orange font-mono"
                     animateOn="change"

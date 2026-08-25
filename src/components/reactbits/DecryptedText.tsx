@@ -34,8 +34,8 @@ export interface DecryptedTextProps extends React.HTMLAttributes<HTMLSpanElement
 
 export const DecryptedText: React.FC<DecryptedTextProps> = ({
   text,
-  speed = 40,
-  maxIterations = 10,
+  speed = 60,
+  maxIterations = 15,
   sequential = false,
   revealDirection = 'start',
   useOriginalCharsOnly = false,

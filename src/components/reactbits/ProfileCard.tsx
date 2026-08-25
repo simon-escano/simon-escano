@@ -388,8 +388,8 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
                 <p>
                   <DecryptedText
                     text={title}
-                    speed={25}
-                    maxIterations={8}
+                    speed={60}
+                    maxIterations={15}
                     animateOn="change"
                     className="font-medium bg-gradient-to-b from-slate-800 to-slate-500 dark:from-white dark:to-[#94a3b8] bg-clip-text text-transparent"
                     encryptedClassName="font-mono text-brand-orange [-webkit-text-fill-color:#f97316]"

@@ -45,7 +45,7 @@ export const About: React.FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setTitleIndex((prev) => (prev + 1) % ABOUT_TITLES.length);
-    }, 3500);
+    }, 4500);
     return () => clearInterval(interval);
   }, []);
 
@@ -113,8 +113,8 @@ export const About: React.FC = () => {
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-center lg:text-left min-h-[1.25em] flex items-center justify-center lg:justify-start">
               <DecryptedText
                 text={ABOUT_TITLES[titleIndex]}
-                speed={30}
-                maxIterations={10}
+                speed={60}
+                maxIterations={16}
                 className="font-semibold text-slate-900 dark:text-white"
                 encryptedClassName="text-brand-orange font-mono"
                 animateOn="change"
