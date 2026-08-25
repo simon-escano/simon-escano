@@ -21,3 +21,4 @@ export * from './ShinyText';
 export * from './StrokeText';
 export * from './DotField';
 export * from './ColorBends';
+export * from './DecryptedText';

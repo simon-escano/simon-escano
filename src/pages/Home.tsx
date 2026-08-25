@@ -31,7 +31,15 @@ import {
   ScrambledText,
   ShinyText,
   StrokeText,
+  DecryptedText,
 } from '@/components/reactbits';
+
+const HERO_TITLES = [
+  'Full-Stack Dev & Software Engineer',
+  'Backend Dev & Integration Engineer',
+  'AI Engineer & ML App Developer',
+  'Web Architect & Technical SEO Dev',
+];
 
 export const Home: React.FC = () => {
   const navigate = useNavigate();
@@ -40,6 +48,15 @@ export const Home: React.FC = () => {
   const topProjects = dataService.getTopProjects(5);
   const techStack = dataService.getTechStack();
   const achievements = dataService.getAchievements();
+
+  const [titleIndex, setTitleIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTitleIndex((prev) => (prev + 1) % HERO_TITLES.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, []);
 
   // Floating cursor hover states
   const [hoveredSkill, setHoveredSkill] = useState<{ title: string; proficiency: number } | null>(null);
@@ -182,14 +199,15 @@ export const Home: React.FC = () => {
             </div>
 
             {/* Tagline */}
-            <h2 className="text-2xl sm:text-3xl font-display font-medium tracking-tight text-slate-800 dark:text-slate-100 text-center lg:text-left w-full">
-              <GradientText
-                colors={['#3845C9', '#60a5fa', '#f97316']}
-                animationSpeed={5}
-                className="font-medium"
-              >
-                Full-Stack Developer & Software Engineer
-              </GradientText>
+            <h2 className="text-2xl sm:text-3xl font-display font-medium tracking-tight text-center lg:text-left w-full min-h-[1.5em] flex items-center justify-center lg:justify-start">
+              <DecryptedText
+                text={HERO_TITLES[titleIndex]}
+                speed={30}
+                maxIterations={10}
+                className="font-medium bg-gradient-to-r from-[#3845C9] via-[#60a5fa] to-[#f97316] bg-clip-text text-transparent"
+                encryptedClassName="font-mono text-brand-orange font-medium"
+                animateOn="change"
+              />
             </h2>
 
             {/* Philosophy / Intro Scramble */}
@@ -457,6 +475,7 @@ export const Home: React.FC = () => {
                 logos={frontendSkills.map((item) => ({
                   title: item.title,
                   proficiency: item.proficiency,
+                  category: 'frontend' as const,
                 }))}
                 speed={18}
                 direction="left"
@@ -476,6 +495,7 @@ export const Home: React.FC = () => {
                 logos={backendSkills.map((item) => ({
                   title: item.title,
                   proficiency: item.proficiency,
+                  category: 'backend' as const,
                 }))}
                 speed={18}
                 direction="right"
@@ -495,6 +515,7 @@ export const Home: React.FC = () => {
                 logos={gameAiSkills.map((item) => ({
                   title: item.title,
                   proficiency: item.proficiency,
+                  category: 'game-ai' as const,
                 }))}
                 speed={15}
                 direction="left"
@@ -607,10 +628,10 @@ export const Home: React.FC = () => {
       <section className="py-20 relative overflow-hidden bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-white/10">
         <div className="w-full mb-8">
           <CurvedLoop
-            marqueeText="LET'S BUILD SOMETHING EXTRAORDINARY TOGETHER ✦ FULL STACK ✦ GAME DEV ✦ SIMON-ESCANO ✦ "
+            marqueeText="LET'S BUILD SOMETHING EXTRAORDINARY TOGETHER ✦ FULL-STACK DEV & SOFTWARE ENGINEER ✦ BACKEND DEV & INTEGRATION ENGINEER ✦ AI ENGINEER & ML APP DEVELOPER ✦ WEB ARCHITECT & TECHNICAL SEO DEV ✦ SIMON-ESCANO ✦ "
             speed={1.4}
             curveAmount={130}
-            className="fill-slate-800 dark:fill-white font-display text-3xl sm:text-4xl font-medium uppercase tracking-widest"
+            className="fill-slate-800 dark:fill-white font-display text-3xl sm:text-4xl font-semibold uppercase tracking-widest"
           />
         </div>
 

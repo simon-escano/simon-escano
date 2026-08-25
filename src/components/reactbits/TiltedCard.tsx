@@ -8,7 +8,7 @@ const springValues = {
 };
 
 export interface TiltedCardProps {
-  imageSrc: string;
+  imageSrc?: string;
   altText?: string;
   captionText?: string;
   containerHeight?: string;
@@ -21,6 +21,8 @@ export interface TiltedCardProps {
   overlayContent?: React.ReactNode;
   displayOverlayContent?: boolean;
   className?: string;
+  innerClassName?: string;
+  children?: React.ReactNode;
 }
 
 export const TiltedCard: React.FC<TiltedCardProps> = ({
@@ -37,6 +39,8 @@ export const TiltedCard: React.FC<TiltedCardProps> = ({
   overlayContent = null,
   displayOverlayContent = false,
   className = '',
+  innerClassName = '',
+  children,
 }) => {
   const ref = useRef<HTMLElement>(null);
 
@@ -91,18 +95,18 @@ export const TiltedCard: React.FC<TiltedCardProps> = ({
   return (
     <figure
       ref={ref}
-      className={`relative w-full flex items-center justify-center overflow-hidden rounded-2xl ${className}`}
+      className={`relative w-full flex items-center justify-center rounded-2xl ${className}`}
       style={{
         height: containerHeight,
         width: containerWidth,
-        perspective: '900px',
+        perspective: '1000px',
       }}
       onMouseMove={handleMouse}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
       <m.div
-        className="relative rounded-2xl overflow-hidden shadow-2xl border border-white/10"
+        className={`relative w-full h-full rounded-2xl ${innerClassName}`}
         style={{
           width: imageWidth,
           height: imageHeight,
@@ -112,12 +116,16 @@ export const TiltedCard: React.FC<TiltedCardProps> = ({
           transformStyle: 'preserve-3d',
         }}
       >
-        <m.img
-          src={imageSrc}
-          alt={altText}
-          className="w-full h-full object-cover rounded-2xl will-change-transform"
-          loading="lazy"
-        />
+        {imageSrc && (
+          <m.img
+            src={imageSrc}
+            alt={altText}
+            className="w-full h-full object-cover rounded-2xl will-change-transform"
+            loading="lazy"
+          />
+        )}
+
+        {children}
 
         {displayOverlayContent && overlayContent && (
           <m.div

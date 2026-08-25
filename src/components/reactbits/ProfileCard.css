@@ -262,7 +262,7 @@
 }
 
 .pc-avatar-content {
-  mix-blend-mode: luminosity;
+  mix-blend-mode: normal;
   overflow: visible;
   transform: translateZ(2);
   backface-visibility: hidden;

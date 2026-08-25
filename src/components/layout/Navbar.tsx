@@ -3,11 +3,27 @@ import { NavLink, useLocation } from 'react-router-dom';
 import { Menu, X, ArrowUpRight, Sparkles } from 'lucide-react';
 import Logo from '@/components/Logo';
 import ThemeToggle from './ThemeToggle';
+import { DecryptedText } from '@/components/reactbits';
+
+const NAV_TITLES = [
+  'Full-Stack Dev & Software Engineer',
+  'Backend Dev & Integration Engineer',
+  'AI Engineer & ML App Developer',
+  'Web Architect & Technical SEO Dev',
+];
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [titleIndex, setTitleIndex] = useState(0);
   const location = useLocation();
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTitleIndex((prev) => (prev + 1) % NAV_TITLES.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,8 +65,15 @@ export const Navbar: React.FC = () => {
                 <span className="font-display font-medium text-lg tracking-tight text-foreground group-hover:text-brand-orange transition-colors">
                   simon-escano
                 </span>
-                <span className="text-[10px] font-mono tracking-wider text-muted-foreground">
-                  Full-Stack Engineer
+                <span className="text-[10px] font-mono tracking-wider text-muted-foreground min-h-[14px]">
+                  <DecryptedText
+                    text={NAV_TITLES[titleIndex]}
+                    speed={25}
+                    maxIterations={6}
+                    className="text-muted-foreground"
+                    encryptedClassName="text-brand-orange font-mono"
+                    animateOn="change"
+                  />
                 </span>
               </div>
             </NavLink>

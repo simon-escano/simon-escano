@@ -15,6 +15,8 @@ export interface LogoItem {
   href?: string;
   ariaLabel?: string;
   proficiency?: number;
+  category?: 'frontend' | 'backend' | 'game-ai' | string;
+  categoryColor?: string;
   role?: string;
 }
 
@@ -98,33 +100,24 @@ export const LogoLoop = memo(
       const sequenceHeight = sequenceRect?.height ?? 0;
 
       if (isVertical) {
-        const parentHeight = containerRef.current?.parentElement?.clientHeight ?? 0;
-        if (containerRef.current && parentHeight > 0) {
-          const targetHeight = Math.ceil(parentHeight);
-          if (containerRef.current.style.height !== `${targetHeight}px`)
-            containerRef.current.style.height = `${targetHeight}px`;
-        }
+        setSeqHeight(sequenceHeight);
         if (sequenceHeight > 0) {
-          setSeqHeight(Math.ceil(sequenceHeight));
-          const viewport = containerRef.current?.clientHeight ?? parentHeight ?? sequenceHeight;
-          const copiesNeeded = Math.ceil(viewport / sequenceHeight) + ANIMATION_CONFIG.COPY_HEADROOM;
-          setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded));
+          const containerHeight = containerRef.current?.clientHeight ?? 0;
+          setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, Math.ceil(containerHeight / sequenceHeight) + ANIMATION_CONFIG.COPY_HEADROOM));
         }
-      } else if (sequenceWidth > 0) {
-        setSeqWidth(Math.ceil(sequenceWidth));
-        const copiesNeeded = Math.ceil(containerWidth / sequenceWidth) + ANIMATION_CONFIG.COPY_HEADROOM;
-        setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded));
+      } else {
+        setSeqWidth(sequenceWidth);
+        if (sequenceWidth > 0) {
+          setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, Math.ceil(containerWidth / sequenceWidth) + ANIMATION_CONFIG.COPY_HEADROOM));
+        }
       }
     }, [isVertical]);
 
     useEffect(() => {
-      const el = containerRef.current;
-      if (!el) return;
-      const ro = new ResizeObserver(updateDimensions);
-      ro.observe(el);
       updateDimensions();
-      return () => ro.disconnect();
-    }, [updateDimensions, logos, gap, logoHeight, isVertical]);
+      window.addEventListener('resize', updateDimensions);
+      return () => window.removeEventListener('resize', updateDimensions);
+    }, [updateDimensions, logos]);
 
     useEffect(() => {
       const track = trackRef.current;
@@ -163,12 +156,11 @@ export const LogoLoop = memo(
     }, [targetVelocity, seqWidth, seqHeight, isHovered, effectiveHoverSpeed, isVertical]);
 
     const cssVariables = useMemo(
-      () =>
-        ({
-          '--logoloop-gap': `${gap}px`,
-          '--logoloop-logoHeight': `${logoHeight}px`,
-          ...(fadeOutColor && { '--logoloop-fadeColor': fadeOutColor }),
-        }) as React.CSSProperties,
+      () => ({
+        '--logoloop-gap': `${gap}px`,
+        '--logoloop-logoHeight': `${logoHeight}px`,
+        ...(fadeOutColor && { '--logoloop-fadeColor': fadeOutColor }),
+      }),
       [gap, logoHeight, fadeOutColor]
     );
 
@@ -179,21 +171,21 @@ export const LogoLoop = memo(
           isVertical ? 'logoloop--vertical' : 'logoloop--horizontal',
           fadeOut && 'logoloop--fade',
           scaleOnHover && 'logoloop--scale-hover',
+          isHovered && 'logoloop--is-hovered',
           className,
         ]
           .filter(Boolean)
           .join(' '),
-      [isVertical, fadeOut, scaleOnHover, className]
+      [isVertical, fadeOut, scaleOnHover, isHovered, className]
     );
 
     const handleMouseEnter = useCallback(() => {
-      if (effectiveHoverSpeed !== undefined) setIsHovered(true);
-    }, [effectiveHoverSpeed]);
+      setIsHovered(true);
+    }, []);
 
     const handleMouseLeave = useCallback(() => {
-      if (effectiveHoverSpeed !== undefined) setIsHovered(false);
-      onLogoLeave?.();
-    }, [effectiveHoverSpeed, onLogoLeave]);
+      setIsHovered(false);
+    }, []);
 
     const renderLogoItem = useCallback(
       (item: LogoItem, key: React.Key) => {
@@ -211,13 +203,44 @@ export const LogoLoop = memo(
           );
         }
 
+        const fillPercent =
+          typeof item.proficiency === 'number'
+            ? Math.min(Math.max((item.proficiency / 10) * 100, 0), 100)
+            : 0;
+
+        let fillColor = 'rgba(56, 69, 201, 0.3)';
+        let borderColor = 'hover:border-brand-cobalt dark:hover:border-blue-400';
+
+        if (item.category === 'backend') {
+          fillColor = 'rgba(249, 115, 22, 0.3)';
+          borderColor = 'hover:border-brand-orange';
+        } else if (item.category === 'game-ai') {
+          fillColor = 'rgba(16, 185, 129, 0.3)';
+          borderColor = 'hover:border-emerald-500';
+        }
+
+        if (item.categoryColor) {
+          fillColor = item.categoryColor;
+        }
+
         const content = item.node ? (
           <span className="logoloop__node">{item.node}</span>
         ) : item.src ? (
           <img src={item.src} alt={item.alt ?? item.title ?? ''} loading="lazy" />
         ) : (
-          <span className="font-mono text-xs font-medium px-3 py-1.5 rounded-lg bg-white/90 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 shadow-sm hover:border-brand-orange transition-colors">
-            {item.title}
+          <span
+            className={`relative overflow-hidden inline-flex items-center justify-center font-mono text-xs font-medium px-3.5 py-1.5 rounded-lg bg-white/95 dark:bg-slate-900/90 border border-slate-200 dark:border-slate-700/80 text-slate-800 dark:text-slate-200 shadow-sm transition-all duration-200 ${borderColor}`}
+          >
+            {fillPercent > 0 && (
+              <span
+                className="absolute inset-x-0 bottom-0 pointer-events-none transition-all duration-300"
+                style={{
+                  height: `${fillPercent}%`,
+                  backgroundColor: fillColor,
+                }}
+              />
+            )}
+            <span className="relative z-10">{item.title}</span>
           </span>
         );
 

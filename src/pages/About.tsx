@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import {
   Briefcase,
@@ -9,6 +9,7 @@ import {
   ShieldCheck,
   CheckCircle2,
   Sparkles,
+  Trophy,
 } from 'lucide-react';
 import dataService from '@/services/dataService';
 import { RatingBars } from '@/components/common/RatingBars';
@@ -17,11 +18,19 @@ import {
   SpotlightCard,
   BorderGlow,
   SpecularButton,
-  GradientText,
   ShinyText,
   CountUp,
   MagicBento,
+  TiltedCard,
+  DecryptedText,
 } from '@/components/reactbits';
+
+const ABOUT_TITLES = [
+  'Full-Stack Dev & Software Engineer',
+  'Backend Dev & Integration Engineer',
+  'AI Engineer & ML App Developer',
+  'Web Architect & Technical SEO Dev',
+];
 
 export const About: React.FC = () => {
   const navigate = useNavigate();
@@ -30,6 +39,15 @@ export const About: React.FC = () => {
   const credentials = dataService.getCredentials();
   const languages = dataService.getLanguages();
   const education = credentials.find((c) => c.type === 'education');
+
+  const [titleIndex, setTitleIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTitleIndex((prev) => (prev + 1) % ABOUT_TITLES.length);
+    }, 3500);
+    return () => clearInterval(interval);
+  }, []);
 
   // Punchy, simplified principles for Bento Grid
   const principles = [
@@ -50,19 +68,19 @@ export const About: React.FC = () => {
       className: 'lg:col-span-1',
     },
     {
-      title: 'Tactile Aesthetics',
-      label: 'UI/UX Craft',
+      title: 'Resilient Design',
+      label: 'Reliability',
       description:
-        'Interfaces must be vibrant, tactile, accessible, and joyful to operate with motion physics.',
-      tags: ['Motion Physics', 'Responsive', 'Polished'],
+        'Offline-first synchronization, graceful degradation, and fault-tolerant cloud backends built for high availability.',
+      tags: ['Distributed Systems', 'Fault Tolerance', 'CI/CD'],
       className: 'lg:col-span-1',
     },
     {
-      title: 'Rapid Prototyping',
-      label: 'Competitive Edge',
+      title: 'Cross-Modal Innovation',
+      label: 'Pioneering Work',
       description:
-        'Thriving under high-pressure competitive environments, shipping 9 award-winning national and international prototypes.',
-      tags: ['9x Champion', 'Agile Execution', 'Leadership'],
+        'Bridging machine learning, real-time computer vision, hardware sensors, and intuitive web interfaces into cohesive products.',
+      tags: ['Computer Vision', 'Applied AI', 'IoT'],
       className: 'lg:col-span-2',
     },
   ];
@@ -78,8 +96,15 @@ export const About: React.FC = () => {
               <ShinyText text="About • Architect & Innovator" speed={3} />
             </div>
 
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-center lg:text-left">
-              Full-Stack Developer <GradientText colors={['#3845C9', '#60a5fa', '#f97316']}>&</GradientText> Software Engineer
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-center lg:text-left min-h-[1.25em] flex items-center justify-center lg:justify-start">
+              <DecryptedText
+                text={ABOUT_TITLES[titleIndex]}
+                speed={30}
+                maxIterations={10}
+                className="font-semibold text-slate-900 dark:text-white"
+                encryptedClassName="text-brand-orange font-mono"
+                animateOn="change"
+              />
             </h1>
 
             {/* Single Merged Cohesive Bio Paragraph */}
@@ -185,37 +210,64 @@ export const About: React.FC = () => {
         </div>
 
         {/* Education & Credentials */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Education */}
-          <div className="space-y-6">
-            <div className="flex items-center gap-4 text-xs font-mono text-brand-cobalt dark:text-blue-400 tracking-wider font-medium">
-              <GraduationCap className="size-10 text-brand-cobalt" />
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          {/* Education - max 380px, TiltedCard with Gold/Cum Laude theme */}
+          <div className="lg:col-span-5 w-full max-w-[380px] mx-auto lg:mx-0 space-y-6">
+            <div className="flex items-center gap-4 text-xs font-mono text-amber-500 dark:text-amber-400 tracking-wider font-medium">
+              <GraduationCap className="size-10 text-amber-500 dark:text-amber-400" />
               <h2 className="font-display text-3xl sm:text-4xl font-medium text-slate-900 dark:text-white">
                 Formal Education
               </h2>
             </div>
 
-            <div className="p-6 rounded-2xl bg-white/80 dark:bg-slate-900/50 border border-slate-200 dark:border-white/10 shadow-sm space-y-3">
-              <div className="text-xs font-mono text-brand-orange font-medium">{education?.date}</div>
-              <h3 className="text-xl font-display font-medium text-slate-900 dark:text-white">
-                {education?.title ?? 'Bachelor of Science in Computer Science'}
-              </h3>
-              {education?.description && (
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-medium border border-emerald-500/20">
-                  {education.description}
+            <TiltedCard
+              containerHeight="auto"
+              containerWidth="100%"
+              scaleOnHover={1.03}
+              rotateAmplitude={10}
+              className="w-full"
+              innerClassName="w-full"
+            >
+              <div className="relative w-full p-7 rounded-2xl bg-gradient-to-br from-amber-500/15 via-yellow-500/10 to-amber-600/20 dark:from-amber-400/20 dark:via-amber-500/10 dark:to-yellow-600/25 border-2 border-amber-400/60 dark:border-amber-400/50 shadow-[0_12px_40px_rgba(245,158,11,0.2)] dark:shadow-[0_16px_45px_rgba(245,158,11,0.25)] backdrop-blur-xl space-y-5 flex flex-col justify-between min-h-[360px] overflow-hidden">
+                {/* Ambient Gold Glow Backgrounds */}
+                <div className="absolute -right-12 -top-12 w-36 h-36 bg-amber-400/25 dark:bg-amber-300/30 rounded-full blur-2xl pointer-events-none" />
+                <div className="absolute -left-12 -bottom-12 w-36 h-36 bg-yellow-500/20 dark:bg-yellow-400/20 rounded-full blur-2xl pointer-events-none" />
+
+                <div className="relative z-10 space-y-4">
+                  <div className="flex items-center justify-between gap-2 flex-wrap">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-500/25 dark:bg-amber-400/25 text-amber-900 dark:text-amber-300 border border-amber-500/40 dark:border-amber-400/40 shadow-sm">
+                      <Trophy className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
+                      <span>Cum Laude • 4.59 / 5.0 GWA</span>
+                    </span>
+                    <span className="text-xs font-mono text-amber-800/80 dark:text-amber-300/80 font-medium">
+                      {education?.date}
+                    </span>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <h3 className="text-2xl font-display font-semibold text-slate-900 dark:text-amber-100 leading-snug">
+                      {education?.title ?? 'Bachelor of Science in Computer Science'}
+                    </h3>
+                    <p className="text-sm font-mono text-amber-800 dark:text-amber-300 font-medium">
+                      {education?.institution}
+                    </p>
+                  </div>
+
+                  <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed pt-1">
+                    Specialized in Algorithm Design, State-Driven Game Architectures, Biomedical Signal Processing, and Distributed Cloud Computing.
+                  </p>
                 </div>
-              )}
-              <p className="text-sm text-slate-700 dark:text-slate-300 pt-1">
-                {education?.institution}
-              </p>
-              <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed pt-1">
-                Specialized in Algorithm Design, State-Driven Game Architectures, Biomedical Signal Processing, and Distributed Cloud Computing.
-              </p>
-            </div>
+
+                <div className="relative z-10 pt-4 border-t border-amber-400/30 dark:border-amber-400/20 flex items-center justify-between text-[11px] font-mono text-amber-900/90 dark:text-amber-300/90 font-medium">
+                  <span>Cebu Institute of Technology</span>
+                  <span className="text-amber-600 dark:text-amber-400 font-semibold">Class of 2026</span>
+                </div>
+              </div>
+            </TiltedCard>
           </div>
 
           {/* Certifications & Industry Badges */}
-          <div className="space-y-6">
+          <div className="lg:col-span-7 space-y-6">
             <div className="flex items-center gap-4 text-xs font-mono text-emerald-500 tracking-wider font-medium">
               <ShieldCheck className="size-10 text-emerald-500" />
               <h2 className="font-display text-3xl sm:text-4xl font-medium text-slate-900 dark:text-white">
@@ -229,7 +281,7 @@ export const About: React.FC = () => {
                 .map((cred) => (
                   <div
                     key={cred.id}
-                    className="p-4 rounded-xl bg-white/70 dark:bg-slate-900/40 border border-slate-200 dark:border-white/10 shadow-sm flex flex-col justify-between"
+                    className="p-4 rounded-xl bg-white/70 dark:bg-slate-900/40 border border-slate-200 dark:border-white/10 shadow-sm flex flex-col justify-between hover:border-brand-orange/40 transition-colors"
                   >
                     <div>
                       <div className="text-[10px] font-mono uppercase text-brand-orange font-medium">
