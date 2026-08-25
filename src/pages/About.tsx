@@ -110,12 +110,12 @@ export const About: React.FC = () => {
               <ShinyText text="About • Systems & Engineering" speed={3} />
             </div>
 
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight text-center lg:text-left min-h-[1.25em] flex items-center justify-center lg:justify-start">
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight text-center lg:text-left min-h-[1.25em] flex items-center justify-center lg:justify-start">
               <DecryptedText
                 text={ABOUT_TITLES[titleIndex]}
                 speed={60}
                 maxIterations={16}
-                className="font-semibold text-slate-900 dark:text-white"
+                className="font-medium text-slate-900 dark:text-white"
                 encryptedClassName="text-brand-orange font-mono"
                 animateOn="change"
               />
@@ -249,7 +249,7 @@ export const About: React.FC = () => {
 
                 <div className="relative z-10 space-y-4">
                   <div className="flex items-center justify-between gap-2 flex-wrap">
-                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-semibold bg-amber-500/25 dark:bg-amber-400/25 text-amber-900 dark:text-amber-300 border border-amber-500/40 dark:border-amber-400/40 shadow-sm">
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-medium bg-amber-500/25 dark:bg-amber-400/25 text-amber-900 dark:text-amber-300 border border-amber-500/40 dark:border-amber-400/40 shadow-sm">
                       <Trophy className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
                       <span>Cum Laude • 4.59 / 5.0 GWA</span>
                     </span>
@@ -259,7 +259,7 @@ export const About: React.FC = () => {
                   </div>
 
                   <div className="space-y-1.5">
-                    <h3 className="text-2xl font-display font-semibold text-slate-900 dark:text-amber-100 leading-snug">
+                    <h3 className="text-2xl font-display font-medium text-slate-900 dark:text-amber-100 leading-snug">
                       {education?.title ?? 'Bachelor of Science in Computer Science'}
                     </h3>
                     <p className="text-sm font-mono text-amber-800 dark:text-amber-300 font-medium">
@@ -274,7 +274,7 @@ export const About: React.FC = () => {
 
                 <div className="relative z-10 pt-4 border-t border-amber-400/30 dark:border-amber-400/20 flex items-center justify-between text-[11px] font-mono text-amber-900/90 dark:text-amber-300/90 font-medium">
                   <span>Cebu Institute of Technology</span>
-                  <span className="text-amber-600 dark:text-amber-400 font-semibold">Class of 2026</span>
+                  <span className="text-amber-600 dark:text-amber-400 font-medium">Class of 2026</span>
                 </div>
               </div>
             </TiltedCard>

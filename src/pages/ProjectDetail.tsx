@@ -427,7 +427,7 @@ export const ProjectDetail: React.FC = () => {
                 <div key={role} className="space-y-3">
                   <div className="flex items-center gap-2">
                     <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`} />
-                    <span className={`text-xs font-mono uppercase tracking-wider font-semibold ${headerColor}`}>
+                    <span className={`text-xs font-mono uppercase tracking-wider font-medium ${headerColor}`}>
                       {role}
                     </span>
                     <span className="text-[11px] font-mono text-slate-400 dark:text-slate-500">
@@ -590,10 +590,10 @@ export const ProjectDetail: React.FC = () => {
             {/* Interactive Image Viewport with Pointer Drag Capture & Double Tap Zoom */}
             <div
               className={`relative flex-1 flex items-center justify-center overflow-hidden touch-none ${zoomScale > 1
-                  ? isDragging
-                    ? 'cursor-grabbing'
-                    : 'cursor-grab'
-                  : 'cursor-zoom-in'
+                ? isDragging
+                  ? 'cursor-grabbing'
+                  : 'cursor-grab'
+                : 'cursor-zoom-in'
                 }`}
               onPointerDown={handlePointerDown}
               onPointerMove={handlePointerMove}
@@ -656,8 +656,8 @@ export const ProjectDetail: React.FC = () => {
                       resetZoomPan();
                     }}
                     className={`w-14 sm:w-16 h-10 sm:h-11 rounded-lg overflow-hidden border-2 transition-all flex-shrink-0 ${activeImageIndex === idx
-                        ? 'border-brand-orange ring-2 ring-brand-orange/40 scale-105 shadow-md'
-                        : 'border-white/20 opacity-50 hover:opacity-100'
+                      ? 'border-brand-orange ring-2 ring-brand-orange/40 scale-105 shadow-md'
+                      : 'border-white/20 opacity-50 hover:opacity-100'
                       }`}
                   >
                     <img src={img} alt="" className="w-full h-full object-cover" />

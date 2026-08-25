@@ -625,7 +625,7 @@ export const Home: React.FC = () => {
             marqueeText="LET'S BUILD SOMETHING EXTRAORDINARY TOGETHER ✦ FULL-STACK DEV & SOFTWARE ENGINEER ✦ BACKEND DEV & INTEGRATION ENGINEER ✦ AI ENGINEER & ML APP DEVELOPER ✦ WEB ARCHITECT & TECHNICAL SEO DEV ✦ SIMON-ESCANO ✦ "
             speed={1.4}
             curveAmount={130}
-            className="fill-slate-800 dark:fill-white font-display text-3xl sm:text-4xl font-semibold uppercase tracking-widest"
+            className="fill-slate-800 dark:fill-white font-display text-3xl sm:text-4xl font-medium uppercase tracking-widest"
           />
         </div>
 
