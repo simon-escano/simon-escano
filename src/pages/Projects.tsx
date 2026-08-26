@@ -114,6 +114,9 @@ export const Projects: React.FC = () => {
       title: 'More projects on',
       subtitle: 'Explore 20+ additional repositories, low-level experiments, and builds.',
       url: profile.contact.github || 'https://github.com/simon-escano',
+      onClick: () => {
+        window.open(profile.contact.github || 'https://github.com/simon-escano', '_blank', 'noopener,noreferrer');
+      },
       borderColor: '#f97316',
       customCard: (
         <div className="flex flex-col h-full justify-between">
@@ -241,7 +244,13 @@ export const Projects: React.FC = () => {
           <ChromaGrid
             items={chromaItems}
             radius={350}
-            onItemClick={(item) => navigate(item.url || `/projects/${item.id}`)}
+            onItemClick={(item) => {
+              if (item.url?.startsWith('http')) {
+                window.open(item.url, '_blank', 'noopener,noreferrer');
+              } else {
+                navigate(item.url || `/projects/${item.id}`);
+              }
+            }}
           />
         )}
       </div>

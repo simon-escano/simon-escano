@@ -11,6 +11,9 @@ import {
   Trophy,
   Terminal,
   ExternalLink,
+  Sparkles,
+  Lock,
+  Cpu,
 } from 'lucide-react';
 import dataService from '@/services/dataService';
 import { RatingBars } from '@/components/common/RatingBars';
@@ -61,39 +64,67 @@ export const About: React.FC = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // Punchy, simplified principles for Bento Grid
+  // Engineering Principles for Bento Grid
   const principles = [
     {
-      title: 'Architectural Rigor',
-      label: 'Core Philosophy',
+      title: 'Look good and feel good',
+      label: 'Design & Interaction',
       description:
-        'Zero debt architecture. Strict separation of concerns, modular state machines, and high maintainability from day zero.',
-      tags: ['Clean Architecture', 'Type Safety', 'Modularity'],
+        'Clean typography and balanced spacing paired with fluid animations and instant click feedback. If an app looks sloppy or stutters while loading, it instantly feels cheap.',
+      tags: ['Intentional layouts', '60fps transitions', 'Instant UI feedback', 'Clean typography'],
       className: 'lg:col-span-2',
+      background: 'linear-gradient(135deg, rgba(56, 69, 201, 0.18) 0%, rgba(96, 165, 250, 0.08) 50%, rgba(19, 27, 46, 0.85) 100%)',
+      borderColor: 'rgba(56, 69, 201, 0.45)',
+      borderHoverColor: 'rgba(96, 165, 250, 0.9)',
+      glowColor: '56, 69, 201',
+      labelColor: 'text-blue-600 dark:text-blue-400',
+      icon: <Sparkles className="w-5 h-5 text-brand-cobalt dark:text-blue-400" />,
+      tagClassName: 'bg-brand-cobalt/15 text-brand-cobalt dark:text-blue-300 border border-brand-cobalt/30',
     },
     {
-      title: 'Obsessive Speed',
-      label: 'Performance',
+      title: 'Built tough',
+      label: 'Resilience & Robustness',
       description:
-        'Zero tolerance for unnecessary re-renders, sluggish frame rates, or bloated payloads. Every millisecond counts.',
-      tags: ['WebGL', 'A* Pathfinding', 'Sub-Second'],
+        'Software should never crash when the internet drops or when weird data comes in. Validate data on both ends, catch edge cases early, and make errors fail safely without breaking the whole page.',
+      tags: ['Strict type checking', 'Input validation', 'Safe fallback states', 'Offline handling'],
       className: 'lg:col-span-1',
+      background: 'linear-gradient(135deg, rgba(249, 115, 22, 0.18) 0%, rgba(245, 158, 11, 0.08) 50%, rgba(19, 27, 46, 0.85) 100%)',
+      borderColor: 'rgba(249, 115, 22, 0.45)',
+      borderHoverColor: 'rgba(249, 115, 22, 0.9)',
+      glowColor: '249, 115, 22',
+      labelColor: 'text-brand-orange',
+      icon: <ShieldCheck className="w-5 h-5 text-brand-orange" />,
+      tagClassName: 'bg-brand-orange/15 text-brand-orange border border-brand-orange/30',
     },
     {
-      title: 'Resilient Design',
-      label: 'Reliability',
+      title: 'Secure without getting in the way',
+      label: 'Security & UX',
       description:
-        'Offline-first synchronization, graceful degradation, and fault-tolerant cloud backends built for high availability.',
-      tags: ['Distributed Systems', 'Fault Tolerance', 'CI/CD'],
+        'Protect user data without turning the app into an obstacle course. Authentication, bot defense, and query sanitization should do their job silently in the background.',
+      tags: ['Clean auth flows', 'Invisible spam protection', 'Sanitized queries', 'Least privilege access'],
       className: 'lg:col-span-1',
+      background: 'linear-gradient(135deg, rgba(16, 185, 129, 0.18) 0%, rgba(20, 184, 166, 0.08) 50%, rgba(19, 27, 46, 0.85) 100%)',
+      borderColor: 'rgba(16, 185, 129, 0.45)',
+      borderHoverColor: 'rgba(16, 185, 129, 0.9)',
+      glowColor: '16, 185, 129',
+      labelColor: 'text-emerald-600 dark:text-emerald-400',
+      icon: <Lock className="w-5 h-5 text-emerald-500 dark:text-emerald-400" />,
+      tagClassName: 'bg-emerald-500/15 text-emerald-700 dark:text-emerald-300 border border-emerald-500/30',
     },
     {
-      title: 'Cross-Modal Innovation',
-      label: 'Pioneering Work',
+      title: 'Zero bloat, no over-engineering',
+      label: 'Simplicity & Maintainability',
       description:
-        'Bridging machine learning, real-time computer vision, hardware sensors, and intuitive web interfaces into cohesive products.',
-      tags: ['Computer Vision', 'Applied AI', 'IoT'],
+        'Never install heavy packages or write convoluted code for problems with simple solutions. Keep the codebase lean, readable, and easy to maintain.',
+      tags: ['Minimal dependencies', 'Strict TypeScript', 'Straightforward APIs', 'Clean structure'],
       className: 'lg:col-span-2',
+      background: 'linear-gradient(135deg, rgba(168, 85, 247, 0.18) 0%, rgba(139, 92, 246, 0.08) 50%, rgba(19, 27, 46, 0.85) 100%)',
+      borderColor: 'rgba(168, 85, 247, 0.45)',
+      borderHoverColor: 'rgba(168, 85, 247, 0.9)',
+      glowColor: '168, 85, 247',
+      labelColor: 'text-purple-600 dark:text-purple-400',
+      icon: <Cpu className="w-5 h-5 text-purple-500 dark:text-purple-400" />,
+      tagClassName: 'bg-purple-500/15 text-purple-700 dark:text-purple-300 border border-purple-500/30',
     },
   ];
 
@@ -378,15 +409,8 @@ export const About: React.FC = () => {
           </div>
 
           <MagicBento
-            cards={principles.map((p) => ({
-              title: p.title,
-              description: p.description,
-              label: p.label,
-              tags: p.tags,
-              className: p.className,
-            }))}
-            particleCount={10}
-            glowColor="56, 69, 201"
+            cards={principles}
+            particleCount={12}
             enableTilt={true}
             enableBorderGlow={true}
           />

@@ -8,12 +8,18 @@ const MOBILE_BREAKPOINT = 768;
 
 export interface BentoCardItem {
   color?: string;
+  borderColor?: string;
+  borderHoverColor?: string;
+  background?: string;
   title: string;
   description: string;
   label?: string;
   icon?: React.ReactNode;
   tags?: string[];
   className?: string;
+  glowColor?: string;
+  labelColor?: string;
+  tagClassName?: string;
 }
 
 export type MagicBentoCardData = BentoCardItem;
@@ -316,9 +322,13 @@ export const MagicBento: React.FC<MagicBentoProps> = ({
     <div className={`card-grid bento-section ${className}`.trim()} ref={gridRef}>
       {cards.map((card, index) => {
         const baseClassName = `magic-bento-card ${enableBorderGlow ? 'magic-bento-card--border-glow' : ''} ${card.className || ''}`.trim();
-        const cardStyle: React.CSSProperties = card.color
-          ? { backgroundColor: card.color }
-          : {};
+        const cardStyle: React.CSSProperties = {
+          ...(card.color ? { backgroundColor: card.color } : {}),
+          ...(card.background ? { '--card-bg': card.background } as React.CSSProperties : {}),
+          ...(card.borderColor ? { '--card-border': card.borderColor } as React.CSSProperties : {}),
+          ...(card.borderHoverColor ? { '--card-border-hover': card.borderHoverColor } as React.CSSProperties : {}),
+          ...(card.glowColor ? { '--card-glow': card.glowColor } as React.CSSProperties : {}),
+        };
 
         if (enableStars) {
           return (
@@ -328,14 +338,18 @@ export const MagicBento: React.FC<MagicBentoProps> = ({
               style={cardStyle}
               disableAnimations={shouldDisableAnimations}
               particleCount={particleCount}
-              glowColor={glowColor}
+              glowColor={card.glowColor || glowColor}
               enableTilt={enableTilt}
               clickEffect={clickEffect}
               enableMagnetism={enableMagnetism}
             >
               <div className="magic-bento-card__header">
-                {card.label && <span className="magic-bento-card__label text-brand-orange font-medium">{card.label}</span>}
-                {card.icon && <div className="text-brand-cobalt dark:text-blue-400">{card.icon}</div>}
+                {card.label && (
+                  <span className={`magic-bento-card__label font-medium ${card.labelColor || 'text-brand-orange'}`}>
+                    {card.label}
+                  </span>
+                )}
+                {card.icon && <div>{card.icon}</div>}
               </div>
               <div className="magic-bento-card__content">
                 <h3 className="magic-bento-card__title">{card.title}</h3>
@@ -343,7 +357,13 @@ export const MagicBento: React.FC<MagicBentoProps> = ({
                 {card.tags && (
                   <div className="flex flex-wrap gap-1.5 mt-3">
                     {card.tags.map((t: string, idx: number) => (
-                      <span key={idx} className="px-2 py-0.5 rounded text-[10px] font-mono bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300 font-medium">
+                      <span
+                        key={idx}
+                        className={`px-2 py-0.5 rounded text-[10px] font-mono font-medium ${
+                          card.tagClassName ||
+                          'bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-700 dark:text-slate-300'
+                        }`}
+                      >
                         {t}
                       </span>
                     ))}
@@ -357,8 +377,12 @@ export const MagicBento: React.FC<MagicBentoProps> = ({
         return (
           <div key={index} className={baseClassName} style={cardStyle}>
             <div className="magic-bento-card__header">
-              {card.label && <span className="magic-bento-card__label text-brand-orange font-medium">{card.label}</span>}
-              {card.icon && <div className="text-brand-cobalt dark:text-blue-400">{card.icon}</div>}
+              {card.label && (
+                <span className={`magic-bento-card__label font-medium ${card.labelColor || 'text-brand-orange'}`}>
+                  {card.label}
+                </span>
+              )}
+              {card.icon && <div>{card.icon}</div>}
             </div>
             <div className="magic-bento-card__content">
               <h3 className="magic-bento-card__title">{card.title}</h3>
@@ -366,7 +390,13 @@ export const MagicBento: React.FC<MagicBentoProps> = ({
               {card.tags && (
                 <div className="flex flex-wrap gap-1.5 mt-3">
                   {card.tags.map((t: string, idx: number) => (
-                    <span key={idx} className="px-2 py-0.5 rounded text-[10px] font-mono bg-white/5 border border-white/10 text-slate-300">
+                    <span
+                      key={idx}
+                      className={`px-2 py-0.5 rounded text-[10px] font-mono font-medium ${
+                        card.tagClassName ||
+                        'bg-white/5 border border-white/10 text-slate-300'
+                      }`}
+                    >
                       {t}
                     </span>
                   ))}

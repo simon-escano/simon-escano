@@ -16,8 +16,8 @@
   width: 100%;
   padding: 1.5rem;
   border-radius: 20px;
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid var(--card-border, rgba(226, 232, 240, 0.9));
+  background: var(--card-bg, rgba(255, 255, 255, 0.85));
   color: #0f172a;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
   backdrop-filter: blur(12px);
@@ -32,15 +32,15 @@
 }
 
 .dark .magic-bento-card {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(19, 27, 46, 0.75);
+  border: 1px solid var(--card-border, rgba(255, 255, 255, 0.1));
+  background: var(--card-bg, rgba(19, 27, 46, 0.75));
   color: #fff;
   box-shadow: none;
 }
 
 .magic-bento-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(56, 69, 201, 0.6);
+  border-color: var(--card-border-hover, var(--card-border, rgba(56, 69, 201, 0.6)));
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 
@@ -129,8 +129,8 @@
   padding: 2px;
   background: radial-gradient(
     var(--glow-radius) circle at var(--glow-x) var(--glow-y),
-    rgba(56, 69, 201, calc(var(--glow-intensity) * 0.9)) 0%,
-    rgba(249, 115, 22, calc(var(--glow-intensity) * 0.5)) 40%,
+    rgba(var(--card-glow, 56, 69, 201), calc(var(--glow-intensity) * 0.95)) 0%,
+    rgba(var(--card-glow, 56, 69, 201), calc(var(--glow-intensity) * 0.4)) 40%,
     transparent 70%
   );
   border-radius: inherit;

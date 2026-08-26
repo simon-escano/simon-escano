@@ -24,7 +24,6 @@ import {
   SpecularButton,
   CurvedInput,
   LogoLoop,
-  Magnet,
   CountUp,
   CurvedLoop,
   GradientText,
@@ -247,10 +246,6 @@ export const Home: React.FC = () => {
             {/* Key Action Buttons */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
               <SpecularButton
-                size="lg"
-                tint="#f97316"
-                tintOpacity={0.2}
-                blur={8}
                 onClick={() => {
                   const el = document.getElementById('featured');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -258,18 +253,16 @@ export const Home: React.FC = () => {
                 }}
               >
                 <span>Explore Projects</span>
-                <ArrowRight className="w-4 h-4 ml-1 text-brand-orange" />
+                <ArrowRight className="w-4 h-4 text-brand-orange" />
               </SpecularButton>
 
-              <Magnet magnetStrength={0.3}>
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-medium text-sm transition-all shadow-md"
-                >
-                  <ArrowUpRight className="w-4 h-4 text-brand-orange" />
-                  <span>Get in Touch</span>
-                </Link>
-              </Magnet>
+              <Link
+                to="/contact"
+                className="px-6 py-3 rounded-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-800 dark:hover:bg-slate-700 text-sm font-medium transition-all shadow-sm inline-flex items-center gap-2"
+              >
+                <ArrowUpRight className="w-4 h-4 text-brand-orange" />
+                <span>Get in Touch</span>
+              </Link>
             </div>
 
             {/* Floating Mini-Badges */}
