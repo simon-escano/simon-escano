@@ -120,15 +120,15 @@ export const Projects: React.FC = () => {
       borderColor: '#f97316',
       customCard: (
         <div className="flex flex-col h-full justify-between">
-          <div className="chroma-img-wrapper relative flex flex-col items-center justify-center p-6 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 rounded-[14px] overflow-hidden border border-white/5 group-hover:border-brand-orange/40 transition-colors text-center select-none">
-            <div className="absolute w-32 h-32 rounded-full bg-brand-orange/20 blur-2xl pointer-events-none" />
-            <div className="w-14 h-14 rounded-2xl bg-white/10 dark:bg-white/5 border border-white/10 flex items-center justify-center shadow-lg mb-3 group-hover:scale-110 group-hover:bg-brand-orange/20 transition-all duration-300">
-              <Github className="w-7 h-7 text-white group-hover:text-brand-orange transition-colors" />
+          <div className="chroma-img-wrapper relative flex flex-col items-center justify-center p-6 bg-gradient-to-br from-slate-100 via-orange-50/50 to-slate-200/80 dark:from-slate-900 dark:via-slate-800 dark:to-slate-950 rounded-[14px] overflow-hidden border border-slate-200 dark:border-white/5 group-hover:border-brand-orange/40 transition-colors text-center select-none shadow-inner">
+            <div className="absolute w-32 h-32 rounded-full bg-brand-orange/15 dark:bg-brand-orange/20 blur-2xl pointer-events-none" />
+            <div className="w-14 h-14 rounded-2xl bg-white dark:bg-white/5 border border-slate-200/80 dark:border-white/10 flex items-center justify-center shadow-md dark:shadow-lg mb-3 group-hover:scale-110 group-hover:bg-brand-orange/15 dark:group-hover:bg-brand-orange/20 group-hover:border-brand-orange/40 transition-all duration-300">
+              <Github className="w-7 h-7 text-slate-800 dark:text-white group-hover:text-brand-orange transition-colors" />
             </div>
-            <span className="text-xs font-mono font-medium text-slate-200 uppercase tracking-widest">
+            <span className="text-xs font-mono font-semibold text-slate-800 dark:text-slate-200 uppercase tracking-widest">
               20+ Repositories & Builds
             </span>
-            <span className="text-[11px] font-mono text-slate-400 mt-1">
+            <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1">
               Algorithms • Full-Stack • AI Models • CLI Tools
             </span>
           </div>
@@ -138,7 +138,7 @@ export const Projects: React.FC = () => {
               <h3 className="name group-hover:text-brand-orange transition-colors">
                 More projects on
               </h3>
-              <p className="role text-slate-500 dark:text-slate-400 text-xs">
+              <p className="role text-slate-600 dark:text-slate-400 text-xs">
                 Explore open-source systems, utilities, and research codebases.
               </p>
             </div>
