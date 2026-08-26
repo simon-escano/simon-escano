@@ -4,6 +4,7 @@ import {
   Search,
   Filter,
   ExternalLink,
+  Github,
 } from 'lucide-react';
 import dataService from '@/services/dataService';
 import { Project } from '@/types/data';
@@ -15,6 +16,7 @@ import {
   CurvedInput,
   CurvedLoop,
 } from '@/components/reactbits';
+import type { ChromaItem } from '@/components/reactbits';
 
 const CATEGORIES = [
   { id: 'all', label: 'All' },
@@ -97,15 +99,65 @@ export const Projects: React.FC = () => {
   }, [allProjects, selectedCategory, searchQuery]);
 
   // ChromaGrid items for chroma view
-  const chromaItems = filteredProjects.map((p) => ({
-    id: p.id,
-    title: p.title,
-    subtitle: p.one_liner,
-    image: p.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png',
-    images: p.gallery,
-    url: `/projects/${p.id}`,
-    tags: p.tech_stack.slice(0, 3).map((t) => t.name),
-  }));
+  const chromaItems: ChromaItem[] = [
+    ...filteredProjects.map((p) => ({
+      id: p.id,
+      title: p.title,
+      subtitle: p.one_liner,
+      image: p.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png',
+      images: p.gallery,
+      url: `/projects/${p.id}`,
+      tags: p.tech_stack.slice(0, 3).map((t) => t.name),
+    })),
+    {
+      id: 'more-projects-github',
+      title: 'More projects on',
+      subtitle: 'Explore 20+ additional repositories, low-level experiments, and builds.',
+      url: profile.contact.github || 'https://github.com/simon-escano',
+      borderColor: '#f97316',
+      customCard: (
+        <div className="flex flex-col h-full justify-between">
+          <div className="chroma-img-wrapper relative flex flex-col items-center justify-center p-6 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 rounded-[14px] overflow-hidden border border-white/5 group-hover:border-brand-orange/40 transition-colors text-center select-none">
+            <div className="absolute w-32 h-32 rounded-full bg-brand-orange/20 blur-2xl pointer-events-none" />
+            <div className="w-14 h-14 rounded-2xl bg-white/10 dark:bg-white/5 border border-white/10 flex items-center justify-center shadow-lg mb-3 group-hover:scale-110 group-hover:bg-brand-orange/20 transition-all duration-300">
+              <Github className="w-7 h-7 text-white group-hover:text-brand-orange transition-colors" />
+            </div>
+            <span className="text-xs font-mono font-medium text-slate-200 uppercase tracking-widest">
+              20+ Repositories & Builds
+            </span>
+            <span className="text-[11px] font-mono text-slate-400 mt-1">
+              Algorithms • Full-Stack • AI Models • CLI Tools
+            </span>
+          </div>
+
+          <footer className="chroma-info">
+            <div className="space-y-1">
+              <h3 className="name group-hover:text-brand-orange transition-colors">
+                More projects on
+              </h3>
+              <p className="role text-slate-500 dark:text-slate-400 text-xs">
+                Explore open-source systems, utilities, and research codebases.
+              </p>
+            </div>
+
+            <div className="pt-2">
+              <a
+                href={profile.contact.github || 'https://github.com/simon-escano'}
+                target="_blank"
+                rel="noreferrer noopener"
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-brand-orange dark:hover:bg-brand-orange dark:hover:text-white text-xs font-mono font-medium transition-all shadow-sm group-hover:scale-[1.02]"
+              >
+                <Github className="w-4 h-4 flex-shrink-0" />
+                <span>simon-escano</span>
+                <ExternalLink className="w-3.5 h-3.5 opacity-60 ml-0.5" />
+              </a>
+            </div>
+          </footer>
+        </div>
+      ),
+    },
+  ];
 
   return (
     <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">

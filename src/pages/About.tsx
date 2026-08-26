@@ -135,26 +135,33 @@ export const About: React.FC = () => {
 
             {/* Single Merged Cohesive Bio Paragraph */}
             <p className="text-base sm:text-lg text-slate-700 dark:text-slate-300 leading-relaxed text-center lg:text-left max-w-2xl">
-              I am Simon Escaño, a Cum Laude CS graduate from CIT-U. I build fast, reliable applications from the ground up across any stack, ranging from complex research systems in medical informatics and 3D graphics to modern full-stack web products.
+              I am Simon Escaño, a Cum Laude CS graduate from CIT-U with over 20+ built projects and systems. I build fast, reliable applications from the ground up across any stack, ranging from medical informatics and 3D graphics to modern full-stack web products.
             </p>
 
-            <div className="grid grid-cols-3 gap-4 pt-2 w-full max-w-lg">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2 w-full max-w-xl">
               <div className="text-center lg:text-left">
                 <div className="text-2xl sm:text-3xl font-display font-medium text-brand-orange">
+                  <CountUp to={20} duration={1.2} />+
+                </div>
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Projects & Builds</div>
+              </div>
+
+              <div className="text-center lg:text-left">
+                <div className="text-2xl sm:text-3xl font-display font-medium text-brand-cobalt dark:text-blue-400">
                   <CountUp to={9} duration={1.2} />
                 </div>
                 <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Major Awards</div>
               </div>
 
               <div className="text-center lg:text-left">
-                <div className="text-2xl sm:text-3xl font-display font-medium text-brand-cobalt dark:text-blue-400">
+                <div className="text-2xl sm:text-3xl font-display font-medium text-emerald-500">
                   <CountUp to={5} duration={1.2} />+
                 </div>
                 <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Certifications</div>
               </div>
 
               <div className="text-center lg:text-left">
-                <div className="text-2xl sm:text-3xl font-display font-medium text-emerald-500">
+                <div className="text-2xl sm:text-3xl font-display font-medium text-purple-500 dark:text-purple-400">
                   <CountUp to={100} duration={1.2} />%
                 </div>
                 <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1 uppercase">Commitment</div>

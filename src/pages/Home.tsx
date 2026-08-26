@@ -314,9 +314,19 @@ export const Home: React.FC = () => {
       ────────────────────────────────────────────────────────── */}
       <section id="stats" className="pb-12 border-b bg-transparent border-slate-200 dark:border-white/10 backdrop-blur-md">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
-              <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-medium text-brand-orange">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <SpotlightCard className="text-center p-5 sm:p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
+              <div className="flex items-center justify-center gap-1 text-3xl sm:text-4xl lg:text-5xl font-display font-medium text-brand-orange">
+                <CountUp to={20} duration={1.5} />
+                <span>+</span>
+              </div>
+              <p className="mt-2 text-xs sm:text-sm font-mono text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                Projects & Builds
+              </p>
+            </SpotlightCard>
+
+            <SpotlightCard className="text-center p-5 sm:p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
+              <div className="flex items-center justify-center gap-1 text-3xl sm:text-4xl lg:text-5xl font-display font-medium text-brand-cobalt dark:text-blue-400">
                 <CountUp to={9} duration={1.5} />
               </div>
               <p className="mt-2 text-xs sm:text-sm font-mono text-slate-600 dark:text-slate-400 uppercase tracking-wider">
@@ -324,8 +334,8 @@ export const Home: React.FC = () => {
               </p>
             </SpotlightCard>
 
-            <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
-              <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-medium text-brand-cobalt dark:text-blue-400">
+            <SpotlightCard className="text-center p-5 sm:p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
+              <div className="flex items-center justify-center gap-1 text-3xl sm:text-4xl lg:text-5xl font-display font-medium text-emerald-500">
                 <CountUp to={5} duration={1.5} />
                 <span>+</span>
               </div>
@@ -334,8 +344,8 @@ export const Home: React.FC = () => {
               </p>
             </SpotlightCard>
 
-            <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
-              <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-medium text-emerald-500">
+            <SpotlightCard className="text-center p-5 sm:p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
+              <div className="flex items-center justify-center gap-1 text-3xl sm:text-4xl lg:text-5xl font-display font-medium text-purple-500 dark:text-purple-400">
                 <CountUp to={100} duration={1.5} />
                 <span>%</span>
               </div>
