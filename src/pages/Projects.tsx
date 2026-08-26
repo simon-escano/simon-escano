@@ -3,15 +3,17 @@ import { useNavigate } from 'react-router-dom';
 import {
   Search,
   Filter,
-  ArrowRight,
+  ExternalLink,
 } from 'lucide-react';
 import dataService from '@/services/dataService';
 import { Project } from '@/types/data';
 import {
   ChromaGrid,
   GradientText,
-  SpecularButton,
   DotField,
+  BorderGlow,
+  CurvedInput,
+  CurvedLoop,
 } from '@/components/reactbits';
 
 const CATEGORIES = [
@@ -63,10 +65,19 @@ const mapProjectToCategory = (project: Project): string[] => {
 
 export const Projects: React.FC = () => {
   const navigate = useNavigate();
+  const profile = dataService.getProfile();
   const allProjects = dataService.getProjects();
 
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const handleCurvedSubmit = (val: string) => {
+    if (val.trim()) {
+      navigate(`/contact?message=${encodeURIComponent(val)}`);
+    } else {
+      navigate('/contact');
+    }
+  };
 
   const filteredProjects = useMemo(() => {
     return allProjects.filter((p) => {
@@ -97,7 +108,7 @@ export const Projects: React.FC = () => {
   }));
 
   return (
-    <div className="relative min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 bg-background text-foreground overflow-hidden">
+    <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Background Interactive DotField Shader */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 opacity-75 dark:opacity-85">
@@ -112,7 +123,7 @@ export const Projects: React.FC = () => {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-[1280px] mx-auto space-y-12">
+      <div className="relative z-10 max-w-[1280px] mx-auto pt-28 pb-20 px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight">
@@ -181,23 +192,93 @@ export const Projects: React.FC = () => {
             onItemClick={(item) => navigate(item.url || `/projects/${item.id}`)}
           />
         )}
+      </div>
 
-        {/* Bottom Callout */}
-        <div className="mt-16 p-8 rounded-3xl bg-white/80 dark:bg-slate-900/40 border border-brand-cobalt/30 text-center space-y-4 shadow-sm backdrop-blur-md">
-          <h3 className="text-2xl font-display font-medium text-slate-900 dark:text-white">
-            Need an engineered solution customized for your stack?
-          </h3>
-          <p className="text-sm text-slate-600 dark:text-slate-300 max-w-lg mx-auto leading-relaxed">
-            simon-escano is actively open to high-impact software engineering roles, hackathons, and technical consulting.
-          </p>
-          <div className="pt-2 flex justify-center">
-            <SpecularButton onClick={() => navigate('/contact')}>
-              <span>Discuss an Engineering Role</span>
-              <ArrowRight className="w-4 h-4 text-brand-orange" />
-            </SpecularButton>
+      {/* ──────────────────────────────────────────────────────────
+          CURVED MARQUEE & CONTACT CTA
+      ────────────────────────────────────────────────────────── */}
+      <section className="pb-16 sm:pb-20 pt-4 relative overflow-hidden bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-white/10 w-full box-border">
+        {/* Marquee Header: Scaled curve & text for mobile */}
+        <div className="w-full mb-6 sm:mb-8 overflow-hidden">
+          <CurvedLoop
+            marqueeText="LET'S BUILD SOMETHING EXTRAORDINARY TOGETHER ✦ FULL-STACK DEV & SOFTWARE ENGINEER ✦ BACKEND DEV & INTEGRATION ENGINEER ✦ AI ENGINEER & ML APP DEVELOPER ✦ WEB ARCHITECT & TECHNICAL SEO DEV ✦ SIMON-ESCANO ✦ "
+            speed={1.4}
+            curveAmount={60} // Reduced on mobile base; let CSS handle scaling
+            className="fill-slate-800 dark:fill-white font-display text-xl sm:text-3xl md:text-4xl font-medium uppercase tracking-widest"
+          />
+        </div>
+
+        {/* Main Card Container */}
+        <div className="w-full max-w-3xl mx-auto px-3 sm:px-6 lg:px-8 box-border">
+          <div className="w-full max-w-full rounded-[20px] sm:rounded-[28px] shadow-sm">
+            <BorderGlow
+              edgeSensitivity={35}
+              glowColor="24 95 53"
+              borderRadius={24}
+              glowRadius={30}
+              className="w-full max-w-full"
+            >
+              <div className="p-5 sm:p-8 md:p-12 text-center space-y-5 sm:space-y-6 w-full max-w-full box-border min-w-0">
+
+                <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-medium text-slate-900 dark:text-white leading-tight break-words px-1">
+                  Interested in building something like this?
+                </h3>
+
+                <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm md:text-base max-w-lg mx-auto leading-relaxed break-words px-2">
+                  Drop your inquiry or email below to discuss architecture and builds.
+                </p>
+
+                {/* Curved Input Wrapper */}
+                <div className="w-full max-w-full sm:max-w-md mx-auto pt-1 sm:pt-2 flex justify-center min-w-0 [&_svg]:drop-shadow-none [&_svg]:overflow-visible [&_filter]:hidden [&_path]:[filter:none]">
+                  <div className="w-full bg-transparent">
+                    <CurvedInput
+                      width="100%"
+                      height={50}
+                      bend={8}
+                      placeholder="Your message or email..."
+                      buttonText="Send"
+                      onSubmit={handleCurvedSubmit}
+                    />
+                  </div>
+                </div>
+
+                {/* Responsive Footer Links */}
+                <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 text-xs font-mono text-slate-500 dark:text-slate-400 w-full max-w-full overflow-hidden">
+                  <a
+                    href={`mailto:${profile.contact.email}`}
+                    className="hover:text-brand-orange transition-colors flex items-center gap-1.5 max-w-full min-w-0 px-2"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5 flex-shrink-0" />
+                    <span className="truncate block max-w-[260px] sm:max-w-none">{profile.contact.email}</span>
+                  </a>
+
+                  <div className="flex items-center gap-3">
+                    <span className="hidden sm:inline text-slate-400/40">•</span>
+                    <a
+                      href={profile.contact.github}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="hover:text-brand-orange transition-colors"
+                    >
+                      GitHub
+                    </a>
+                    <span className="text-slate-400/40">•</span>
+                    <a
+                      href={profile.contact.linkedin}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="hover:text-brand-orange transition-colors"
+                    >
+                      LinkedIn
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+            </BorderGlow>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };

@@ -149,7 +149,7 @@ export const ArchitectureDiagram: React.FC<ArchitectureDiagramProps> = ({ code, 
 
       <div
         ref={viewportRef}
-        className={`min-h-[380px] p-6 flex items-center justify-center cursor-grab active:cursor-grabbing select-none overflow-hidden bg-slate-50/50 dark:bg-slate-950/60 [background-image:radial-gradient(rgba(148,163,184,0.3)_1px,transparent_1px)] [background-size:20px_20px] ${className}`}
+        className={`min-h-[380px] p-6 flex items-center justify-center cursor-grab active:cursor-grabbing select-none overflow-hidden bg-slate-50/50 dark:bg-slate-950/50 ${className}`}
         onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
       >
