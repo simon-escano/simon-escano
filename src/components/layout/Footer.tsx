@@ -25,7 +25,7 @@ export const Footer: React.FC = () => {
               </span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-sm leading-relaxed">
-              Engineering robust software from the ground up—combining scalable backends, applied ML pipelines, and clean web architecture.
+              Engineering robust software from the ground up, combining scalable backends, applied ML pipelines, and clean web architecture.
             </p>
             <div className="flex items-center gap-2 text-xs text-emerald-500 dark:text-emerald-400 font-mono">
               <span className="relative flex h-2 w-2">
