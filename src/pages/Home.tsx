@@ -646,7 +646,7 @@ export const Home: React.FC = () => {
 
         {/* Main Card Container */}
         <div className="w-full max-w-3xl mx-auto px-3 sm:px-6 lg:px-8 box-border">
-          <div className="w-full max-w-full overflow-hidden rounded-[20px] sm:rounded-[28px] border border-slate-200/80 dark:border-white/10 shadow-sm">
+          <div className="w-full max-w-full overflow-hidden rounded-[20px] sm:rounded-[28px] shadow-sm">
             <BorderGlow
               edgeSensitivity={35}
               glowColor="24 95 53"
