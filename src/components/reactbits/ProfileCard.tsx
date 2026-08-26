@@ -366,7 +366,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
                       />
                     </div>
                     <div className="pc-user-text">
-                      <div className="pc-handle">@{handle}</div>
+                      <div className="pc-handle">@<span className="font-display font-medium">{handle}</span></div>
                       <div className="pc-status">{status}</div>
                     </div>
                   </div>

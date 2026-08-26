@@ -152,7 +152,7 @@ export const Projects: React.FC = () => {
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-brand-orange dark:hover:bg-brand-orange dark:hover:text-white text-xs font-mono font-medium transition-all shadow-sm group-hover:scale-[1.02]"
               >
                 <Github className="w-4 h-4 flex-shrink-0" />
-                <span>simon-escano</span>
+                <span className="font-display font-medium">simon-escano</span>
                 <ExternalLink className="w-3.5 h-3.5 opacity-60 ml-0.5" />
               </a>
             </div>

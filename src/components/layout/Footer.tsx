@@ -105,7 +105,7 @@ export const Footer: React.FC = () => {
 
         {/* Bottom bar */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
-          <p>© {new Date().getFullYear()} simon-escano. Designed & built with precision.</p>
+          <p>© {new Date().getFullYear()} <span className="font-display font-medium text-foreground">simon-escano</span>. Designed & built with precision.</p>
           <div className="flex items-center gap-6">
             <span className="font-mono text-[11px]">
               Vite • React • Tailwind • Motion
