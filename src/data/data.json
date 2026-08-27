@@ -792,6 +792,11 @@
                     "icon": "github",
                     "label": "Repo",
                     "url": "https://github.com/simon-escano/pixcell"
+                },
+                {
+                    "icon": "external-link",
+                    "label": "Live",
+                    "url": "https://pixcell-ai.vercel.app"
                 }
             ],
             "gallery": [
