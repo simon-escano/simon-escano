@@ -803,6 +803,90 @@
                 "/images/PixCell/70e4d326-43c8-4c30-906f-17151fe420ac.jpeg"
             ],
             "source": "gitlore"
+        },
+        {
+            "id": "solution-10",
+            "title": "STEMIFlow",
+            "one_liner": "A prehospital STEMI triage and referral orchestration platform that streamlines emergency cardiac care through real-time risk scoring, intelligent hospital routing, and automated cath lab pre-alerts.",
+            "contributions": "Lead Systems Architect & Full-Stack Developer",
+            "problem": "Prehospital emergency responders and cardiac care teams face critical delays and fragmented coordination during acute STEMI events, leading to prolonged door-to-balloon times and suboptimal patient outcomes in resource-constrained emergency systems.",
+            "goal": "To provide an integrated, end-to-end digital triage and referral platform connecting patients, emergency field responders, and receiving PCI-capable hospitals for rapid cardiac intervention.",
+            "key_features": [
+                {
+                    "icon": "zap",
+                    "text": "Rule-Based ECG Triage & Deterioration Risk Scoring"
+                },
+                {
+                    "icon": "layers",
+                    "text": "Intelligent Hospital Ranking & Traffic-Aware Routing"
+                },
+                {
+                    "icon": "shield",
+                    "text": "Instant Cath Lab Pre-Alerts & Audit Trail Tracking"
+                }
+            ],
+            "architecture_diagram_code": "graph TD\n  A[\"Patient Intake & Dispatch\"]\n  B[\"Field Responder Unit\"]\n  C[\"ECG Quality & Triage Engine\"]\n  D[\"Hospital Ranking & ETA Calculator\"]\n  E[\"Receiving Hospital Dashboard\"]\n  F[\"Cath Lab Activation & Audit Trail\"]\n  A-->B\n  B-->C\n  C-->D\n  D-->E\n  E-->F",
+            "tech_stack": [
+                {
+                    "name": "Next.js",
+                    "role": "Primary"
+                },
+                {
+                    "name": "TypeScript",
+                    "role": "Primary"
+                },
+                {
+                    "name": "Tailwind CSS",
+                    "role": "Primary"
+                },
+                {
+                    "name": "Leaflet",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Supabase",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Vercel",
+                    "role": "Infrastructure"
+                },
+                {
+                    "name": "GitHub",
+                    "role": "Infrastructure"
+                }
+            ],
+            "stack_reason": "The modern Next.js App Router and TypeScript architecture paired with Tailwind CSS and Leaflet enables zero-friction, cross-device field responsiveness, offline-tolerant local state synchronization, and sub-second dispatch alerting.",
+            "results": {
+                "performance": {
+                    "icon": "zap",
+                    "text": "Minimizes door-to-balloon intervals via automated real-time dispatch and routing"
+                },
+                "scale": {
+                    "icon": "layers",
+                    "text": "Maintains seamless multi-role coordination across patients, field responders, and hospital networks"
+                },
+                "utility": {
+                    "icon": "shield",
+                    "text": "Guarantees complete clinical auditability with timestamped referral timelines and protocol enforcement"
+                }
+            },
+            "links": [
+                {
+                    "icon": "github",
+                    "label": "Repository",
+                    "url": "https://github.com/simon-escano/stemiflow"
+                },
+                {
+                    "icon": "external-link",
+                    "label": "Live",
+                    "url": "https://stemiflow.vercel.app"
+                }
+            ],
+            "gallery": [
+                "/images/STEMIFlow/1.png"
+            ],
+            "source": "gitlore"
         }
     ],
     "experience": [
