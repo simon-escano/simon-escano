@@ -43,7 +43,7 @@ All UI enhancements, layout refinements, interactive Captcha, transparent Chroma
 - **Serverless**:
   - `functions/api/contact.ts` — Cloudflare Pages Function handling POST requests with input validation and Turnstile verification.
 - **Data**:
-  - `src/data/data.json` & `data/data.json` (kept in sync).
+  - `src/data/data.json` (single canonical data source).
 - **Design System & Components**:
   - `src/components/reactbits/` — ColorBends, DotField, ProfileCard, CardSwap, AccordionGallery, ChromaGrid, LogoLoop, Magnet, CountUp, CurvedLoop, GradientText, ScrambledText, ShinyText, StrokeText, SpecularButton, BorderGlow, CurvedInput, MagicBento.
   - `src/components/common/` — `RatingBars.tsx` (10-bar horizontal skill widget), `ArchitectureDiagram.tsx` (interactive Mermaid with zoom/pan controls).

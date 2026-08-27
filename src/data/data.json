@@ -8,7 +8,7 @@
             "linkedin": "https://www.linkedin.com/in/simon-escano/"
         },
         "mobile": "+63 9984120656",
-        "philosophy": "Built tough, crafted clean. I connect scalable backends, intelligent data models, and modern web architectures into fast, reliable software that delivers a great user experience across any problem space.",
+        "philosophy": "Drives innovation through full-stack development, crafting robust, user-centric solutions across diverse domains from AI diagnostics to gamified productivity and secure data management.",
         "hobbies": []
     },
     "projects": [
@@ -82,11 +82,11 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repo",
+                    "label": "Repository",
                     "url": "https://github.com/simon-escano/Night-Shift-at-Freddy-s"
                 },
                 {
-                    "icon": "gamepad",
+                    "icon": "github",
                     "label": "itch.io",
                     "url": "https://simonescano.itch.io/night-shift-at-freddys"
                 }
@@ -160,11 +160,11 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repo",
+                    "label": "Repository",
                     "url": "https://github.com/simon-escano/Seizuki"
                 },
                 {
-                    "icon": "external-link",
+                    "icon": "github",
                     "label": "Live",
                     "url": "https://simon-escano.github.io/Seizuki/"
                 }
@@ -242,11 +242,11 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repo",
+                    "label": "Repository",
                     "url": "https://github.com/simon-escano/Dittobase"
                 },
                 {
-                    "icon": "play",
+                    "icon": "github",
                     "label": "Demo",
                     "url": "https://youtu.be/E1VfazO4wmw"
                 }
@@ -316,11 +316,11 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repo",
+                    "label": "Repository",
                     "url": "https://github.com/simon-escano/Pawductive_2"
                 },
                 {
-                    "icon": "figma",
+                    "icon": "link",
                     "label": "Prototype",
                     "url": "https://www.figma.com/proto/iDZ31CC4AitkJcSyshW4h4/Pawductive?node-id=0-1&t=0e42vp4uMioFgO9t-1"
                 }
@@ -394,7 +394,7 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repo",
+                    "label": "Repository",
                     "url": "https://github.com/simon-escano/Fasaar"
                 }
             ],
@@ -471,7 +471,7 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repo",
+                    "label": "Repository",
                     "url": "https://github.com/Wetooa/TekNotes"
                 }
             ],
@@ -556,12 +556,12 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repo",
+                    "label": "Repository",
                     "url": "https://github.com/simon-escano/Fashion-MNIST-Classifier"
                 },
                 {
-                    "icon": "external-link",
-                    "label": "Live",
+                    "icon": "github",
+                    "label": "Live Demo",
                     "url": "https://simon-escano.github.io/Fashion-MNIST-Classifier/"
                 }
             ],
@@ -630,12 +630,12 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repo",
+                    "label": "Repository",
                     "url": "https://github.com/simon-escano/AutoPBI"
                 },
                 {
-                    "icon": "file-text",
-                    "label": "Docs",
+                    "icon": "github",
+                    "label": "Documentation",
                     "url": "https://docs-autopbi.vercel.app/introduction/home"
                 }
             ],
@@ -713,7 +713,7 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repo",
+                    "label": "Repository",
                     "url": "https://github.com/Wetooa/sprout"
                 }
             ],
@@ -790,7 +790,7 @@
             "links": [
                 {
                     "icon": "github",
-                    "label": "Repo",
+                    "label": "PixCell GitHub Repository",
                     "url": "https://github.com/simon-escano/pixcell"
                 },
                 {
@@ -801,6 +801,93 @@
             ],
             "gallery": [
                 "/images/PixCell/70e4d326-43c8-4c30-906f-17151fe420ac.jpeg"
+            ],
+            "source": "gitlore"
+        },
+        {
+            "id": "solution-10",
+            "title": "STEMIFlow",
+            "one_liner": "A prehospital STEMI triage and referral orchestration platform that streamlines emergency cardiac care through real-time risk scoring, intelligent hospital routing, and automated cath lab pre-alerts.",
+            "contributions": "Lead Systems Architect & Full-Stack Developer",
+            "problem": "Prehospital emergency responders and cardiac care teams face critical delays and fragmented coordination during acute STEMI events, leading to prolonged door-to-balloon times and suboptimal patient outcomes in resource-constrained emergency systems.",
+            "goal": "To provide an integrated, end-to-end digital triage and referral platform connecting patients, emergency field responders, and receiving PCI-capable hospitals for rapid cardiac intervention.",
+            "key_features": [
+                {
+                    "icon": "zap",
+                    "text": "Rule-Based ECG Triage & Deterioration Risk Scoring"
+                },
+                {
+                    "icon": "layers",
+                    "text": "Intelligent Hospital Ranking & Traffic-Aware Routing"
+                },
+                {
+                    "icon": "shield",
+                    "text": "Instant Cath Lab Pre-Alerts & Audit Trail Tracking"
+                }
+            ],
+            "architecture_diagram_code": "graph TD\n  A[\"Patient Intake & Dispatch\"]\n  B[\"Field Responder Unit\"]\n  C[\"ECG Quality & Triage Engine\"]\n  D[\"Hospital Ranking & ETA Calculator\"]\n  E[\"Receiving Hospital Dashboard\"]\n  F[\"Cath Lab Activation & Audit Trail\"]\n  A-->B\n  B-->C\n  C-->D\n  D-->E\n  E-->F",
+            "tech_stack": [
+                {
+                    "name": "Next.js",
+                    "role": "Primary"
+                },
+                {
+                    "name": "TypeScript",
+                    "role": "Primary"
+                },
+                {
+                    "name": "Tailwind CSS",
+                    "role": "Primary"
+                },
+                {
+                    "name": "Leaflet",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Supabase",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Vercel",
+                    "role": "Infrastructure"
+                },
+                {
+                    "name": "GitHub",
+                    "role": "Infrastructure"
+                }
+            ],
+            "stack_reason": "The modern Next.js App Router and TypeScript architecture paired with Tailwind CSS and Leaflet enables zero-friction, cross-device field responsiveness, offline-tolerant local state synchronization, and sub-second dispatch alerting.",
+            "results": {
+                "performance": {
+                    "icon": "zap",
+                    "text": "Minimizes door-to-balloon intervals via automated real-time dispatch and routing"
+                },
+                "scale": {
+                    "icon": "layers",
+                    "text": "Maintains seamless multi-role coordination across patients, field responders, and hospital networks"
+                },
+                "utility": {
+                    "icon": "shield",
+                    "text": "Guarantees complete clinical auditability with timestamped referral timelines and protocol enforcement"
+                }
+            },
+            "links": [
+                {
+                    "icon": "github",
+                    "label": "Repository",
+                    "url": "https://github.com/simon-escano/stemiflow"
+                },
+                {
+                    "icon": "external-link",
+                    "label": "Live",
+                    "url": "https://stemiflow.vercel.app"
+                }
+            ],
+            "gallery": [
+                "/images/STEMIFlow/1_home_page.png",
+                "/images/STEMIFlow/2_new_request_page.png",
+                "/images/STEMIFlow/3_request_tracking_page.png",
+                "/images/STEMIFlow/4_responder_standby_page.png"
             ],
             "source": "gitlore"
         }
