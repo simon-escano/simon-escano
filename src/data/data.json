@@ -890,6 +890,95 @@
                 "/images/STEMIFlow/4_responder_standby_page.png"
             ],
             "source": "gitlore"
+        },
+        {
+            "id": "solution-11",
+            "title": "Gitlore",
+            "one_liner": "An edge-native portfolio intelligence platform that autonomously transforms GitHub repositories into interactive, structured technical case studies and architectural blueprints.",
+            "contributions": "Lead Systems Architect & Full-Stack Developer",
+            "problem": "Developers struggle to manually distill complex multi-tiered codebases into polished, recruiter-ready case studies and live interactive diagrams, creating significant friction when showcasing engineering impact.",
+            "goal": "To engineer an autonomous, zero-server-cost edge intelligence platform that digests GitHub repositories via token-budgeted AST ingestion and ultra-fast Cerebras LLM inference, delivering real-time streaming case studies, live Mermaid diagram editors, and synchronized JSON workspaces.",
+            "key_features": [
+                {
+                    "icon": "zap",
+                    "text": "Sub-second repository architecture extraction powered by Cerebras Wafer-Scale inference"
+                },
+                {
+                    "icon": "layers",
+                    "text": "Real-time Server-Sent Events (SSE) streaming through ingestion, inference, and validation phases"
+                },
+                {
+                    "icon": "shield",
+                    "text": "Interactive dual-pane Mermaid diagram canvas with live pan-zoom and synchronized JSON editing"
+                }
+            ],
+            "architecture_diagram_code": "graph TD\n  A[\"Browser (React 19 SPA)\"] -->|SSE Request & Stream| B[\"Cloudflare Worker (Hono API Gateway)\"]\n  B -->|Octokit / GitHub REST| C[\"AST & File Ingestion Pipeline\"]\n  C -->|Budget-Capped Context| D[\"Cerebras Ultra-Fast LLM (gpt-oss-120b)\"]\n  D -->|Structured JSON Output| E[\"Runtime Zod Schema Validation\"]\n  E -->|Synchronized State| A\n  A --> F[\"Mermaid.js Interactive Canvas\"]\n  A --> G[\"Live JSON Workspace Editor\"]",
+            "tech_stack": [
+                {
+                    "name": "React 19",
+                    "role": "Primary"
+                },
+                {
+                    "name": "TypeScript",
+                    "role": "Primary"
+                },
+                {
+                    "name": "Hono",
+                    "role": "Primary"
+                },
+                {
+                    "name": "Tailwind CSS v4",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Zod",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Mermaid.js",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Cloudflare Workers",
+                    "role": "Infrastructure"
+                },
+                {
+                    "name": "Cerebras Cloud",
+                    "role": "Infrastructure"
+                }
+            ],
+            "stack_reason": "The modern Cloudflare Workers and Hono edge runtime combined with Cerebras Cloud's ultra-low latency inference enables sub-second generation and zero server costs, while React 19, Tailwind CSS v4, and Mermaid.js deliver a fluid, interactive portfolio exploration experience.",
+            "results": {
+                "performance": {
+                    "icon": "zap",
+                    "text": "Achieves sub-second inference speeds and instant time-to-first-token with Cerebras Cloud"
+                },
+                "scale": {
+                    "icon": "layers",
+                    "text": "Eliminates server overhead and scales globally on Cloudflare's serverless edge"
+                },
+                "utility": {
+                    "icon": "shield",
+                    "text": "Enforces 100% strict type safety and JSON schema validation with Zod runtime guards"
+                }
+            },
+            "links": [
+                {
+                    "icon": "github",
+                    "label": "Repository",
+                    "url": "https://github.com/simon-escano/gitlore"
+                },
+                {
+                    "icon": "external-link",
+                    "label": "Live Demo",
+                    "url": "https://web.gitlore.workers.dev"
+                }
+            ],
+            "gallery": [
+                "/images/Gitlore/1-Home.png",
+                "/images/Gitlore/2-Analysis.png"
+            ],
+            "source": "gitlore"
         }
     ],
     "experience": [
