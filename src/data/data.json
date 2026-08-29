@@ -1081,6 +1081,101 @@
                 "/images/Lupus Lens/3_patient_profile.png"
             ],
             "source": "gitlore"
+        },
+        {
+            "id": "solution-13",
+            "title": "KaagapAI",
+            "one_liner": "An offline-first clinical decision-support and supply chain orchestration platform for Barangay Health Workers and Rural Health Units, featuring AI triage, multilingual referral handoffs, and predictive inventory forecasting.",
+            "contributions": "Lead Full-Stack Architect & Systems Developer",
+            "problem": "Barangay Health Workers (BHWs) and Rural Health Units (RHUs) in underserved Philippine communities face critical challenges with paper-bound records, manual triage errors, delayed emergency hospital handoffs, and unexpected medication stockouts due to spotty connectivity.",
+            "goal": "To engineer an accessible, offline-first digital healthcare workstation that empowers frontline workers with structured 5-step AI clinical triage, automated multilingual referral handoffs (English, Cebuano, Filipino), predictive pharmaceutical inventory forecasting, and an intelligent context-aware copilot (Maya).",
+            "key_features": [
+                {
+                    "icon": "zap",
+                    "text": "5-step structured clinical triage intake analyzing vitals, symptom clusters, and danger signs for instant risk stratification"
+                },
+                {
+                    "icon": "layers",
+                    "text": "Multilingual referral handoffs generating localized patient instructions in English, Cebuano (Bisaya), and Filipino (Tagalog)"
+                },
+                {
+                    "icon": "shield",
+                    "text": "Predictive supply forecasting modeling consumption velocities and active case trends to alert on impending stockouts"
+                }
+            ],
+            "architecture_diagram_code": "graph TD\n  A[\"Frontline BHW / RHU Clinician\"] -->|5-Step Intake: Demographics & Vitals| B[\"Offline Triage & Case Engine\"]\n  B -->|Symptom Clusters & Danger Signs| C[\"AI Clinical Inference Engine\"]\n  C -->|Risk Stratification & Protocols| D[\"EHR & Patient Records\"]\n  C -->|Multilingual Care Handoff (EN/CEB/FIL)| E[\"District Hospital Referral System\"]\n  D -->|Real-Time Case Incidence Rates| F[\"Supply Forecasting Engine\"]\n  F -->|Consumption Velocity & Days-to-Stockout| G[\"Inventory & Supplier Alerts\"]\n  B -->|Active Screen State & Telemetry| H[\"Maya Contextual Clinical Copilot\"]\n  H -->|Plain-Language Guidance & Action Steps| A",
+            "tech_stack": [
+                {
+                    "name": "React 19",
+                    "role": "Primary"
+                },
+                {
+                    "name": "TypeScript",
+                    "role": "Primary"
+                },
+                {
+                    "name": "Vite",
+                    "role": "Primary"
+                },
+                {
+                    "name": "Tailwind CSS",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Radix UI",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Lucide React",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "React Router",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Render",
+                    "role": "Infrastructure"
+                },
+                {
+                    "name": "GitHub",
+                    "role": "Infrastructure"
+                }
+            ],
+            "stack_reason": "The React 19 and Vite frontend paired with Tailwind CSS and Radix UI delivers a fast, accessible, and responsive interface optimized for low-bandwidth rural clinical environments, while the modular architecture supports offline state caching, multi-language localization (English, Cebuano, Filipino), and seamless integration with AI triage, inventory forecasting, and clinical copilot microservices deployed on Render.",
+            "results": {
+                "performance": {
+                    "icon": "zap",
+                    "text": "Accelerates clinical intake and triage classification to seconds while operating smoothly in low-bandwidth environments"
+                },
+                "scale": {
+                    "icon": "layers",
+                    "text": "Synchronizes patient registries, cross-facility referral pipelines, and pharmaceutical inventory across community health units"
+                },
+                "utility": {
+                    "icon": "shield",
+                    "text": "Enhances frontline healthcare equity with localized instructions in English, Cebuano, and Filipino, alongside high-contrast accessibility modes"
+                }
+            },
+            "links": [
+                {
+                    "icon": "github",
+                    "label": "Repository",
+                    "url": "https://github.com/simon-escano/kaagapai"
+                },
+                {
+                    "icon": "external-link",
+                    "label": "Live Demo",
+                    "url": "https://kaagapai-tntw.onrender.com"
+                }
+            ],
+            "gallery": [
+                "/images/KaagapAI/1_dashboard.png",
+                "/images/KaagapAI/2_triage_case.png",
+                "/images/KaagapAI/3_maya_copilot.png",
+                "/images/KaagapAI/4_supply_forecasting.png"
+            ],
+            "source": "gitlore"
         }
     ],
     "experience": [
