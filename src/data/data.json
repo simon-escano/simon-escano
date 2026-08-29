@@ -94,7 +94,8 @@
                 "/images/PixCell/2026-08-29 20.15.30 pixcell-ai.vercel.app a7ee3610251d.png",
                 "/images/PixCell/2026-08-29 20.15.55 pixcell-ai.vercel.app fba83aa12896.png"
             ],
-            "source": "gitlore"
+            "source": "gitlore",
+            "rating": 0.98
         },
         {
             "id": "solution-12",
@@ -196,7 +197,8 @@
                 "/images/Lupus Lens/2_capture_hub.png",
                 "/images/Lupus Lens/3_patient_profile.png"
             ],
-            "source": "gitlore"
+            "source": "gitlore",
+            "rating": 0.94
         },
         {
             "id": "solution-10",
@@ -283,7 +285,8 @@
                 "/images/STEMIFlow/3_request_tracking_page.png",
                 "/images/STEMIFlow/4_responder_standby_page.png"
             ],
-            "source": "gitlore"
+            "source": "gitlore",
+            "rating": 0.91
         },
         {
             "id": "solution-11",
@@ -372,7 +375,8 @@
                 "/images/Gitlore/1-Home.png",
                 "/images/Gitlore/2-Analysis.png"
             ],
-            "source": "gitlore"
+            "source": "gitlore",
+            "rating": 0.88
         },
         {
             "id": "solution-13",
@@ -467,7 +471,8 @@
                 "/images/KaagapAI/3_maya_copilot.png",
                 "/images/KaagapAI/4_supply_forecasting.png"
             ],
-            "source": "gitlore"
+            "source": "gitlore",
+            "rating": 0.85
         },
         {
             "id": "solution-7",
@@ -542,7 +547,8 @@
                 "/images/AutoPBI/3.webp",
                 "/images/AutoPBI/4.webp"
             ],
-            "source": "gitlore"
+            "source": "gitlore",
+            "rating": 0.78
         },
         {
             "id": "solution-5",
@@ -619,7 +625,8 @@
                 "/images/TekNotes/58e6e66c-0755-40d7-b1f9-18c7485d75cb.jpeg",
                 "/images/TekNotes/cd427682-16ea-42d8-9bad-9cbe602c570c.jpeg"
             ],
-            "source": "gitlore"
+            "source": "gitlore",
+            "rating": 0.72
         },
         {
             "id": "solution-8",
@@ -696,7 +703,8 @@
                 "/images/Sprout/462646753_2006456293195057_4819933919330559521_n.png",
                 "/images/Sprout/470050503_1319614966063283_2568428495319101093_n.png"
             ],
-            "source": "gitlore"
+            "source": "gitlore",
+            "rating": 0.67
         },
         {
             "id": "solution-3",
@@ -770,7 +778,8 @@
                 "/images/Pawductive/Tasks (Simon).png",
                 "/images/Pawductive/Timer (Malt).png"
             ],
-            "source": "gitlore"
+            "source": "gitlore",
+            "rating": 0.6
         },
         {
             "id": "solution-6",
@@ -860,7 +869,8 @@
                 "/images/Fashion MNIST Classifier/2026-05-09 11.32.37 simon-escano.github.io e00dc5134c73.png",
                 "/images/Fashion MNIST Classifier/2026-05-09 11.33.22 simon-escano.github.io 77456e38ae49.png"
             ],
-            "source": "gitlore"
+            "source": "gitlore",
+            "rating": 0.52
         },
         {
             "id": "solution-4",
@@ -933,7 +943,8 @@
                 "/images/Fasaar/2026-05-09 11.26.56 www.facebook.com 5ada1331b54b.png",
                 "/images/Fasaar/442706920_832106975441812_7649371869780998775_n.png"
             ],
-            "source": "gitlore"
+            "source": "gitlore",
+            "rating": 0.42
         },
         {
             "id": "solution-0",
@@ -1019,7 +1030,8 @@
                 "/images/Night Shift At Freddy's/GOUku8.png",
                 "/images/Night Shift At Freddy's/U5ekhq.png"
             ],
-            "source": "gitlore"
+            "source": "gitlore",
+            "rating": 0.35
         },
         {
             "id": "solution-2",
@@ -1101,7 +1113,8 @@
                 "/images/Dittobase/2026-05-09 11.11.50 www.youtube.com cb4e53ea9d86.png",
                 "/images/Dittobase/2026-05-09 11.12.21 www.youtube.com 7f3337bbddfe.png"
             ],
-            "source": "gitlore"
+            "source": "gitlore",
+            "rating": 0.24
         },
         {
             "id": "solution-1",
@@ -1179,7 +1192,8 @@
                 "/images/Seizuki/2026-05-09 11.03.15 simon-escano.github.io 882e1e6561d1.png",
                 "/images/Seizuki/2026-05-09 11.03.44 simon-escano.github.io ae874d570b61.png"
             ],
-            "source": "gitlore"
+            "source": "gitlore",
+            "rating": 0.15
         }
     ],
     "experience": [

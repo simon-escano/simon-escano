@@ -51,6 +51,7 @@ export interface Project {
   links: ProjectLink[];
   gallery: string[];
   source: string;
+  rating?: number;
 }
 
 export interface Experience {
