@@ -172,7 +172,7 @@ export const Contact: React.FC = () => {
 
           <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
             Whether you are discussing a full-stack engineering role, exploring game mechanics,
-            or looking to partner with simon-escano — send a message directly.
+            or looking to partner with <span className="font-display font-medium text-slate-900 dark:text-white">simon-escano</span> — send a message directly.
           </p>
         </div>
 
@@ -314,7 +314,7 @@ export const Contact: React.FC = () => {
                     </div>
                     <h3 className="text-2xl font-display font-medium text-slate-900 dark:text-white">Message Sent Successfully!</h3>
                     <p className="text-sm text-slate-600 dark:text-slate-300 max-w-md mx-auto leading-relaxed">
-                      Thank you for reaching out, <span className="font-medium text-slate-900 dark:text-white">{name}</span>. simon-escano will review your message and reply back to <span className="font-mono text-brand-orange">{email}</span> promptly.
+                      Thank you for reaching out, <span className="font-medium text-slate-900 dark:text-white">{name}</span>. <span className="font-display font-medium text-slate-900 dark:text-white">simon-escano</span> will review your message and reply back to <span className="font-mono text-brand-orange">{email}</span> promptly.
                     </p>
                     <div className="pt-4">
                       <button

@@ -24,7 +24,6 @@ import {
   SpecularButton,
   CurvedInput,
   LogoLoop,
-  Magnet,
   CountUp,
   CurvedLoop,
   GradientText,
@@ -247,10 +246,6 @@ export const Home: React.FC = () => {
             {/* Key Action Buttons */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-4 pt-2">
               <SpecularButton
-                size="lg"
-                tint="#f97316"
-                tintOpacity={0.2}
-                blur={8}
                 onClick={() => {
                   const el = document.getElementById('featured');
                   if (el) el.scrollIntoView({ behavior: 'smooth' });
@@ -258,18 +253,16 @@ export const Home: React.FC = () => {
                 }}
               >
                 <span>Explore Projects</span>
-                <ArrowRight className="w-4 h-4 ml-1 text-brand-orange" />
+                <ArrowRight className="w-4 h-4 text-brand-orange" />
               </SpecularButton>
 
-              <Magnet magnetStrength={0.3}>
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-medium text-sm transition-all shadow-md"
-                >
-                  <ArrowUpRight className="w-4 h-4 text-brand-orange" />
-                  <span>Get in Touch</span>
-                </Link>
-              </Magnet>
+              <Link
+                to="/contact"
+                className="px-6 py-3 rounded-full bg-slate-900 hover:bg-slate-800 text-white dark:bg-slate-800 dark:hover:bg-slate-700 text-sm font-medium transition-all shadow-sm inline-flex items-center gap-2"
+              >
+                <ArrowUpRight className="w-4 h-4 text-brand-orange" />
+                <span>Get in Touch</span>
+              </Link>
             </div>
 
             {/* Floating Mini-Badges */}
@@ -314,9 +307,19 @@ export const Home: React.FC = () => {
       ────────────────────────────────────────────────────────── */}
       <section id="stats" className="pb-12 border-b bg-transparent border-slate-200 dark:border-white/10 backdrop-blur-md">
         <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-            <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
-              <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-medium text-brand-orange">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+            <SpotlightCard className="text-center p-5 sm:p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
+              <div className="flex items-center justify-center gap-1 text-3xl sm:text-4xl lg:text-5xl font-display font-medium text-brand-orange">
+                <CountUp to={20} duration={1.5} />
+                <span>+</span>
+              </div>
+              <p className="mt-2 text-xs sm:text-sm font-mono text-slate-600 dark:text-slate-400 uppercase tracking-wider">
+                Projects & Builds
+              </p>
+            </SpotlightCard>
+
+            <SpotlightCard className="text-center p-5 sm:p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
+              <div className="flex items-center justify-center gap-1 text-3xl sm:text-4xl lg:text-5xl font-display font-medium text-brand-cobalt dark:text-blue-400">
                 <CountUp to={9} duration={1.5} />
               </div>
               <p className="mt-2 text-xs sm:text-sm font-mono text-slate-600 dark:text-slate-400 uppercase tracking-wider">
@@ -324,8 +327,8 @@ export const Home: React.FC = () => {
               </p>
             </SpotlightCard>
 
-            <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
-              <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-medium text-brand-cobalt dark:text-blue-400">
+            <SpotlightCard className="text-center p-5 sm:p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
+              <div className="flex items-center justify-center gap-1 text-3xl sm:text-4xl lg:text-5xl font-display font-medium text-emerald-500">
                 <CountUp to={5} duration={1.5} />
                 <span>+</span>
               </div>
@@ -334,8 +337,8 @@ export const Home: React.FC = () => {
               </p>
             </SpotlightCard>
 
-            <SpotlightCard className="text-center p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
-              <div className="flex items-center justify-center gap-1 text-4xl sm:text-5xl font-display font-medium text-emerald-500">
+            <SpotlightCard className="text-center p-5 sm:p-6 bg-white/80 dark:bg-slate-900/60 border-slate-200 dark:border-white/10 shadow-sm">
+              <div className="flex items-center justify-center gap-1 text-3xl sm:text-4xl lg:text-5xl font-display font-medium text-purple-500 dark:text-purple-400">
                 <CountUp to={100} duration={1.5} />
                 <span>%</span>
               </div>
@@ -646,7 +649,7 @@ export const Home: React.FC = () => {
 
         {/* Main Card Container */}
         <div className="w-full max-w-3xl mx-auto px-3 sm:px-6 lg:px-8 box-border">
-          <div className="w-full max-w-full overflow-hidden rounded-[20px] sm:rounded-[28px] border border-slate-200/80 dark:border-white/10 shadow-sm">
+          <div className="w-full max-w-full rounded-[20px] sm:rounded-[28px] shadow-sm">
             <BorderGlow
               edgeSensitivity={35}
               glowColor="24 95 53"

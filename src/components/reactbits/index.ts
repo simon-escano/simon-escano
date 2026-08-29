@@ -1,4 +1,3 @@
-export * from './MoltenMetal';
 export * from './ProfileCard';
 export * from './CardSwap';
 export * from './ChromaGrid';

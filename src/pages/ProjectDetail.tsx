@@ -391,7 +391,7 @@ export const ProjectDetail: React.FC = () => {
             Tech Stack
           </h2>
 
-          <div className="space-y-6 pt-1">
+          <div className="flex flex-wrap items-start gap-8 sm:gap-10 pt-1">
             {Object.entries(
               project.tech_stack.reduce((acc, tech) => {
                 const role = tech.role || 'Other';

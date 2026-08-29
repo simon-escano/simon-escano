@@ -5,10 +5,10 @@ import './ChromaGrid.css';
 
 export interface ChromaItem {
   id?: string;
-  image: string;
+  image?: string;
   images?: string[];
-  title: string;
-  subtitle: string;
+  title?: string;
+  subtitle?: string;
   handle?: string;
   location?: string;
   borderColor?: string;
@@ -16,6 +16,7 @@ export interface ChromaItem {
   url?: string;
   tags?: string[];
   onClick?: () => void;
+  customCard?: React.ReactNode;
 }
 
 const FALLBACK_IMAGE = '/images/Escano_Business-Profile-Image_Transparent.png';
@@ -167,26 +168,32 @@ export const ChromaGrid: React.FC<ChromaGridProps> = ({
             ...(c.gradient ? { '--card-gradient': c.gradient } : {}),
           } as React.CSSProperties}
         >
-          <ProjectCollage images={c.images && c.images.length > 0 ? c.images : [c.image]} title={c.title} />
-          <footer className="chroma-info">
-            <div className="flex items-center justify-between gap-2">
-              <h3 className="name group-hover:text-brand-orange transition-colors">{c.title}</h3>
-              {c.handle && <span className="text-xs font-mono text-muted-foreground">{c.handle}</span>}
-            </div>
-            <p className="role">{c.subtitle}</p>
-            {c.tags && c.tags.length > 0 && (
-              <div className="flex flex-wrap gap-1.5 pt-2">
-                {c.tags.slice(0, 3).map((tag, idx) => (
-                  <span
-                    key={idx}
-                    className="px-2 py-0.5 rounded-md text-[10px] font-mono bg-brand-cobalt/15 text-brand-cobalt dark:text-blue-400 border border-brand-cobalt/25"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-          </footer>
+          {c.customCard ? (
+            c.customCard
+          ) : (
+            <>
+              <ProjectCollage images={c.images && c.images.length > 0 ? c.images : [c.image || FALLBACK_IMAGE]} title={c.title || ''} />
+              <footer className="chroma-info">
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="name group-hover:text-brand-orange transition-colors">{c.title}</h3>
+                  {c.handle && <span className="text-xs font-mono text-muted-foreground">{c.handle}</span>}
+                </div>
+                <p className="role">{c.subtitle}</p>
+                {c.tags && c.tags.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5 pt-2">
+                    {c.tags.slice(0, 3).map((tag, idx) => (
+                      <span
+                        key={idx}
+                        className="px-2 py-0.5 rounded-md text-[10px] font-mono bg-brand-cobalt/15 text-brand-cobalt dark:text-blue-400 border border-brand-cobalt/25"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                )}
+              </footer>
+            </>
+          )}
         </article>
       ))}
       <div className="chroma-overlay" />

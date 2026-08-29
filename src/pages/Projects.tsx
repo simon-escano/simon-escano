@@ -3,16 +3,20 @@ import { useNavigate } from 'react-router-dom';
 import {
   Search,
   Filter,
-  ArrowRight,
+  ExternalLink,
+  Github,
 } from 'lucide-react';
 import dataService from '@/services/dataService';
 import { Project } from '@/types/data';
 import {
   ChromaGrid,
   GradientText,
-  SpecularButton,
   DotField,
+  BorderGlow,
+  CurvedInput,
+  CurvedLoop,
 } from '@/components/reactbits';
+import type { ChromaItem } from '@/components/reactbits';
 
 const CATEGORIES = [
   { id: 'all', label: 'All' },
@@ -63,10 +67,19 @@ const mapProjectToCategory = (project: Project): string[] => {
 
 export const Projects: React.FC = () => {
   const navigate = useNavigate();
+  const profile = dataService.getProfile();
   const allProjects = dataService.getProjects();
 
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+
+  const handleCurvedSubmit = (val: string) => {
+    if (val.trim()) {
+      navigate(`/contact?message=${encodeURIComponent(val)}`);
+    } else {
+      navigate('/contact');
+    }
+  };
 
   const filteredProjects = useMemo(() => {
     return allProjects.filter((p) => {
@@ -86,18 +99,71 @@ export const Projects: React.FC = () => {
   }, [allProjects, selectedCategory, searchQuery]);
 
   // ChromaGrid items for chroma view
-  const chromaItems = filteredProjects.map((p) => ({
-    id: p.id,
-    title: p.title,
-    subtitle: p.one_liner,
-    image: p.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png',
-    images: p.gallery,
-    url: `/projects/${p.id}`,
-    tags: p.tech_stack.slice(0, 3).map((t) => t.name),
-  }));
+  const chromaItems: ChromaItem[] = [
+    ...filteredProjects.map((p) => ({
+      id: p.id,
+      title: p.title,
+      subtitle: p.one_liner,
+      image: p.gallery[0] || '/images/Escano_Business-Profile-Image_Transparent.png',
+      images: p.gallery,
+      url: `/projects/${p.id}`,
+      tags: p.tech_stack.slice(0, 3).map((t) => t.name),
+    })),
+    {
+      id: 'more-projects-github',
+      title: 'More projects on',
+      subtitle: 'Explore 20+ additional repositories, low-level experiments, and builds.',
+      url: profile.contact.github || 'https://github.com/simon-escano',
+      onClick: () => {
+        window.open(profile.contact.github || 'https://github.com/simon-escano', '_blank', 'noopener,noreferrer');
+      },
+      borderColor: '#f97316',
+      customCard: (
+        <div className="flex flex-col h-full justify-between">
+          <div className="chroma-img-wrapper relative flex flex-col items-center justify-center p-6 bg-gradient-to-br from-slate-100 via-orange-50/50 to-slate-200/80 dark:from-slate-900 dark:via-slate-800 dark:to-slate-950 rounded-[14px] overflow-hidden border border-slate-200 dark:border-white/5 group-hover:border-brand-orange/40 transition-colors text-center select-none shadow-inner">
+            <div className="absolute w-32 h-32 rounded-full bg-brand-orange/15 dark:bg-brand-orange/20 blur-2xl pointer-events-none" />
+            <div className="w-14 h-14 rounded-2xl bg-white dark:bg-white/5 border border-slate-200/80 dark:border-white/10 flex items-center justify-center shadow-md dark:shadow-lg mb-3 group-hover:scale-110 group-hover:bg-brand-orange/15 dark:group-hover:bg-brand-orange/20 group-hover:border-brand-orange/40 transition-all duration-300">
+              <Github className="w-7 h-7 text-slate-800 dark:text-white group-hover:text-brand-orange transition-colors" />
+            </div>
+            <span className="text-xs font-mono font-semibold text-slate-800 dark:text-slate-200 uppercase tracking-widest">
+              20+ Repositories & Builds
+            </span>
+            <span className="text-[11px] font-mono text-slate-500 dark:text-slate-400 mt-1">
+              Algorithms • Full-Stack • AI Models • CLI Tools
+            </span>
+          </div>
+
+          <footer className="chroma-info">
+            <div className="space-y-1">
+              <h3 className="name group-hover:text-brand-orange transition-colors">
+                More projects on
+              </h3>
+              <p className="role text-slate-600 dark:text-slate-400 text-xs">
+                Explore open-source systems, utilities, and research codebases.
+              </p>
+            </div>
+
+            <div className="pt-2">
+              <a
+                href={profile.contact.github || 'https://github.com/simon-escano'}
+                target="_blank"
+                rel="noreferrer noopener"
+                onClick={(e) => e.stopPropagation()}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-brand-orange dark:hover:bg-brand-orange dark:hover:text-white text-xs font-mono font-medium transition-all shadow-sm group-hover:scale-[1.02]"
+              >
+                <Github className="w-4 h-4 flex-shrink-0" />
+                <span className="font-display font-medium">simon-escano</span>
+                <ExternalLink className="w-3.5 h-3.5 opacity-60 ml-0.5" />
+              </a>
+            </div>
+          </footer>
+        </div>
+      ),
+    },
+  ];
 
   return (
-    <div className="relative min-h-screen pt-28 pb-24 px-4 sm:px-6 lg:px-8 bg-background text-foreground overflow-hidden">
+    <div className="relative min-h-screen bg-background text-foreground overflow-x-hidden">
       {/* Background Interactive DotField Shader */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
         <div className="absolute inset-0 opacity-75 dark:opacity-85">
@@ -112,7 +178,7 @@ export const Projects: React.FC = () => {
         </div>
       </div>
 
-      <div className="relative z-10 max-w-[1280px] mx-auto space-y-12">
+      <div className="relative z-10 max-w-[1280px] mx-auto pt-28 pb-20 px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-medium tracking-tight">
@@ -178,26 +244,102 @@ export const Projects: React.FC = () => {
           <ChromaGrid
             items={chromaItems}
             radius={350}
-            onItemClick={(item) => navigate(item.url || `/projects/${item.id}`)}
+            onItemClick={(item) => {
+              if (item.url?.startsWith('http')) {
+                window.open(item.url, '_blank', 'noopener,noreferrer');
+              } else {
+                navigate(item.url || `/projects/${item.id}`);
+              }
+            }}
           />
         )}
+      </div>
 
-        {/* Bottom Callout */}
-        <div className="mt-16 p-8 rounded-3xl bg-white/80 dark:bg-slate-900/40 border border-brand-cobalt/30 text-center space-y-4 shadow-sm backdrop-blur-md">
-          <h3 className="text-2xl font-display font-medium text-slate-900 dark:text-white">
-            Need an engineered solution customized for your stack?
-          </h3>
-          <p className="text-sm text-slate-600 dark:text-slate-300 max-w-lg mx-auto leading-relaxed">
-            simon-escano is actively open to high-impact software engineering roles, hackathons, and technical consulting.
-          </p>
-          <div className="pt-2 flex justify-center">
-            <SpecularButton onClick={() => navigate('/contact')}>
-              <span>Discuss an Engineering Role</span>
-              <ArrowRight className="w-4 h-4 text-brand-orange" />
-            </SpecularButton>
+      {/* ──────────────────────────────────────────────────────────
+          CURVED MARQUEE & CONTACT CTA
+      ────────────────────────────────────────────────────────── */}
+      <section className="pb-16 sm:pb-20 pt-4 relative overflow-hidden bg-slate-50 dark:bg-slate-900/50 border-t border-slate-200 dark:border-white/10 w-full box-border">
+        {/* Marquee Header: Scaled curve & text for mobile */}
+        <div className="w-full mb-6 sm:mb-8 overflow-hidden">
+          <CurvedLoop
+            marqueeText="LET'S BUILD SOMETHING EXTRAORDINARY TOGETHER ✦ FULL-STACK DEV & SOFTWARE ENGINEER ✦ BACKEND DEV & INTEGRATION ENGINEER ✦ AI ENGINEER & ML APP DEVELOPER ✦ WEB ARCHITECT & TECHNICAL SEO DEV ✦ SIMON-ESCANO ✦ "
+            speed={1.4}
+            curveAmount={60} // Reduced on mobile base; let CSS handle scaling
+            className="fill-slate-800 dark:fill-white font-display text-xl sm:text-3xl md:text-4xl font-medium uppercase tracking-widest"
+          />
+        </div>
+
+        {/* Main Card Container */}
+        <div className="w-full max-w-3xl mx-auto px-3 sm:px-6 lg:px-8 box-border">
+          <div className="w-full max-w-full rounded-[20px] sm:rounded-[28px] shadow-sm">
+            <BorderGlow
+              edgeSensitivity={35}
+              glowColor="24 95 53"
+              borderRadius={24}
+              glowRadius={30}
+              className="w-full max-w-full"
+            >
+              <div className="p-5 sm:p-8 md:p-12 text-center space-y-5 sm:space-y-6 w-full max-w-full box-border min-w-0">
+
+                <h3 className="font-display text-xl sm:text-2xl md:text-3xl font-medium text-slate-900 dark:text-white leading-tight break-words px-1">
+                  Interested in building something like this?
+                </h3>
+
+                <p className="text-slate-600 dark:text-slate-300 text-xs sm:text-sm md:text-base max-w-lg mx-auto leading-relaxed break-words px-2">
+                  Drop your inquiry or email below to discuss architecture and builds.
+                </p>
+
+                {/* Curved Input Wrapper */}
+                <div className="w-full max-w-full sm:max-w-md mx-auto pt-1 sm:pt-2 flex justify-center min-w-0 [&_svg]:drop-shadow-none [&_svg]:overflow-visible [&_filter]:hidden [&_path]:[filter:none]">
+                  <div className="w-full bg-transparent">
+                    <CurvedInput
+                      width="100%"
+                      height={50}
+                      bend={8}
+                      placeholder="Your message or email..."
+                      buttonText="Send"
+                      onSubmit={handleCurvedSubmit}
+                    />
+                  </div>
+                </div>
+
+                {/* Responsive Footer Links */}
+                <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row items-center justify-center gap-2.5 sm:gap-4 text-xs font-mono text-slate-500 dark:text-slate-400 w-full max-w-full overflow-hidden">
+                  <a
+                    href={`mailto:${profile.contact.email}`}
+                    className="hover:text-brand-orange transition-colors flex items-center gap-1.5 max-w-full min-w-0 px-2"
+                  >
+                    <ExternalLink className="w-3.5 h-3.5 flex-shrink-0" />
+                    <span className="truncate block max-w-[260px] sm:max-w-none">{profile.contact.email}</span>
+                  </a>
+
+                  <div className="flex items-center gap-3">
+                    <span className="hidden sm:inline text-slate-400/40">•</span>
+                    <a
+                      href={profile.contact.github}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="hover:text-brand-orange transition-colors"
+                    >
+                      GitHub
+                    </a>
+                    <span className="text-slate-400/40">•</span>
+                    <a
+                      href={profile.contact.linkedin}
+                      target="_blank"
+                      rel="noreferrer noopener"
+                      className="hover:text-brand-orange transition-colors"
+                    >
+                      LinkedIn
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+            </BorderGlow>
           </div>
         </div>
-      </div>
+      </section>
     </div>
   );
 };
