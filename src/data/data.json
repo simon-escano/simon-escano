@@ -979,6 +979,108 @@
                 "/images/Gitlore/2-Analysis.png"
             ],
             "source": "gitlore"
+        },
+        {
+            "id": "solution-12",
+            "title": "Lupus Lens",
+            "one_liner": "A clinical decision-support interface for Systemic Lupus Erythematosus (SLE) screening, combining retinal imaging with gene expression analysis via a Swin-SNN cross-modal fusion model.",
+            "contributions": "Full-Stack Developer",
+            "problem": "Clinicians face significant challenges detecting Systemic Lupus Erythematosus (SLE) early due to heterogeneous systemic presentations, while conventional diagnostic workflows struggle to synthesize complex multi-modal biomarkers like ocular retinal pathology and high-dimensional transcriptomic profiles.",
+            "goal": "To develop an integrated clinical screening platform that fuses non-invasive retinal fundus imaging with a 20-gene transcriptomic expression panel using a Swin-SNN deep learning model, synthetic microarray generation, and real-time Grad-CAM explainability.",
+            "key_features": [
+                {
+                    "icon": "zap",
+                    "text": "Cross-modal Swin-SNN inference combining retinal fundus imaging with 20-gene expression vectors"
+                },
+                {
+                    "icon": "layers",
+                    "text": "Two-way microarray converter mapping 20-gene Log2FC vectors to 4×5 spatial heatmaps using Canvas DSP"
+                },
+                {
+                    "icon": "shield",
+                    "text": "Explainable clinical diagnostics with dual-layer Grad-CAM overlays, gene contribution charts, and risk stratification"
+                }
+            ],
+            "architecture_diagram_code": "graph TD\n  A[\"Clinician / Capture Hub\"] -->|Retinal Capture & Upload| B[\"Retina Viewport (Canvas Capture)\"]\n  A -->|20-Gene Expression Vector| C[\"Transcriptomics Engine & Microarray Converter\"]\n  B -->|Fundus Image Blob| D[\"HuggingFace Gradio Client\"]\n  C -->|Normalized Log2FC String| D\n  D -->|Cross-Modal Swin-SNN Model| E[\"Inference & Grad-CAM Heatmap Engine\"]\n  E -->|Risk Score & Confidences| F[\"Zustand State Store\"]\n  F -->|Sync Records & Scans| G[\"Supabase Postgres & Storage\"]\n  F -->|Interactive Visualization| H[\"Patient Profile & Diagnostic Dashboard\"]\n  H --> I[\"Dual-Layer GradCAM Overlay\"]\n  H --> J[\"Recharts Gene Contribution Panel\"]",
+            "tech_stack": [
+                {
+                    "name": "React 19",
+                    "role": "Primary"
+                },
+                {
+                    "name": "TypeScript",
+                    "role": "Primary"
+                },
+                {
+                    "name": "Vite",
+                    "role": "Primary"
+                },
+                {
+                    "name": "Tailwind CSS v4",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Zustand",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Recharts",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Radix UI",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Gradio Client",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Supabase",
+                    "role": "Infrastructure"
+                },
+                {
+                    "name": "Vercel",
+                    "role": "Infrastructure"
+                },
+                {
+                    "name": "GitHub",
+                    "role": "Infrastructure"
+                }
+            ],
+            "stack_reason": "The React 19 and Vite architecture paired with Tailwind CSS v4 and Zustand delivers high-throughput client-side canvas image manipulation and instant state updates, while the HuggingFace Gradio client connects to the hosted Swin-SNN fusion model for explainable AI inference, backed by Supabase for secure patient record and retinal scan storage.",
+            "results": {
+                "performance": {
+                    "icon": "zap",
+                    "text": "Enables real-time client-side synthetic microarray generation and rapid multimodal Swin-SNN inference"
+                },
+                "scale": {
+                    "icon": "layers",
+                    "text": "Maintains patient registries, assessment histories, and scan persistence using Supabase relational database and storage"
+                },
+                "utility": {
+                    "icon": "shield",
+                    "text": "Empowers clinicians with transparent Grad-CAM attention maps and quantified per-gene risk contributions"
+                }
+            },
+            "links": [
+                {
+                    "icon": "github",
+                    "label": "Repository",
+                    "url": "https://github.com/moltmalt/lupus-lens"
+                },
+                {
+                    "icon": "external-link",
+                    "label": "Live",
+                    "url": "https://lupus-lens-two.vercel.app"
+                }
+            ],
+            "gallery": [
+                "/images/Lupus Lens/1_dashboard.png",
+                "/images/Lupus Lens/2_capture_hub.png",
+                "/images/Lupus Lens/3_patient_profile.png"
+            ],
+            "source": "gitlore"
         }
     ],
     "experience": [
