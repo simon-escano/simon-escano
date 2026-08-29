@@ -1103,7 +1103,7 @@
                     "text": "Predictive supply forecasting modeling consumption velocities and active case trends to alert on impending stockouts"
                 }
             ],
-            "architecture_diagram_code": "graph TD\n  A[\"Frontline BHW / RHU Clinician\"] -->|5-Step Intake: Demographics & Vitals| B[\"Offline Triage & Case Engine\"]\n  B -->|Symptom Clusters & Danger Signs| C[\"AI Clinical Inference Engine\"]\n  C -->|Risk Stratification & Protocols| D[\"EHR & Patient Records\"]\n  C -->|Multilingual Care Handoff (EN/CEB/FIL)| E[\"District Hospital Referral System\"]\n  D -->|Real-Time Case Incidence Rates| F[\"Supply Forecasting Engine\"]\n  F -->|Consumption Velocity & Days-to-Stockout| G[\"Inventory & Supplier Alerts\"]\n  B -->|Active Screen State & Telemetry| H[\"Maya Contextual Clinical Copilot\"]\n  H -->|Plain-Language Guidance & Action Steps| A",
+            "architecture_diagram_code": "graph TD\n  A[\"Frontline BHW / RHU Clinician\"] -->|Demographics and Vitals Intake| B[\"Offline Triage & Case Engine\"]\n  B -->|Symptom Clusters and Danger Signs| C[\"AI Clinical Inference Engine\"]\n  C -->|Risk Stratification and Protocols| D[\"EHR & Patient Records\"]\n  C -->|Multilingual Care Handoff EN CEB FIL| E[\"District Hospital Referral System\"]\n  D -->|Real-Time Case Incidence Rates| F[\"Supply Forecasting Engine\"]\n  F -->|Consumption Velocity and Stock Horizon| G[\"Inventory & Supplier Alerts\"]\n  B -->|Active Screen State and Telemetry| H[\"Maya Contextual Clinical Copilot\"]\n  H -->|Plain-Language Guidance and Next Steps| A",
             "tech_stack": [
                 {
                     "name": "React 19",
