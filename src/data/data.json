@@ -98,6 +98,120 @@
             "rating": 0.98
         },
         {
+            "id": "solution-14",
+            "title": "Trellis",
+            "one_liner": "An interactive concept mapping and document intelligence platform that transforms unstructured knowledge into fluid, force-directed graph visualizations and executive summaries.",
+            "contributions": "Solo Systems Architect & Full-Stack Developer",
+            "problem": "Readers, researchers, and engineers face severe cognitive fatigue when navigating dense, unstructured documents—such as research papers, system RFCs, and academic articles—due to the absence of clear visual concept hierarchies and relationship maps.",
+            "goal": "To engineer an end-to-end document intelligence platform that autonomously transforms unstructured prose into interactive, force-directed concept graphs and executive summaries using an asynchronous AI extraction worker, a high-throughput Rust GraphQL gateway, and an Angular 18 reactive canvas.",
+            "key_features": [
+                {
+                    "icon": "zap",
+                    "text": "Interactive force-directed visual canvas with Obsidian dark aesthetics, dynamic category coloring, and real-time physics"
+                },
+                {
+                    "icon": "layers",
+                    "text": "Asynchronous multi-service pipeline decoupling ingestion from AI synthesis via Rust Axum GraphQL gateway and background TypeScript polling worker"
+                },
+                {
+                    "icon": "shield",
+                    "text": "Executive summary inspector with concept confidence meters, key-value metadata drawers, and a $0 zero-cost deterministic offline fallback engine"
+                }
+            ],
+            "architecture_diagram_code": "graph TD\n  A[\"User / Web Client (Angular 18)\"] -->|GraphQL Queries & Mutations| B[\"Rust Axum Gateway (Port 8080)\"]\n  B -->|async-graphql & DataLoaders| C[(\"PostgreSQL 16 Database\")]\n  B -->|In-Memory Dispatcher| D[\"Tokio MPSC Job Queue\"]\n  E[\"AI Extraction Worker (TypeScript)\"] -->|Poll Queued Documents| C\n  E -->|Vercel AI SDK & $0 Deterministic Mock| F[\"LLM Inference Engine\"]\n  F -->|Structured JSON Entities & Relations| E\n  E -->|Transactional Graph Persistence| C\n  C -->|Batched Entity Resolution| B\n  B -->|Signals & Apollo Store| A\n  A --> G[\"Obsidian ForceAtlas2 Canvas (vis-network)\"]\n  A --> H[\"Concept Inspector & Summary Drawer\"]",
+            "tech_stack": [
+                {
+                    "name": "Rust",
+                    "role": "Primary"
+                },
+                {
+                    "name": "Axum",
+                    "role": "Primary"
+                },
+                {
+                    "name": "Angular 18",
+                    "role": "Primary"
+                },
+                {
+                    "name": "TypeScript",
+                    "role": "Primary"
+                },
+                {
+                    "name": "async-graphql",
+                    "role": "Primary"
+                },
+                {
+                    "name": "vis-network",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Tailwind CSS",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Vercel AI SDK",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "SQLx",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "Zod",
+                    "role": "Supporting"
+                },
+                {
+                    "name": "PostgreSQL 16",
+                    "role": "Infrastructure"
+                },
+                {
+                    "name": "Docker",
+                    "role": "Infrastructure"
+                },
+                {
+                    "name": "Render",
+                    "role": "Infrastructure"
+                },
+                {
+                    "name": "GitHub",
+                    "role": "Infrastructure"
+                }
+            ],
+            "stack_reason": "The Rust Axum and async-graphql gateway paired with SQLx delivers memory-safe, ultra-low-latency GraphQL query execution with batch DataLoader resolution, while an asynchronous TypeScript worker offloads LLM graph extraction with zero API cost fallbacks, and Angular 18 with vis-network renders fluid, physics-driven Obsidian dark canvas visualizations.",
+            "results": {
+                "performance": {
+                    "icon": "zap",
+                    "text": "Achieves sub-10ms GraphQL query latency and eliminates N+1 database queries through async-graphql DataLoaders"
+                },
+                "scale": {
+                    "icon": "layers",
+                    "text": "Decouples synchronous API handling from intensive AI graph extraction via background polling and queue workers"
+                },
+                "utility": {
+                    "icon": "shield",
+                    "text": "Guarantees 100% offline reproducibility with deterministic $0 mock extractors, strict Zod schemas, and transactional rollbacks"
+                }
+            },
+            "links": [
+                {
+                    "icon": "github",
+                    "label": "Repository",
+                    "url": "https://github.com/simon-escano/trellis"
+                },
+                {
+                    "icon": "external-link",
+                    "label": "Live",
+                    "url": "https://trellis-dev.vercel.app"
+                }
+            ],
+            "gallery": [
+                "/images/Trellis/1_canvas_overview.png",
+                "/images/Trellis/2_document_ingest.png"
+            ],
+            "source": "gitlore",
+            "rating": 0.95
+        },
+        {
             "id": "solution-12",
             "title": "Lupus Lens",
             "one_liner": "A clinical decision-support interface for Systemic Lupus Erythematosus (SLE) screening, combining retinal imaging with gene expression analysis via a Swin-SNN cross-modal fusion model.",
